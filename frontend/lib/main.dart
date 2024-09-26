@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+import 'package:frontend/pages/login_page.dart';
+
+>>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+<<<<<<< HEAD
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -123,3 +129,14 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+=======
+const MyApp({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return  MaterialApp(
+      home: LoginPage(),
+    );
+  }
+}
+>>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
