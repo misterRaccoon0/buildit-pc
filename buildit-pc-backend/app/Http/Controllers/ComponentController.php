@@ -8,21 +8,26 @@ use App\Models\Motherboard;
 use App\Models\PSU;
 use App\Models\RAM;
 use App\Models\Storage;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ComponentController extends Controller
 {
     public function read(Request $request){
-        $ComponentClass = [
-            "cpu" => CPU::class,
-            "gpu" => GPU::class,
-            "motherboard" => Motherboard::class,
-            "psu" => PSU::class,
-            "ram" => RAM::class,
-            "storage" => Storage::class
+
+        $componentClass = [
+            "cpu" => "c_p_u_s",
+            "gpu" => "g_p_u_s",
+            "motherboard" => "motherboards",
+            "psu" => "p_s_u_s",
+            "ram" => "r_a_m_s",
+            "storage" => "storages"
         ][$request->name];
-        if($ComponentClass === null)
+        if($componentClass === null)
         return response("Not Found", 404);
-        return $ComponentClass::where("id", $request->id);
+        DB::query("SELECT * FROM c_p_u_s")->where("id", (int)$request->id);
+        return response($componentClass,202);
     }
+
 }
