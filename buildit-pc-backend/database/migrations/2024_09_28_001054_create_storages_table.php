@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('storages', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->float("size");
+            $table->enum("unitsize",["kb","mb","gb","tb","pb"]);
+            $table->char("brand",64);
+            $table->char("model",64);
+            $table->text("interface");
+            $table->float("readspeed");
+            $table->float("writespeed");
         });
     }
 

@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('p_s_u_s', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->char("brand",64);
+            $table->char("model",64);
+            $table->text("watts");
+            $table->float("ratings");
         });
     }
 

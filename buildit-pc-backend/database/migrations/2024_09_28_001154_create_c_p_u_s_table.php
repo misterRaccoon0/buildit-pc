@@ -12,9 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('c_p_u_s', function (Blueprint $table) {
-            $table->id("cpu_id");
-            $table->timestamps();
+            $table->id();
+            $table->char("model",96);
             $table->char("name", 255);
+            $table->char("brand",64);
+            $table->integer("cores");
+            $table->integer("threads");
+            $table->integer("clockspeed");
+            $table->integer("benchmark");
+            $table->text("socket");
+            $table->text("TDP");
         });
     }
 

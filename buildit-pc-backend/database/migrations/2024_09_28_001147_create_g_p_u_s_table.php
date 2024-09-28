@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('g_p_u_s', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->char("model",64);
+            $table->char("brand",96);
+            $table->integer("vram");
+            $table->text("bus");
+            $table->text("clock");
+            $table->text("memoryclock");
+            $table->text("gddr");
+            $table->integer("benchmark");
+            $table->text("tdp");
         });
     }
 
