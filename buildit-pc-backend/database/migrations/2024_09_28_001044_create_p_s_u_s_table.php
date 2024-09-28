@@ -17,6 +17,8 @@ return new class extends Migration
             $table->char("model",64);
             $table->text("watts");
             $table->float("ratings");
+            // brand:char model:char watts:text ratings:float
+            
         });
     }
 
