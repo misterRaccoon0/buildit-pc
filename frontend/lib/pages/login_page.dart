@@ -12,7 +12,7 @@ class LoginPage extends StatelessWidget {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // user sign in btn method
+  // user sign in btn 
   void signUserIn (BuildContext context) {
     Navigator.push(
     context,
@@ -24,6 +24,7 @@ class LoginPage extends StatelessWidget {
     Navigator.push(
     context,
     MaterialPageRoute(builder: (context) =>  RegisterPage()),
+    
     );
   }
 
@@ -51,67 +52,68 @@ class LoginPage extends StatelessWidget {
 
           SizedBox(height: 20,),
 
-          // Username email
-          LoginTextfield(
-            controller: usernameController,
-            hintText: 'Username',
-            obscureText: false,
-          ),
+          // Text fields
+          Column(
+            children: [
 
-          SizedBox(height: 30,),
+              // Username TextField
+              LoginTextfield(
+                controller: usernameController,
+                hintText: 'Username',
+                obscureText: false,
+              ),
 
-          // pass
-          LoginTextfield(
-            controller: passwordController,
-            hintText: 'Password',
-            obscureText: true,
-          ),
+              SizedBox(height: 20), 
 
-          // btn 
-          SizedBox(height: 30,),
-          LoginBtn(
-            
-            onPressed: () => signUserIn(context), 
-            
-            buttonText: 'Log In',
-          ),
+              // Password TextField
+              LoginTextfield(
+                controller: passwordController,
+                hintText: 'Password',
+                obscureText: true,
+              ),
 
-          // sign up prompt
-          SizedBox(height: 20),
+              // Log In btn
+              SizedBox(height: 20), 
 
-          // go to register screen
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Row(
-              children: [
-                Text(
-                  "Don't have an account?",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              LoginBtn(
+                onPressed: () => signUserIn(context),
+                buttonText: 'Log In',
+              ),
 
+              SizedBox(height: 20),
 
-                SizedBox(width: 55),
-                TextButton(
-                  onPressed: () {
-                    goToRegister(context);
-                  },
-                  child: Text(
-                    'Sign up',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
+              // Go to Register Screen
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16), 
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center, 
+                  children: [
+                    Text(
+                      "Don't have an account?",
+                      style: TextStyle(
+                        fontSize: 18, 
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
+                    SizedBox(width: 10), 
+                    TextButton(
+                      onPressed: () {
+                        goToRegister(context);
+                      },
+                      child: Text(
+                        'Sign up',
+                        style: TextStyle(
+                          fontSize: 18, 
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          
-
+              ),
+            ],
+          )
 
 
         ],

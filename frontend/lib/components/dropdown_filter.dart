@@ -45,12 +45,12 @@ class _DropdownFilterState extends State<DropdownFilter> {
                 value: 'Popularity',
               ),
               DropdownMenuItem(
-                child: Text('Test'),
-                value: 'Test',
+                child: Text('Latest'),
+                value: 'Latest',
               ),
               DropdownMenuItem(
-                child: Text('Test1'),
-                value: 'Test1',
+                child: Text('Highly Rated'),
+                value: 'Highly Rated',
               ),
             ],
             onChanged: dropdownCallBack,
