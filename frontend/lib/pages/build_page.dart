@@ -32,7 +32,7 @@ class _BuildPageState extends State<BuildPage> {
     body: ListView.builder(
       itemCount: _userBuilds.length,
       itemBuilder: (context, index) {
-        return ItemBorder(
+        return userBuildBorder(
           buildID: 1,
           buildName: 'buildName', 
           buildPic: NetworkImage('https://via.placeholder.com/150'), // buildPic placeholder 

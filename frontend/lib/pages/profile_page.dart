@@ -26,18 +26,18 @@ class ProfilePage extends StatelessWidget {
             children: <Widget>[
               Center(
                 child: CircleAvatar(
-                radius: 100,
+                radius: 50,
                 backgroundImage: NetworkImage('https://via.placeholder.com/150'), // replace with user pic
                            ),
               ),           
         
-              SizedBox(height: 30,),
+              SizedBox(height: 10,),
         
               Center(
                 child: const Text(
                   'John Doe',
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.black, 
                   ),
@@ -51,13 +51,13 @@ class ProfilePage extends StatelessWidget {
                 child: const Text(
                   'john.doe@example.com',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     color: Colors.grey, 
                   ),
                 ),
               ),
         
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
         
               // Edit btn
         
@@ -81,7 +81,7 @@ class ProfilePage extends StatelessWidget {
                 child: const Text(
                   'Edit Profile',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     color: Colors.white, 
                     fontWeight: FontWeight.bold
                   ), 
@@ -107,7 +107,8 @@ class ProfilePage extends StatelessWidget {
 
             SizedBox(height: 20,),
 
-            SharedListView(itemCount: 5)
+
+            SharedListView(itemCount: 5),
             ],
           ),
         ),

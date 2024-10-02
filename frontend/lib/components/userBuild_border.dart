@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ItemBorder extends StatelessWidget {
+class userBuildBorder extends StatelessWidget {
   final int buildID;
   final String buildName;
   final ImageProvider buildPic;
@@ -12,7 +12,7 @@ class ItemBorder extends StatelessWidget {
   final String psu;
   final String dateCreated;
 
-  ItemBorder({
+  userBuildBorder({
     required this.buildID, 
     required this.buildName, 
     required this.buildPic, 

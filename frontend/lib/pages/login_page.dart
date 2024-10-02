@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/button.dart';
+import 'package:frontend/components/login_register_button.dart';
 import 'package:frontend/components/login_textfield.dart';
 import 'package:frontend/pages/register_page.dart';
 import 'package:frontend/pages/home_page.dart';

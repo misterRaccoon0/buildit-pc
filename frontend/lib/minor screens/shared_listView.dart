@@ -8,8 +8,9 @@ class SharedListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250, 
+      height: itemCount * 90,
       child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
         itemCount: itemCount, 
         itemBuilder: (context, index) {
           return Card(

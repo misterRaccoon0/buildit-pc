@@ -64,7 +64,10 @@ const AppDrawer({ Key? key, required this.pageController }) : super(key: key);
                   ),
                 ),
                 onTap: () {
-                  
+
+                  Navigator.pop(context); 
+                  pageController.jumpToPage(3);
+                
                 },
               ),
 
