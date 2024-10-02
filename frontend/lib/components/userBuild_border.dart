@@ -52,23 +52,61 @@ class userBuildBorder extends StatelessWidget {
           subtitle: Text('Created: $dateCreated'),
           children: [
             ListTile(
-              title: Text("CPU: $cpu"),
+              title: Text("CPU: $cpu",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+                ),),
             ),
             ListTile(
-              title: Text("GPU: $gpu"),
+              title: Text("GPU: $gpu",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+                ),),
             ),
             ListTile(
-              title: Text("Motherboard: $motherboard"),
+              title: Text("Motherboard: $motherboard",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+                ),),
             ),
             ListTile(
-              title: Text("RAM: $ram"),
+              title: Text("RAM: $ram",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+                ),),
             ),
             ListTile(
-              title: Text("Storage: $storage"),
+              title: Text("Storage: $storage",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+                ),),
             ),
             ListTile(
-              title: Text("PSU: $psu"),
+              title: Text("PSU: $psu",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+                ),),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: (){}, 
+                child: Text('Detailed View',
+                style: TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey[600]
+                ),
+                
+                
+                ),
+            )
           ],
         ),
       ),
