@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/minor%20pages/userBuild_detailedView.dart';
 
 class userBuildBorder extends StatelessWidget {
   final int buildID;
@@ -96,15 +97,32 @@ class userBuildBorder extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                onPressed: (){}, 
+                onPressed: (){
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserBuildDetailedView(
+                        buildID: buildID, 
+                        buildName: buildName, 
+                        buildPic: buildPic, 
+                        cpu: cpu, 
+                        gpu: gpu, 
+                        motherboard: motherboard, 
+                        ram: ram, 
+                        storage: storage, 
+                        psu: psu, 
+                        dateCreated: dateCreated
+                        )
+                        )
+                        );
+                }, 
                 child: Text('Detailed View',
                 style: TextStyle(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey[600]
                 ),
-                
-                
                 ),
             )
           ],

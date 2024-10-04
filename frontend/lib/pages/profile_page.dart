@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/minor%20screens/editProfile_screen.dart';
-import 'package:frontend/minor%20screens/shared_listView.dart';
+import 'package:frontend/minor%20pages/editProfile_page.dart';
+import 'package:frontend/minor%20pages/shared_listView.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
