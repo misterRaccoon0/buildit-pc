@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/minor%20pages/minor%20pages%20components/grid_tile_view.dart';
+import 'package:frontend/minor%20pages/minor%20pages%20components/performance_bar.dart';
 
 class UserBuildDetailedView extends StatelessWidget {
   final int buildID;
@@ -12,6 +13,8 @@ class UserBuildDetailedView extends StatelessWidget {
   final String storage;
   final String psu;
   final String dateCreated;
+  final int cpuBenchmark;
+  final int gpuBenchmark;
 
   UserBuildDetailedView({
     required this.buildID,
@@ -24,10 +27,13 @@ class UserBuildDetailedView extends StatelessWidget {
     required this.storage,
     required this.psu,
     required this.dateCreated,
+    this.cpuBenchmark = 0,
+    this.gpuBenchmark = 0,
   });
 
   @override
   Widget build(BuildContext context) {
+
     // Placeholders for user info
     final String userName = "John Doe";
     final ImageProvider userPic = NetworkImage('https://via.placeholder.com/150');
@@ -38,6 +44,19 @@ class UserBuildDetailedView extends StatelessWidget {
       "Base Clock": "3.6 GHz",
       "Boost Clock": "4.9 GHz",
     };
+
+    final int totalScore = cpuBenchmark + gpuBenchmark;
+    String performanceLevel;
+    if (totalScore < 30000) {
+      performanceLevel = "Entry-level";
+    } else if (totalScore < 120000) {
+      performanceLevel = "Mid-range";
+    } else {
+      performanceLevel = "High-end";
+    }
+
+
+
 
     return Scaffold(
       backgroundColor: Colors.grey[300],
@@ -139,9 +158,52 @@ class UserBuildDetailedView extends StatelessWidget {
                 }
               },
             ),
-          ],
-        ),
-      ),
-    );
+
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'P E R F O R M A N C E :',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Color.fromARGB(255, 87, 87, 87),
+                    ),
+                  ),
+                  //SizedBox(height: 8),
+                  Text(
+                    'S C O R E : $totalScore',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+
+
+                  SizedBox(height: 10,),
+
+                  Text(
+                    'B U I L D   C A T E G O R Y',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 87, 87, 87),
+                    ),
+                  ),
+
+                  Center(
+                    child: PerformanceBar(
+                      totalScore: totalScore, 
+                      performanceLevel: performanceLevel
+                      ),
+                  ),
+
+                  ]
+                )
+              )
+            ]
+          )
+        )
+      );
   }
 }

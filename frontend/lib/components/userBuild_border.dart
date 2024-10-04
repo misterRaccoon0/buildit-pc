@@ -112,7 +112,9 @@ class userBuildBorder extends StatelessWidget {
                         ram: ram, 
                         storage: storage, 
                         psu: psu, 
-                        dateCreated: dateCreated
+                        dateCreated: dateCreated,
+                        cpuBenchmark: 3000,
+                        gpuBenchmark: 64200,
                         )
                         )
                         );
