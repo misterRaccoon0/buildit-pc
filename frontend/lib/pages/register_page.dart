@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/button.dart';
+import 'package:frontend/components/login_register_button.dart';
 import 'package:frontend/components/login_textfield.dart';
 import 'package:frontend/pages/login_page.dart';
 
@@ -10,7 +10,7 @@ class RegisterPage extends StatelessWidget {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // user register btn method
+  // user register btn 
   void registerUser(BuildContext context){
 
     Navigator.push(
@@ -79,52 +79,41 @@ class RegisterPage extends StatelessWidget {
             SizedBox(height: 10,),
             LoginBtn(
 
-              // add if else clause l8r
-
               onPressed: () => registerUser(context),
               buttonText: 'Register',
             ),
-
-                      Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Row(
-              children: [
-                Text(
-                  "Already have an account?",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-
-                SizedBox(width: 38),
-                TextButton(
-                  onPressed: () {
-                    goToLogIn(context);
-                  },
-                  child: Text(
-                    'Sign in',
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16), 
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center, 
+                children: [
+                  Text(
+                    "Already have an account?",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.red,
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(width: 10), 
+                  TextButton(
+                    onPressed: () {
+                      goToLogIn(context);
+                    },
+                    child: Text(
+                      'Sign in',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-
-
-
-
-
           ],
         )
-        ),
-
-
+      ),
     );
   }
 }

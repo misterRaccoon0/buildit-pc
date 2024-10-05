@@ -15,16 +15,16 @@ class LoginBtn extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.all(25),
-          backgroundColor: Colors.black, // Set the background color to black
+          backgroundColor: Colors.black, 
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10), // Rounded corners
+            borderRadius: BorderRadius.circular(10), 
           ),
         ),
         child: Center(
           child: Text(
             buttonText,
             style: TextStyle(
-              color: Colors.white, // Text color
+              color: Colors.white, 
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
