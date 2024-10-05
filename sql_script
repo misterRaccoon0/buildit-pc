@@ -1,0 +1,54 @@
+INSERT INTO c_p_u_s (name, model, brand, cores, threads, clockspeed, benchmark, socket, TDP) 
+VALUES 
+    ('Ryzen 9', '7950X', 'AMD', 16, 32, '5.7 GHz', 19456, 'AM5', '170W'),
+    ('Core i9', '14900K', 'Intel', 24, 32, '6 GHz', 20749, 'LGA1700', '253W'),
+    ('Ryzen 7', '5800X3D', 'AMD', 8, 16, '4.5 GHz', 11071, 'AM4', '105W'),
+    ('Core i7', '13700', 'Intel', 16, 24, '5.2 GHz', 14833, 'LGA1700', '65W'),
+    ('Ryzen 5', '5600X', 'AMD', 6, 12, '4.6 GHz', 8700, 'AM4', '65W'),
+    ('Core i5', '13600', 'Intel', 14, 20, '5 GHz', 12357, 'LGA1700', '65W');
+
+
+// GPU
+
+INSERT INTO g_p_u_s (model, brand, vram, bus, clock, memoryclock, gddr, benchmark, tdp) 
+VALUES 
+    ('RTX 3080', 'NVIDIA', 10, 'PCIe 4.0', '1.9 GHz', '1.1 Ghz', 'GDDR6X', 173785, '350W'),
+    ('RX 6800 XT', 'AMD', 16, 'PCIe 4.0', '2.2 GHz', '2 Ghz', 'GDDR6', 130538, '300W'),
+    ('RTX 3070', 'NVIDIA', 8, 'PCIe 4.0', '1.5 GHz', '1.7 Ghz', 'GDDR6', 127911, '220W'),
+    ('RX 6700 XT', 'AMD', 12, 'PCIe 4.0', '2.3 GHz', '2 Ghz', 'GDDR6', 98857, '230W'),
+    ('RTX 3060', 'NVIDIA', 12, 'PCIe 4.0', '1.3 GHz', '1.8 Ghz', 'GDDR6', 89053, '170W'),
+    ('RX 6600 XT', 'AMD', 8, 'PCIe 4.0', '1.9 GHz', '2 Ghz', 'GDDR6', 74130, '160W');
+
+// MOTHERBOARDS
+
+INSERT INTO motherboards (brand, model, socket, chipset, bus, ramslot, ramsupport, storageinterface)
+VALUES 
+    ('ASUS', 'TUF Gaming X570-Plus', 'AM4', 'X570', 'PCIe 4.0', 4, 'DDR4 ', 'NVMe'),
+    ('MSI', 'PRO Z690-A', 'LGA 1700', 'Z690', 'PCIe 5.0', 4, 'DDR5 ', 'NVMe'),
+    ('Gigabyte', 'X670 AORUS Elite AX', 'AM5', 'X670', 'PCIe 5.0', 4, 'DDR5 ', 'NVMe');
+
+// RAM
+INSERT INTO r_a_m_s (size, speed, model, gen, cl, tdp)
+VALUES 
+    (16, '3200 MHz', 'Corsair Vengeance LPX', 'DDR4', 'CL16', '1.35W'),
+    (32, '3600 MHz', 'G.Skill Trident Z RGB', 'DDR4', 'CL18', '1.35W'),
+    (64, '5200 MHz', 'Kingston Fury Beast', 'DDR5', 'CL40', '1.25W');
+
+// STORAGE
+INSERT INTO storages (size, unitsize, brand, model, interface, readspeed, writespeed)
+VALUES 
+    (1, 'tb', 'Samsung', '970 EVO Plus', 'NVMe PCIe 3.0', 3500, 3300),
+    (2, 'tb', 'Western Digital', 'WD Black SN850', 'NVMe PCIe 4.0', 7000, 5300),
+    (500, 'gb', 'Seagate', 'Barracuda 7200', 'SATA', 210, 190);
+
+// PSU 
+INSERT INTO p_s_u_s (brand, model, watts, ratings)
+VALUES 
+    ('Corsair', 'RM850x', '850W', '80+ Gold'),
+    ('EVGA', 'SuperNOVA 750 G5', '750W', '80+ Gold'),
+    ('Seasonic', 'PRIME TX-1000', '1000W', '80+ Platinum');
+
+
+
+
+
