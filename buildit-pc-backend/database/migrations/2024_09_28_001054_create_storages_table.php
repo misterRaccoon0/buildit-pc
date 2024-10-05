@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('storages', function (Blueprint $table) {
+        Schema::create('storage', function (Blueprint $table) {
             $table->id();
             $table->float("size");
             $table->enum("unitsize",["kb","mb","gb","tb","pb"]);

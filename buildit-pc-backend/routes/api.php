@@ -10,8 +10,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/component/{name}/{id}", [ComponentController::class, "read"]);
+Route::get("/component/{component_name}/{id}", [ComponentController::class, "read"]);
 Route::get("/build/{id}", [BuildController::class,"read"]);
-Route::post("/component/gpu/{model}/{brand}/{vram}/{bus}/{clock}/{memclock}/{gddr}/{benchmark}/{tdp}",[ComponentController::class,"gpuPost"]);
-Route::put("/component/gpu/{id}/{model}/{brand}/{vram}/{bus}/{clock}/{memclock}/{gddr}/{benchmark}/{tdp}",[ComponentController::class,"gpuPut"]);
-Route::delete("/component/{componentName}/{id}",[ComponentController::class,"delete"]);
+Route::post("/component/{component_name}", [ComponentController::class,"store"]);
+Route::put("/component/{component_name}/{id}", [ComponentController::class, "update"]);
+Route::delete("/component/{component_name}/{id}",[ComponentController::class,"delete"]);

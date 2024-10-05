@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('p_s_u_s', function (Blueprint $table) {
+        Schema::create('psu', function (Blueprint $table) {
             $table->id();
             $table->char("brand",64);
             $table->char("model",64);
             $table->text("watts");
             $table->float("ratings");
             // brand:char model:char watts:text ratings:float
-            
+
         });
     }
 
