@@ -9,8 +9,8 @@ class CPU extends Model
 {
     use HasFactory;
     protected $primaryKey = "id";
-    protected $table = "cpus";
-    protected $fillable = ["name","model","brand","cores","threads","clockspeed","benchmark","socket", "tdp"];
+    protected $table = "cpu";
+    protected $fillable = ["name","model","brand","cores","threads","clockspeed","benchmark","socket", "TDP"];
     public $timestamps = false;
     protected function casts() : array {
         return [

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rams', function (Blueprint $table) {
+        Schema::create('ram', function (Blueprint $table) {
             $table->id();
             $table->char("size");
             $table->text("speed");
