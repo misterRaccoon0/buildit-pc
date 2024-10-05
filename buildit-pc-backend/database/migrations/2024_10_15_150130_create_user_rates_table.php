@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\UserPost;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,14 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('psu', function (Blueprint $table) {
+        Schema::create('user_rates', function (Blueprint $table) {
             $table->id();
-            $table->char("brand",64);
-            $table->char("model",64);
-            $table->text("watts");
-            $table->float("ratings");
-            // brand:char model:char watts:text ratings:float
-
+            $table->timestamps();
+            $table->float('rate');
+            $table->foreignIdFor(UserPost::class, 'post_id')->references('id')->on(app(UserPost::class)->getTable())->cascadeOnDelete();
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('p_s_u_s');
+        Schema::dropIfExists('user_rates');
     }
 };

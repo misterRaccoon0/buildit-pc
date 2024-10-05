@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('storages', function (Blueprint $table) {
+        Schema::create('storage', function (Blueprint $table) {
             $table->id();
-            $table->integer("size");
-            $table->enum("unitsize",["KB","MB","GB","TB","PB"]);
-            $table->char("brand");
-            $table->char("model");
+            $table->float("size");
+            $table->enum("unitsize",["kb","mb","gb","tb","pb"]);
+            $table->char("brand",64);
+            $table->char("model",64);
             $table->text("interface");
-            $table->char("readspeed");
-            $table->char("writespeed");
+            $table->float("readspeed");
+            $table->float("writespeed");
         });
     }
 

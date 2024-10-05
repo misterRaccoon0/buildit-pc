@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PSU extends Model
 {
     use HasFactory;
-    protected $table = "psus";
+    protected $table = "psu";
     protected $primaryKey = "id";
-    protected $fillable = ["brand","model","watts","rating"];
     public $timestamps = false;
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('motherboards', function (Blueprint $table) {
+        Schema::create('motherboard', function (Blueprint $table) {
             $table->id();
             $table->char("brand",64);
             $table->char("model",96);

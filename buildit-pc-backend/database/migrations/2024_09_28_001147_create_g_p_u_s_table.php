@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gpus', function (Blueprint $table) {
+        Schema::create('gpu', function (Blueprint $table) {
             $table->id();
             $table->char("model",64);
             $table->char("brand",96);
-            $table->char("vram");
+            $table->integer("vram");
             $table->text("bus");
             $table->text("clock");
             $table->text("memoryclock");
             $table->text("gddr");
             $table->integer("benchmark");
-            $table->integer("tdp");
+            $table->text("tdp");
         });
     }
 

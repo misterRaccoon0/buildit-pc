@@ -2,88 +2,71 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\UserBuild;
 use Illuminate\Http\Request;
-use App\Models\CPU;
+use Illuminate\Support\Str;
 
 class BuildController extends Controller
 {
-    public function read(int $id){
-
-        $build = UserBuild::find ($id);
-
-        if (!$build) { 
-            return response()->json(['message' => 'Build not found'], 404);
-        }
-
-        return response()->json($build);;
+    public function get(string $build_hash){
+        // no isPublic constraint yet
+        return UserBuild::where('build_hash', $build_hash)->first();
     }
+    public function create(Request $request){
+        $user = $request->user();
 
-    public function store(Request $request)
-    {
-        try {
-            $validatedData = $request->validate([
-                'cpu' => 'required|exists:cpus,id',
-                'gpu' => 'required|exists:gpus,id',
-                'motherboard' => 'required|exists:motherboards,id',
-                'ram' => 'required|exists:rams,id',
-                'storage' => 'required|exists:storages,id',
-                'psu' => 'required|exists:psus,id',
-                'user_id' => 'required|exists:users,id',
-                'name' => 'required|string|max:255',
-                'description' => 'nullable|string',
-                'total_tdp' => 'nullable|numeric',
-                'total_price' => 'nullable|numeric',
-                'benchmarkScore' => 'nullable|numeric',
-            ]);
-    
-            $userBuild = UserBuild::create($validatedData);
-    
-            return response()->json($userBuild, 201);
-        } catch (\Exception $e) {
-            \Log::error('Error storing user build: '.$e->getMessage());
-            return response()->json(['error' => 'Failed to create user build'], 500);
-        }
+        $build = $request->validate([
+            'cpu_id' => [''],
+            'gpu_id' => [''],
+            'psu_id' => [''],
+            'ram_id' => [''],
+            'motherboard_id' => [''],
+            'storage_id' => ['']
+        ]);
+        $build['user_id'] = $user->id;
+        // temporary hash
+        $build['build_hash'] = Str::random(12);
+
+
+        // missing duplicate checker
+        $build = UserBuild::create($build);
+        $build->save();
+        return ;
     }
+    public function update(Request $request){
+        $user = $request->user();
+        $build = UserBuild::where('user_id', $user->id);
+        if (!$build->exists())
+            return response(['message' => 'build does not exist']);
+        $build_update = $request->validate([
 
+        ]);
 
-    public function index()
-    {
-        $user = auth()->user();
-    
-        $builds = UserBuild::with(['cpu', 'gpu', 'motherboard', 'ram', 'storage', 'psu'])
-            ->where('user_id', $user->id)
-            ->get();
-    
-        return response()->json($builds);
+        $build = $build->first();
+        $build->update($build_update);
+        $build->save();
+        return ['updated build'];
     }
+    public function destroy(Request $request){
+        $user = $request->user();
+        $build = UserBuild::where('user_id', $user->id)->where('build_hash', $request->build_hash);
+        if(!$build->exists())
+            return response(['message' => 'build does not exist'], 404);
 
-    public function getBuildDetails($buildID)
-    {
-        try {
-            $build = Build::with(['cpu', 'gpu', 'motherboard', 'ram', 'storage', 'psu'])->findOrFail($buildID);
+        $build->first()->delete();
+        $build->save();
+        return ['message' => 'build successfully deleted'];
 
-            $buildDetails = [
-                'id' => $build->id,
-                'name' => $build->name,
-                'image_url' => $build->image_url,
-                'cpu' => $build->cpu->name,
-                'gpu' => $build->gpu->name,
-                'motherboard' => $build->motherboard->name,
-                'ram' => $build->ram->name,
-                'storage' => $build->storage->name,
-                'psu' => $build->psu->name,
-                'cpu_benchmark' => $build->cpu->benchmark,
-                'gpu_benchmark' => $build->gpu->benchmark,
-                //'date_created' => $build->created_at->toDateString(),
-            ];
 
-            return response()->json($buildDetails, 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to fetch build details', 'error' => $e->getMessage()], 500);
-        }
     }
-
+    public function setPublish(Request $request){
+        $user = $request->user();
+        $build = UserBuild::all()->where("user_id", $user->id)->where("build_hash",$request->build_hash);
+        if(!$build->exists())
+            return response(['message' => 'build does not exist'], 404);
+        $build->update(['isPublic' => (boolean)$request->set_public]);
+        $build->save();
+        return ['message' => 'build '.($build->isPublic?'':'un').'published'];
+    }
 }
-
-    
