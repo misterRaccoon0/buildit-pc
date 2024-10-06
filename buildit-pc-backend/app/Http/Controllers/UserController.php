@@ -17,10 +17,10 @@ class UserController extends Controller
         if(!$user->exists())
             return response("Account does not exist",404);
 
-        if(Hash::check($json_body["password"],$user->first()->value("password"))){
+        if(Hash::check($json_body["password"],$user->first()->password)){
             return response("OK",200);
         }
-        
+
         return response("login failed", 403);
     }
     public function store(Request $request){
