@@ -45,11 +45,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-<<<<<<< HEAD
-                'email' => trans('auth.failed'),
-=======
                 'email' => __('auth.failed'),
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
             ]);
         }
 
@@ -84,10 +80,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-<<<<<<< HEAD
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
-=======
         return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
     }
 }

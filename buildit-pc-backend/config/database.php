@@ -16,11 +16,7 @@ return [
     |
     */
 
-<<<<<<< HEAD
-    'default' => env('DB_CONNECTION', 'sqlite'),
-=======
     'default' => env('DB_CONNECTION', 'mysql'),
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
 
     /*
     |--------------------------------------------------------------------------
@@ -48,11 +44,7 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-<<<<<<< HEAD
-            'url' => env('DB_URL'),
-=======
             'url' => env('DB_URL',''),
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'laravel'),

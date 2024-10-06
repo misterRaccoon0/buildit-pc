@@ -4,45 +4,22 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\PasswordReset;
-<<<<<<< HEAD
-use Illuminate\Http\RedirectResponse;
-=======
 use Illuminate\Http\JsonResponse;
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
-<<<<<<< HEAD
-use Illuminate\View\View;
-=======
 use Illuminate\Validation\ValidationException;
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
 
 class NewPasswordController extends Controller
 {
     /**
-<<<<<<< HEAD
-     * Display the password reset view.
-     */
-    public function create(Request $request): View
-    {
-        return view('auth.reset-password', ['request' => $request]);
-    }
-
-    /**
-=======
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
      * Handle an incoming new password request.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-<<<<<<< HEAD
-    public function store(Request $request): RedirectResponse
-=======
     public function store(Request $request): JsonResponse
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
     {
         $request->validate([
             'token' => ['required'],
@@ -57,11 +34,7 @@ class NewPasswordController extends Controller
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
                 $user->forceFill([
-<<<<<<< HEAD
-                    'password' => Hash::make($request->password),
-=======
                     'password' => Hash::make($request->string('password')),
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
                     'remember_token' => Str::random(60),
                 ])->save();
 
@@ -69,15 +42,6 @@ class NewPasswordController extends Controller
             }
         );
 
-<<<<<<< HEAD
-        // If the password was successfully reset, we will redirect the user back to
-        // the application's home authenticated view. If there is an error we can
-        // redirect them back to where they came from with their error message.
-        return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                        ->withErrors(['email' => __($status)]);
-=======
         if ($status != Password::PASSWORD_RESET) {
             throw ValidationException::withMessages([
                 'email' => [__($status)],
@@ -85,6 +49,5 @@ class NewPasswordController extends Controller
         }
 
         return response()->json(['status' => __($status)]);
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
     }
 }

@@ -31,12 +31,8 @@ android {
     }
 
     buildTypes {
-<<<<<<< HEAD
-        release {
-=======
         debug {
             minifyEnabled true
->>>>>>> 246fd81c10994b5f6e33909b93601f0cd96445b7
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
