@@ -8,7 +8,6 @@ use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Str;
-
 class UserController extends Controller
 {
     public function authenticate(Request $request){
@@ -28,7 +27,9 @@ class UserController extends Controller
         if(User::where("email", $json_body["email"])->exists()){
             return response("Email already taken", 400);
         }
-        User::factory()->create(["name"=>$json_body["name"],"email"=>$json_body["email"],"password"=>Hash::make($json_body["password"])]);
-        return response("ok",200);
+        $user = User::factory()->create(["name"=>$json_body["name"],"email"=>$json_body["email"],"password"=>Hash::make($json_body["password"])]);
+        return response("ok");
+        $token = $request->user()->createToken($request->name);
+        return ["token" => $token->plainTextToken];
     }
 }

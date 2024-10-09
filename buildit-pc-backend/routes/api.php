@@ -5,12 +5,15 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComponentController;
-use App\Models\CPU;
+use App\Http\Controllers\TokenController;
 
-// Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+    return $request->user();
+});
 
+
+Route::middleware(["auth:sanctum"])->get("/token",[TokenController::class,"show"]);
+Route::post("/token/create", [TokenController::class, "store"]);
 Route::get("/user/login",[UserController::class,"authenticate"]);
 Route::post("/user/register",[UserController::class,"store"]);
 
