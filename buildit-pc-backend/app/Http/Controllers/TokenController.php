@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Hash;
 class TokenController extends Controller
 {
     /**
@@ -33,9 +34,24 @@ class TokenController extends Controller
         return $request->user();
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function register(Request $request){
+        if(User::where('email',$request->email)->exists())return ['message' => 'user already exist.'];
+        $json_body = $request->json()->all();
+        $user = User::factory()->create([
+            'name' => $json_body['name'],
+            'email' => $json_body['email'],
+            'password' => Hash::make($json_body['password'])
+        ]);
+        $token = $user->createToken($request->name."_token");
+        return [
+            'token' => $token->plainTextToken
+        ];
+    }
+    public function login(Request $request){
+        return $request->user();
+    }
+
+
     public function update(Request $request, string $id)
     {
         //

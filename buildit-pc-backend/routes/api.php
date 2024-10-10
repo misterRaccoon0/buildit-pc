@@ -11,9 +11,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::middleware(["auth:sanctum"])->get("/token",[TokenController::class,"show"]);
-Route::post("/token/create", [TokenController::class, "store"]);
+Route::post("/token/register",[TokenController::class,'register']);
+Route::middleware("auth:sanctum")->get("/token/login",[TokenController::class,'login']);
 Route::get("/user/login",[UserController::class,"authenticate"]);
 Route::post("/user/register",[UserController::class,"store"]);
 
