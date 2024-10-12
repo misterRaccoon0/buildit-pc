@@ -12,16 +12,21 @@ class UserController extends Controller
 {
     public function authenticate(Request $request){
         $json_body = $request->json()->all();
-        $user = User::where("email", $json_body["email"]);
+        $user = User::where("email", $json_body["email"]) -> first();
+
         if(!$user->exists())
             return response("Account does not exist",404);
 
-        if(Hash::check($json_body["password"],$user->first()->password)){
-            return response("OK",200);
+        if (Hash::check($json_body["password"], $user->password)) {
+            return response()->json([
+                'access_token' => $user->createToken(Str::random(10))->plainTextToken,
+            ]);
+        }
+        
+            return response("login failed", 403);
         }
 
-        return response("login failed", 403);
-    }
+
     public function store(Request $request){
         $json_body = $request->json()->all();
         if(User::where("email", $json_body["email"])->exists()){

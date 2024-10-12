@@ -57,4 +57,16 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function getProfile(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+    
+        return response()->json([
+            'name' => Auth::user()->name,
+            'email' => Auth::user()->email,
+        ]);
+    }
 }
