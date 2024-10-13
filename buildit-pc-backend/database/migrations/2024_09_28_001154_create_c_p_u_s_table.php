@@ -18,10 +18,10 @@ return new class extends Migration
             $table->char("brand",64);
             $table->integer("cores");
             $table->integer("threads");
-            $table->integer("clockspeed");
+            $table->char("clockspeed");
             $table->integer("benchmark");
             $table->text("socket");
-            $table->text("TDP");
+            $table->integer("tdp");
         });
     }
 

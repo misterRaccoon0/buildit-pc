@@ -23,7 +23,19 @@ Route::post("/user/login",[UserController::class,"authenticate"]);
 Route::post("/user/register",[UserController::class,"store"]);
 
 Route::get("/component/{component_name}/{id}", [ComponentController::class, "read"]);
+
+Route::get("/component/cpu", [ComponentController::class, "getCPU"]);
+Route::get("/component/gpu", [ComponentController::class, "getGPU"]);
+Route::get("/component/mobo", [ComponentController::class, "getMOBO"]);
+Route::get("/component/ram", [ComponentController::class, "getRAM"]);
+Route::get("/component/storage", [ComponentController::class, "getSTORAGE"]);
+Route::get("/component/psu", [ComponentController::class, "getPSU"]);
+
+
+
+
 Route::get("/build/{id}", [BuildController::class,"read"]);
+
 Route::post("/component/{component_name}", [ComponentController::class,"store"]);
 Route::put("/component/{component_name}/{id}", [ComponentController::class, "update"]);
 Route::delete("/component/{component_name}/{id}",[ComponentController::class,"delete"]);

@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->char("model",64);
             $table->char("brand",96);
-            $table->integer("vram");
+            $table->char("vram");
             $table->text("bus");
             $table->text("clock");
             $table->text("memoryclock");
             $table->text("gddr");
             $table->integer("benchmark");
-            $table->text("tdp");
+            $table->integer("tdp");
         });
     }
 

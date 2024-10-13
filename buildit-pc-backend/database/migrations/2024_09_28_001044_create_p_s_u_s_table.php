@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('psu', function (Blueprint $table) {
             $table->id();
-            $table->char("brand",64);
-            $table->char("model",64);
+            $table->char("brand");
+            $table->char("model");
             $table->text("watts");
-            $table->float("ratings");
+            $table->text("rating");
             // brand:char model:char watts:text ratings:float
 
         });

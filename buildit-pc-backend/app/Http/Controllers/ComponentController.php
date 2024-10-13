@@ -52,4 +52,105 @@ class ComponentController extends Controller
         $component->update($request->json()->all());
         return response($component->first()->toJson(),200);
     }
+
+
+
+
+
+
+
+
+    public function getCPU(Request $request)
+    {
+
+        $components = CPU::all(); 
+    
+        $components = $components->map(function ($component) {
+            $component->cpuName = "{$component->brand} {$component->name} {$component->model}";            
+            $component->specs = "{$component->cores} Cores | {$component->threads} Threads | {$component->clockspeed} | Socket: {$component->socket}";
+    
+            return $component;
+        });
+    
+        return response()->json($components);
+    }
+
+    public function getGPU(Request $request)
+    {
+
+        $components = GPU::all();
+    
+        $components = $components->map(function ($component) {
+            $component->gpuName = "{$component->brand} {$component->model}";
+            
+            $component->specs = "{$component->vram} vram | {$component->gddr} | {$component->clock} | {$component->bus}";
+    
+            return $component;
+        });
+    
+        return response()->json($components);
+    }
+
+    public function getMOBO(Request $request)
+    {
+
+        $components = Motherboard::all();
+    
+        $components = $components->map(function ($component) {
+            $component->moboName = "{$component->brand} {$component->model}";
+            
+            $component->specs = "{$component->socket} | {$component->chipset} | {$component->ramsupport} | {$component->bus} | {$component->storageinterface}";
+    
+            return $component;
+        });
+    
+        return response()->json($components);
+    }
+
+    public function getRAM(Request $request)
+    {
+
+        $components = RAM::all();
+    
+        $components = $components->map(function ($component) {
+            $component->ramName = "{$component->model}";
+            
+            $component->specs = "{$component->size} | {$component->speed} | {$component->gen} | CL {$component->cl}";
+    
+            return $component;
+        });
+    
+        return response()->json($components);
+    }
+
+    public function getSTORAGE(Request $request)
+    {
+
+        $components = Storage::all();
+    
+        $components = $components->map(function ($component) {
+            $component->storageName = "{$component->brand} {$component->model}";
+            
+            $component->specs = "{$component->size} | {$component->readspeed} | {$component->writespeed} | {$component->interface}";
+    
+            return $component;
+        });
+        
+        return response()->json($components);
+    } 
+
+    public function getPSU(Request $request)
+    {
+        $components = PSU::all();
+    
+        $components = $components->map(function ($component) {
+            $component->psuName = "{$component->brand} {$component->model} {$component->watts}";
+            
+            $component->specs = "{$component->watts} | {$component->rating}";
+    
+            return $component;
+        });
+        
+        return response()->json($components);
+    } 
 }

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('ram', function (Blueprint $table) {
             $table->id();
-            $table->integer("size");
+            $table->char("size");
             $table->text("speed");
-            $table->char("model",64);
-            $table->char("gen", 32);
+            $table->char("model");
+            $table->char("gen");
             $table->text("cl");
-            $table->text("tdp");
+            $table->integer("tdp");
         });
     }
 
