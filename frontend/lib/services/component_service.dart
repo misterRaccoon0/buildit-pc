@@ -14,8 +14,12 @@ class ComponentService {
         name: item['cpuName'],
         specs: item['specs'],
         price: item['price'] ?? 0,
-        tdp: item['tdp'] ?? 0,
+        tdp: item['TDP'] ?? 0,
         imageUrl: 'https://via.placeholder.com/50', 
+        socket: item['socket'] ?? '0',        
+        gen: item['gen'] ?? '0',
+        ramsupport: item['ramsupport'] ?? '0',
+        benchmark: item['benchmark'] ?? 0,
       )).toList();
     } else {
       throw Exception('Failed to load components');
@@ -33,6 +37,10 @@ class ComponentService {
         price: item['price'] ?? 0,
         tdp: item['tdp'] ?? 0,
         imageUrl: 'https://via.placeholder.com/50', 
+        socket: item['socket'] ?? '0',        
+        gen: item['gen'] ?? '0',
+        ramsupport: item['ramsupport'] ?? '0',
+        benchmark: item['benchmark'] ?? 0,
       )).toList();
 
     } else {
@@ -50,7 +58,11 @@ class ComponentService {
         specs: item['specs'],
         price: item['price'] ?? 0,
         tdp: item['tdp'] ?? 0,
-        imageUrl: 'https://via.placeholder.com/50', 
+        imageUrl: 'https://via.placeholder.com/50',
+        socket: item['socket'] ?? '0',        
+        gen: item['gen'] ?? '0',
+        ramsupport: item['ramsupport'] ?? '0',
+        benchmark: item['benchmark'] ?? 0,     
       )).toList();
       
     } else {
@@ -68,7 +80,11 @@ class ComponentService {
         specs: item['specs'],
         price: item['price'] ?? 0,
         tdp: item['tdp'] ?? 0,
-        imageUrl: 'https://via.placeholder.com/50', 
+        imageUrl: 'https://via.placeholder.com/50',
+        socket: item['socket'] ?? '0',        
+        gen: item['gen'] ?? '0',
+        ramsupport: item['ramsupport'] ?? '0',
+        benchmark: item['benchmark'] ?? 0,
       )).toList();
       
     } else {
@@ -87,6 +103,10 @@ class ComponentService {
         price: item['price'] ?? 0,
         tdp: item['tdp'] ?? 0,
         imageUrl: 'https://via.placeholder.com/50', 
+        socket: item['socket'] ?? '0',        
+        gen: item['gen'] ?? '0',
+        ramsupport: item['ramsupport'] ?? '0',
+        benchmark: item['benchmark'] ?? 0,
       )).toList();
       
     } else {
@@ -105,6 +125,10 @@ class ComponentService {
         price: item['price'] ?? 0,
         tdp: item['tdp'] ?? 0,
         imageUrl: 'https://via.placeholder.com/50', 
+        socket: item['socket'] ?? '0',        
+        gen: item['gen'] ?? '0',
+        ramsupport: item['ramsupport'] ?? '0',
+        benchmark: item['benchmark'] ?? 0,
       )).toList();
       
     } else {
