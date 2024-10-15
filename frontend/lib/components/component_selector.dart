@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Component {
+  final int id;
   final String name;
   final String specs;
   final int price;
@@ -12,6 +13,7 @@ class Component {
   final int benchmark;
 
   Component({
+    required this.id,
     required this.name,
     required this.specs,
     required this.price,
@@ -75,12 +77,12 @@ class ComponentSelectorState extends State<ComponentSelector> {
     print("Resetting component: ${widget.dropdownLabel}");
     setState(() {
       _selectedValue = 'Select ${widget.dropdownLabel}';
-      _selectedComponent = null; // Reset selected component to null
-      _searchController.clear(); // Clear the search field
-      _filteredComponents = widget.components; // Reset filtered components
+      
+      _selectedComponent = null;  
+      _searchController.clear();  
+      _filteredComponents = widget.components;  
 
-      widget.onChanged(null); // Notify parent about the reset
-
+      widget.onChanged(null);  
     });
   }
 

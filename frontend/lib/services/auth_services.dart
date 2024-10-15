@@ -60,9 +60,16 @@ class AuthService {
 
             if (response.statusCode == 200) {
                 
-                var data = json.decode(response.body);
-                String token = data['access_token'];  
-                return token; 
+              var data = json.decode(response.body);
+              String token = data['access_token'];
+              int user_id = data['user_id'];
+
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.setString('authToken', token);
+              await prefs.setInt('user_id', user_id);
+
+              return token; 
+
             } else {
                 
                 var errorData = json.decode(response.body);
@@ -72,7 +79,11 @@ class AuthService {
             print(e.toString());
             return null; 
         }
-    }
+  }
+
+
+
+  
 }
 
 

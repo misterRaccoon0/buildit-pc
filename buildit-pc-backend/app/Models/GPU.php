@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class GPU extends Model
 {
     use HasFactory;
-    protected $table = "gpu";
+    protected $table = "gpus";
     protected $primaryKey = "id";
     protected $fillable = ["model","brand","vram","bus","clock","memoryclock","gddr","benchmark", "tdp"];
     public $timestamps = false;

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/components/component_category.dart';
+import 'package:frontend/services/build_service.dart';
 import 'package:frontend/services/component_service.dart';
 import 'package:frontend/components/component_selector.dart';
+import 'package:frontend/services/userBuild.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
 
 class CreatePage extends StatefulWidget {
   const CreatePage({Key? key}) : super(key: key);
@@ -18,12 +23,12 @@ class _CreatePageState extends State<CreatePage> {
   String? selectedStorage = '';
   String? selectedPSU = '';
 
-  final GlobalKey<ComponentSelectorState> cpuKey = GlobalKey<ComponentSelectorState>();
-  final GlobalKey<ComponentSelectorState> gpuKey = GlobalKey<ComponentSelectorState>();
-  final GlobalKey<ComponentSelectorState> moboKey = GlobalKey<ComponentSelectorState>();
-  final GlobalKey<ComponentSelectorState> ramKey = GlobalKey<ComponentSelectorState>();
-  final GlobalKey<ComponentSelectorState> storageKey = GlobalKey<ComponentSelectorState>();
-  final GlobalKey<ComponentSelectorState> psuKey = GlobalKey<ComponentSelectorState>();
+  final GlobalKey<ComponentSelectorState> _cpuKey = GlobalKey<ComponentSelectorState>();
+  final GlobalKey<ComponentSelectorState> _gpuKey = GlobalKey<ComponentSelectorState>();
+  final GlobalKey<ComponentSelectorState> _moboKey = GlobalKey<ComponentSelectorState>();
+  final GlobalKey<ComponentSelectorState> _ramKey = GlobalKey<ComponentSelectorState>();
+  final GlobalKey<ComponentSelectorState> _storageKey = GlobalKey<ComponentSelectorState>();
+  final GlobalKey<ComponentSelectorState> _psuKey = GlobalKey<ComponentSelectorState>();
 
   late Future<List<Component>> futureCPU;
   late Future<List<Component>> futureGPU;
@@ -72,19 +77,22 @@ class _CreatePageState extends State<CreatePage> {
       calculateTotalTDP();
       calculatePrice();
       calculateBenchmark();
+      print('Component selected for $category: ${component.id}, ${component.name}');
     });
   }
 
-  void resetComponent() {
-    cpuKey.currentState?.resetComponentView();
-    gpuKey.currentState?.resetComponentView();
-    moboKey.currentState?.resetComponentView();
-    ramKey.currentState?.resetComponentView();
-    storageKey.currentState?.resetComponentView();
-    psuKey.currentState?.resetComponentView();
-
-    // Clear other state variables
+  void resetComponent() { // HINDI GUMAGANA NANG MAAYOS!!!
+    
     setState(() {
+    
+      _cpuKey.currentState?.resetComponentView();
+      _gpuKey.currentState?.resetComponentView();
+      _moboKey.currentState?.resetComponentView();
+      _ramKey.currentState?.resetComponentView();
+      _storageKey.currentState?.resetComponentView();
+      _psuKey.currentState?.resetComponentView();
+
+      selectedComponents.clear();
       selectedCPU = '';
       selectedGPU = '';
       selectedMotherboard = '';
@@ -92,13 +100,97 @@ class _CreatePageState extends State<CreatePage> {
       selectedStorage = '';
       selectedPSU = '';
 
-      // Clear totals
       totalPrice = 0;
       totalTDP = 0;
       benchmarkScore = 0;
     });
   }
 
+  Future<void> saveBuild() async {
+    String? buildName;
+    String? buildDescription;
+
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Save Build'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                decoration: const InputDecoration(labelText: 'Build Name'),
+                onChanged: (value) {
+                  buildName = value;
+                },
+              ),
+              TextField(
+                decoration: const InputDecoration(labelText: 'Description (Optional)'),
+                onChanged: (value) {
+                  buildDescription = value;
+                },
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); 
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); 
+                if (buildName != null && buildName!.isNotEmpty) {
+                  
+                  _submitBuild(buildName!, buildDescription);
+                }
+              },
+              child: const Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _submitBuild(String name, String? description) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? user_id = prefs.getInt('user_id');
+    
+    UserBuild newBuild = UserBuild(
+      id: 0, 
+      name: name,
+      description: description ?? '',
+      cpu: selectedComponents['cpu']!.id, 
+      gpu: selectedComponents['gpu']!.id,
+      motherboard: selectedComponents['motherboard']!.id,
+      ram: selectedComponents['ram']!.id,
+      storage: selectedComponents['storage']!.id,
+      psu: selectedComponents['psu']!.id,
+      totalTdp: totalTDP,
+      totalPrice: totalPrice.toDouble(),
+      benchmarkScore: benchmarkScore,
+      user_id: user_id ?? 0,
+    );
+    
+    print(newBuild.toJson());
+
+    try {
+      BuildService buildService = BuildService();
+      await buildService.createUserBuild(newBuild);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Build saved successfully!')),
+      );
+      resetComponent(); 
+    } 
+    catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to save build: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +215,7 @@ class _CreatePageState extends State<CreatePage> {
 
           IconButton(
             icon: Icon(Icons.save, color: Colors.black),
-            onPressed: (){},
+            onPressed: saveBuild,
             tooltip: 'Save',
           ),
           IconButton(
@@ -144,13 +236,16 @@ class _CreatePageState extends State<CreatePage> {
                 future: futureCPU,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Center(child: const LinearProgressIndicator()),
+                    );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
                     List<Component> cpus = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:cpuKey, 
+                      key:_cpuKey, 
                       title: 'CPU',
                       components: cpus,
                       onChanged: (value) {
@@ -170,13 +265,16 @@ class _CreatePageState extends State<CreatePage> {
                 future: futureGPU,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Center(child: const LinearProgressIndicator()),
+                    );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
                     List<Component> gpus = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:gpuKey,
+                      key:_gpuKey,
                       title: 'GPU',
                       components: gpus,
                       onChanged: (value) {
@@ -196,13 +294,16 @@ class _CreatePageState extends State<CreatePage> {
                 future: futureMOBO,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Center(child: const LinearProgressIndicator()),
+                    );
+                    } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
                     List<Component> motherboards = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:moboKey,
+                      key:_moboKey,
                       title: 'MOTHERBOARD',
                       components: motherboards,
                       onChanged: (value) {
@@ -224,13 +325,15 @@ class _CreatePageState extends State<CreatePage> {
                 future: futureRAM,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Center(child: const LinearProgressIndicator()),
+                    );                  } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
                     List<Component> rams = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:ramKey,
+                      key:_ramKey,
                       title: 'RAM',
                       components: rams,
                       onChanged: (value) {
@@ -251,13 +354,15 @@ class _CreatePageState extends State<CreatePage> {
                 future: futureSTORAGE,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Center(child: const LinearProgressIndicator()),
+                    );                  } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
                     List<Component> storages = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:storageKey,
+                      key:_storageKey,
                       title: 'STORAGE',
                       components: storages,
                       onChanged: (value) {
@@ -277,13 +382,15 @@ class _CreatePageState extends State<CreatePage> {
                 future: futurePSU,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Center(child: const LinearProgressIndicator()),
+                    );                  } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
                     List<Component> psus = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:psuKey,
+                      key:_psuKey,
                       title: 'POWER SUPPLY',
                       components: psus,
                       onChanged: (value) {

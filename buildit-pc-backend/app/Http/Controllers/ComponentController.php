@@ -16,12 +16,12 @@ class ComponentController extends Controller
 {
     private static $components =
           [
-            "cpu" => CPU::class,
-            "gpu" => GPU::class,
-            "motherboard" => Motherboard::class,
-            "psu" => PSU::class,
-            "ram" => RAM::class,
-            "storage" => Storage::class,
+            "cpus" => CPU::class,
+            "gpus" => GPU::class,
+            "motherboards" => Motherboard::class,
+            "psus" => PSU::class,
+            "rams" => RAM::class,
+            "storages" => Storage::class,
         ];
     public function read(Request $request){
         $componentClass = ComponentController::$components[$request->component_name];

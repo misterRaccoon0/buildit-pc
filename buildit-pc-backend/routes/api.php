@@ -24,14 +24,20 @@ Route::post("/user/register",[UserController::class,"store"]);
 
 Route::get("/component/{component_name}/{id}", [ComponentController::class, "read"]);
 
-Route::get("/component/cpu", [ComponentController::class, "getCPU"]);
-Route::get("/component/gpu", [ComponentController::class, "getGPU"]);
-Route::get("/component/mobo", [ComponentController::class, "getMOBO"]);
-Route::get("/component/ram", [ComponentController::class, "getRAM"]);
-Route::get("/component/storage", [ComponentController::class, "getSTORAGE"]);
-Route::get("/component/psu", [ComponentController::class, "getPSU"]);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get("/component/cpu", [ComponentController::class, "getCPU"]);
+    Route::get("/component/gpu", [ComponentController::class, "getGPU"]);
+    Route::get("/component/mobo", [ComponentController::class, "getMOBO"]);
+    Route::get("/component/ram", [ComponentController::class, "getRAM"]);
+    Route::get("/component/storage", [ComponentController::class, "getSTORAGE"]);
+    Route::get("/component/psu", [ComponentController::class, "getPSU"]);
+});
 
-
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/builds/index', [BuildController::class, 'index']); 
+    Route::post('/builds/create', [BuildController::class, 'store']); 
+    Route::get('/builds/{id}', [BuildController::class, 'read']); 
+});
 
 
 Route::get("/build/{id}", [BuildController::class,"read"]);

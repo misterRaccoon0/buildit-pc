@@ -20,6 +20,7 @@ class UserController extends Controller
         if (Hash::check($json_body["password"], $user->password)) {
             return response()->json([
                 'access_token' => $user->createToken(Str::random(10))->plainTextToken,
+                'user_id' => $user->id,
             ]);
         }
         
