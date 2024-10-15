@@ -50,8 +50,11 @@ class BuildController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $builds = UserBuild::where('user_id', $user->id)->get();
-
+    
+        $builds = UserBuild::with(['cpu', 'gpu', 'motherboard', 'ram', 'storage', 'psu'])
+            ->where('user_id', $user->id)
+            ->get();
+    
         return response()->json($builds);
     }
 }

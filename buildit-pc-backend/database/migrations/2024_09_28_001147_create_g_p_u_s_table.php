@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gpu', function (Blueprint $table) {
+        Schema::create('gpus', function (Blueprint $table) {
             $table->id();
             $table->char("model",64);
             $table->char("brand",96);
