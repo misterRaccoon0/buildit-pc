@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class UserPostController extends Controller
 {
     public function comment(Request $request){
-        $user = $request->user();
+
     }
     public function save(Request $request){
 

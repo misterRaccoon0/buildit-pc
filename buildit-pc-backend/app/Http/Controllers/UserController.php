@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
+    public function authenticate(Request $request){
+        return $request->user();
+    }
     public function login(Request $request){
         $user = $request->validate([
             "name" => ["required"],
             "password" ["required"]
         ]);
-        $user = User::all()->where('name',$user['name']);
+        $user = User::where('name',$user['name']);
         if(!$user->exists())
             return response(['message' => 'user does not exist'],404);
         $token = $user->first()->createToken($request->userAgent."_token");
@@ -27,7 +31,7 @@ class UserController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required']
         ]);
-        if(User::all()->where("email", $user['email'])->exists()){
+        if(User::where("email", $user['email'])->exists()){
             return response("Email already taken", 400);
         }
         $user['password'] = Hash::make($user['password']);
@@ -35,4 +39,5 @@ class UserController extends Controller
         $token = $request->user()->createToken($request->name);
         return ["token" => $token->plainTextToken];
     }
+
 }
