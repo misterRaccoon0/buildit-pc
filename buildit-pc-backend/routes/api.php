@@ -40,57 +40,25 @@ Route::prefix('/user')->group(function(){
     Route::post('/login',[UserController::class, 'login']);
 });
 
+// route /token/*
+Route::middleware('auth:sanctum')->prefix('/token')->group(function(){
+    Route::get('/check',[TokenController::class, 'authenticate']);
+    Route::post('/login',[TokenController::class, 'login']);
 
-// route /post/*
-Route::prefix('/post')->group(function(){
-    Route::get('/',[UserPostController::class, 'get']);
-    Route::post('/rate', [UserPostController::class, 'rate']);
-
-    // route /post/comment/*
-    Route::prefix('/comment')->group(function(){
-
-        Route::get('/', [CommentController::class, 'getComment']);
-        // guarded route
-        Route::middleware('auth:sanctum')->group(function(){
-            Route::post('/',[CommentController::class, 'comment']);
-            Route::put('/',[CommentController::class, 'update']);
-            Route::delete('/',[CommentController::class, 'destroy']);
-        });
-    });
 });
-
-
-
-// route /component/*
-Route::prefix('/component')->group(function(){
-    Route::get(
-        "/{component_name}/{id}",
-        [ComponentController::class, "read"]
-    );
-    Route::get('/motherboard/support', []);
+// route /user/*
+Route::prefix('/user')->group(function(){
+    Route::post('/register',[UserController::class]);
+    Route::post('/login',[UserController::class, 'login']);
 });
 
 // route /admin/*
 Route::prefix('/admin')->group(function(){
-    // route /admin/component/*
-    Route::prefix('/component')->group(function(){
-        Route::post(
-            "/{component_name}",
-            [ComponentController::class,"store"]
-        );
-        Route::put(
-            "/{component_name}/{id}",
-            [ComponentController::class, "update"]
-        );
-        Route::delete(
-            "/{component_name}/{id}",
-            [ComponentController::class,"delete"]
-        );
-    });
+
+    Route::get("/component/{component_name}/{id}", [ComponentController::class, "read"]);
+    Route::post("/component/{component_name}", [ComponentController::class,"store"]);
+    Route::put("/component/{component_name}/{id}", [ComponentController::class, "update"]);
+    Route::delete("/component/{component_name}/{id}",[ComponentController::class,"delete"]);
 });
 
-
-
-
-
-
+Route::get("/build/{url_hash}", [BuildController::class,"read"]);
