@@ -21,6 +21,21 @@ class TokenController extends Controller
     {
         return $request->user();
     }
+
+    public function register(Request $request){
+        if(User::where('email',$request->email)->exists())
+            return ['message' => 'user already exist.'];
+        $json_body = $request->json()->all();
+        $user = User::factory()->create([
+            'name' => $json_body['name'],
+            'email' => $json_body['email'],
+            'password' => Hash::make($json_body['password'])
+        ]);
+        $token = $user->createToken($request->name."_token");
+        return [
+            'token' => $token->plainTextToken
+        ];
+    }
     public function login(Request $request){
         $user = $request->user();
         Auth::login($user,$user->remember_token);
