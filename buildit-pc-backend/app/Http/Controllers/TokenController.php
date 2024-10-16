@@ -35,7 +35,8 @@ class TokenController extends Controller
     }
 
     public function register(Request $request){
-        if(User::where('email',$request->email)->exists())return ['message' => 'user already exist.'];
+        if(User::where('email',$request->email)->exists())
+            return ['message' => 'user already exist.'];
         $json_body = $request->json()->all();
         $user = User::factory()->create([
             'name' => $json_body['name'],
