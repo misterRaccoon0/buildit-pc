@@ -11,15 +11,25 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post("/token/register",[TokenController::class,'register']);
-Route::middleware("auth:sanctum")->get("/token/login",[TokenController::class,'login']);
-Route::get("/user/login",[UserController::class,"authenticate"]);
-Route::post("/user/register",[UserController::class,"store"]);
+// route /token/*
+Route::middleware('auth:sanctum')->prefix('/token')->group(function(){
+    Route::get('/check',[TokenController::class, 'authenticate']);
+    Route::post('/login',[TokenController::class, 'login']);
 
-Route::get("/component/{component_name}/{id}", [ComponentController::class, "read"]);
-Route::get("/build/{id}", [BuildController::class,"read"]);
-Route::post("/component/{component_name}", [ComponentController::class,"store"]);
-Route::put("/component/{component_name}/{id}", [ComponentController::class, "update"]);
-Route::delete("/component/{component_name}/{id}",[ComponentController::class,"delete"]);
+});
+// route /user/*
+Route::prefix('/user')->group(function(){
+    Route::post('/register',[UserController::class]);
+    Route::post('/login',[UserController::class, 'login']);
+});
 
+// route /admin/*
+Route::prefix('/admin')->group(function(){
 
+    Route::get("/component/{component_name}/{id}", [ComponentController::class, "read"]);
+    Route::post("/component/{component_name}", [ComponentController::class,"store"]);
+    Route::put("/component/{component_name}/{id}", [ComponentController::class, "update"]);
+    Route::delete("/component/{component_name}/{id}",[ComponentController::class,"delete"]);
+});
+
+Route::get("/build/{url_hash}", [BuildController::class,"read"]);

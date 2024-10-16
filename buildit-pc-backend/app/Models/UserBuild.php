@@ -9,5 +9,7 @@ class UserBuild extends Model
 {
     use HasFactory;
     protected $table = "user_build";
+    protected $primaryKey = "id";
     public $timestamps = false;
+    protected $fillable = ['isPublic'];
 }
