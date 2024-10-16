@@ -74,7 +74,8 @@ class _BuildPageState extends State<BuildPage> {
                     return userBuildBorder(
                       buildID: build['id'],
                       buildName: build['name'],
-                      buildPic: NetworkImage('https://via.placeholder.com/150'), // Placeholder for now
+                      buildDescription: build['description'],
+                      buildPic: NetworkImage('https://via.placeholder.com/150'), 
 
                       cpu: build['cpu'] != null 
                           ? '${build['cpu']['brand']} ${build['cpu']['name']} ${build['cpu']['model']}' 
@@ -99,6 +100,8 @@ class _BuildPageState extends State<BuildPage> {
                       psu: build['psu'] != null 
                           ? '${build['psu']['brand']} ${build['psu']['model']}' 
                           : 'N/A',
+
+                      benchmarkScore: build['benchmarkScore'],
                           
                       dateCreated: 'Date not available', // wala pa
 

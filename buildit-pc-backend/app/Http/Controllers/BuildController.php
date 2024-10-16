@@ -57,6 +57,33 @@ class BuildController extends Controller
     
         return response()->json($builds);
     }
+
+    public function getBuildDetails($buildID)
+    {
+        try {
+            $build = Build::with(['cpu', 'gpu', 'motherboard', 'ram', 'storage', 'psu'])->findOrFail($buildID);
+
+            $buildDetails = [
+                'id' => $build->id,
+                'name' => $build->name,
+                'image_url' => $build->image_url,
+                'cpu' => $build->cpu->name,
+                'gpu' => $build->gpu->name,
+                'motherboard' => $build->motherboard->name,
+                'ram' => $build->ram->name,
+                'storage' => $build->storage->name,
+                'psu' => $build->psu->name,
+                'cpu_benchmark' => $build->cpu->benchmark,
+                'gpu_benchmark' => $build->gpu->benchmark,
+                //'date_created' => $build->created_at->toDateString(),
+            ];
+
+            return response()->json($buildDetails, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to fetch build details', 'error' => $e->getMessage()], 500);
+        }
+    }
+
 }
 
     

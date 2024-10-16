@@ -29,8 +29,7 @@ class UserBuild extends Model
         'benchmarkScore'
     ];
 
-// UserBuild.php
-
+    
     public function cpu()
     {
         return $this->belongsTo(CPU::class, 'cpu')->select('id', 'brand', 'name', 'model'); 

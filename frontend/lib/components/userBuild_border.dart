@@ -4,6 +4,7 @@ import 'package:frontend/minor%20pages/userBuild_detailedView.dart';
 class userBuildBorder extends StatelessWidget {
   final int buildID;
   final String buildName;
+  final String? buildDescription;
   final ImageProvider buildPic;
   final String cpu;
   final String gpu;
@@ -11,11 +12,14 @@ class userBuildBorder extends StatelessWidget {
   final String ram;
   final String storage;
   final String psu;
+  final int? benchmarkScore;
   final String dateCreated;
+  
 
   userBuildBorder({
     required this.buildID, 
     required this.buildName, 
+    this.buildDescription,
     required this.buildPic, 
     required this.cpu,
     required this.gpu,
@@ -23,6 +27,7 @@ class userBuildBorder extends StatelessWidget {
     required this.ram,
     required this.storage,
     required this.psu,
+    this.benchmarkScore,
     required this.dateCreated,
   });
 
@@ -111,10 +116,11 @@ class userBuildBorder extends StatelessWidget {
                         motherboard: motherboard, 
                         ram: ram, 
                         storage: storage, 
-                        psu: psu, 
+                        psu: psu,
+                        buildDescription: buildDescription,
+                        benchmarkScore: benchmarkScore ?? 0,
                         dateCreated: dateCreated,
-                        cpuBenchmark: 3000,
-                        gpuBenchmark: 64200,
+
                         )
                         )
                         );

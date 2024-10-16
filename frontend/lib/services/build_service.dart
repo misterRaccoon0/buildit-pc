@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class BuildService {
   static const String baseUrl = 'http://10.0.2.2:8000/api/builds';
 
-  /// Fetch all user builds
   Future<List<UserBuild>> getUserBuilds() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('authToken'); 
@@ -28,7 +27,6 @@ class BuildService {
     }
   }
 
-  /// Create a new user build
   Future<UserBuild> createUserBuild(UserBuild build) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('authToken');
@@ -52,7 +50,6 @@ class BuildService {
       throw Exception('Failed to create user build: ${response.body}');
     }
   }
-  /// Fetch a specific user build by ID
   Future<UserBuild> getUserBuildById(int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('authToken'); 
@@ -71,4 +68,6 @@ class BuildService {
       throw Exception('Failed to load user build: ${response.body}');
     }
   }
+
+
 }

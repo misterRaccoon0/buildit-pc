@@ -37,6 +37,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/builds/index', [BuildController::class, 'index']); 
     Route::post('/builds/create', [BuildController::class, 'store']); 
     Route::get('/builds/{id}', [BuildController::class, 'read']); 
+
+    Route::get('builds/{buildID}/storage', [BuildController::class, 'getStorageSpecs']);
 });
 
 
