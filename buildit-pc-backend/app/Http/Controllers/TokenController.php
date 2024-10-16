@@ -12,11 +12,12 @@ class TokenController extends Controller
 
     public function refresh(Request $request)
     {
+        // unfinished
         $user = $request->user();
         $token = $user->createToken(Str::random(10));
         return ["token" => $token->plainTextToken];
     }
-    public function check(Request $request)
+    public function authenticate(Request $request)
     {
         return $request->user();
     }
@@ -25,7 +26,7 @@ class TokenController extends Controller
         Auth::login($user,$user->remember_token);
         return $request->user();
     }
-    public function destroy(Request $request)
+    public function logout(Request $request)
     {
         Auth::logout($request->user());
         return ['message' => 'logged out successfully'];
