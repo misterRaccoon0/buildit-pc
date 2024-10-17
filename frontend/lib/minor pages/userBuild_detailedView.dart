@@ -16,6 +16,7 @@ class UserBuildDetailedView extends StatefulWidget {
   final String psu;
   final String dateCreated;
   final int benchmarkScore;
+  
 
   UserBuildDetailedView({
     required this.buildID,
@@ -70,12 +71,13 @@ class _UserBuildDetailedViewState extends State<UserBuildDetailedView> {
 
 
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Color.fromARGB(255, 0, 23, 49),
       appBar: AppBar(
-        backgroundColor: Colors.grey[300],
+        leading: BackButton(color: Colors.white,),
+        backgroundColor: Color.fromARGB(255, 0, 23, 49),
         title: Text(
           widget.buildName,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
 
@@ -90,7 +92,7 @@ class _UserBuildDetailedViewState extends State<UserBuildDetailedView> {
             } else if (snapshot.hasData) {
               final userProfile = snapshot.data!;
               final String userName = userProfile['name'] ?? 'Unknown User'; 
-              final ImageProvider userPic = NetworkImage(userProfile['profile_picture'] ?? 'https://via.placeholder.com/150'); 
+              final ImageProvider userPic = NetworkImage(userProfile['profile_picture'] ?? 'https:svia.placeholder.com/150'); 
 
               return SingleChildScrollView(
                 padding: EdgeInsets.all(16),
@@ -106,7 +108,7 @@ class _UserBuildDetailedViewState extends State<UserBuildDetailedView> {
                         SizedBox(width: 10),
                         Text(
                           userName, 
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                         ),
                       ],
                     ),
@@ -123,13 +125,23 @@ class _UserBuildDetailedViewState extends State<UserBuildDetailedView> {
                       ),
                     ),
                   
-            SizedBox(height: 8),
-            Text(
-              widget.buildDescription ?? 'No description available',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: Colors.black87,
+            SizedBox(height: 16),
+            Container(
+              width: double.infinity, 
+              padding: const EdgeInsets.all(16.0), 
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 1.5), 
+                borderRadius: BorderRadius.circular(8.0), 
+                color:Color.fromARGB(255, 0, 48, 104), 
+              ),
+              child: Text(
+                widget.buildDescription ?? 'No description available',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center, 
               ),
             ),
             SizedBox(height: 16),
@@ -206,13 +218,13 @@ class _UserBuildDetailedViewState extends State<UserBuildDetailedView> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Color.fromARGB(255, 87, 87, 87),
+                      color: Colors.white,
                     ),
                   ),
                   //SizedBox(height: 8),
                   Text(
                     'S C O R E : $totalScore',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.cyan),
                   ),
 
 
@@ -223,9 +235,11 @@ class _UserBuildDetailedViewState extends State<UserBuildDetailedView> {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 87, 87, 87),
+                      color: Colors.white,
                     ),
                   ),
+
+                  
 
                   Center(
                     child: PerformanceBar(

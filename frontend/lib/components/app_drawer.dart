@@ -16,11 +16,11 @@ class AppDrawer extends StatelessWidget {
         future: fetchUserProfile(), 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator()); 
+            return const Center(child: CircularProgressIndicator()); 
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}')); 
           } else if (!snapshot.hasData) {
-            return Center(child: Text('No data found')); 
+            return const Center(child: Text('No data found')); 
           }
 
           final userData = snapshot.data!;
@@ -29,35 +29,43 @@ class AppDrawer extends StatelessWidget {
           final userImageUrl = userData['profile_image'] ?? 'https://via.placeholder.com/150'; 
 
           return Container(
-            color: Colors.grey[800],
+            color:  const Color.fromARGB(255, 0, 10, 44), // DRAWER BG
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
+                  margin: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                   decoration: BoxDecoration(
-                    color: Colors.grey[400],
+                    color: const Color.fromARGB(255, 18, 41, 104), // USER INFO PANEL
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CircleAvatar(
-                        radius: 35,
-                        backgroundImage: NetworkImage(userImageUrl), 
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        userName, 
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
+                      Center(
+                        child: CircleAvatar(
+                          radius: 35,
+                          backgroundImage: NetworkImage(userImageUrl), 
                         ),
                       ),
-                      Text(
-                        userEmail, 
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
+                      const SizedBox(height: 5),
+                      Center(
+                        child: Text(
+                          userName, 
+                          style: const TextStyle(
+                            color: const Color.fromARGB(255, 0, 255, 242),
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          userEmail, 
+                          style: const TextStyle(
+                            color: const Color.fromARGB(255, 0, 255, 242),
+                            fontSize: 10,
+                          ),
                         ),
                       ),
                     ],
@@ -65,53 +73,53 @@ class AppDrawer extends StatelessWidget {
                 ),
                 
                 ListTile(
-                  leading: Icon(Icons.account_circle, color: Colors.white, size: 40),
+                  leading: const Icon(Icons.account_circle, color: Colors.white, size: 40),
                   title: Text(
                     'P R O F I L E',
-                    style: TextStyle(color: Colors.grey[100], fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: const Color.fromARGB(255, 0, 255, 242), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {
                     Navigator.pop(context);
                     pageController.jumpToPage(3);
                   },
                 ),
-                Divider(color: Colors.grey[800]),
+                Divider(color: const Color.fromARGB(255, 0, 10, 44)),
                 ListTile(
-                  leading: Icon(Icons.settings, color: Colors.white, size: 40),
+                  leading: const Icon(Icons.settings, color: Colors.white, size: 40),
                   title: Text(
                     'A C C O U N T',
-                    style: TextStyle(color: Colors.grey[100], fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: const Color.fromARGB(255, 0, 255, 242), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {},
                 ),
-                Divider(color: Colors.grey[800]),
+                Divider(color: const Color.fromARGB(255, 0, 10, 44)),
                 ListTile(
-                  leading: Icon(Icons.build, color: Colors.white, size: 40),
+                  leading: const Icon(Icons.build, color: Colors.white, size: 40),
                   title: Text(
                     'M Y  B U I L D S',
-                    style: TextStyle(color: Colors.grey[100], fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: const Color.fromARGB(255, 0, 255, 242), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {
                     Navigator.pop(context);
                     pageController.jumpToPage(1);
                   },
                 ),
-                Divider(color: Colors.grey[800]),
+                Divider(color: const Color.fromARGB(255, 0, 10, 44)),
                 ListTile(
-                  leading: Icon(Icons.question_mark_sharp, color: Colors.white, size: 40),
+                  leading: const Icon(Icons.question_mark_sharp, color: Colors.white, size: 40),
                   title: Text(
                     'H E L P',
-                    style: TextStyle(color: Colors.grey[100], fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: const Color.fromARGB(255, 0, 255, 242), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {},
                 ),
-                Divider(color: Colors.grey[800]),
-                SizedBox(height: 320),
+                Divider(color: const Color.fromARGB(255, 0, 10, 44)),
+                const SizedBox(height: 320),
                 ListTile(
-                  leading: Icon(Icons.logout, color: Colors.white, size: 40),
+                  leading: const Icon(Icons.logout, color: Colors.white, size: 40),
                   title: Text(
                     'L O G   O U T',
-                    style: TextStyle(color: Colors.grey[100], fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: const Color.fromARGB(255, 0, 255, 242), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {},
                 ),

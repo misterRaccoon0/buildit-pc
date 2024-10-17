@@ -54,14 +54,14 @@ class _BuildPageState extends State<BuildPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text(
           'M Y   B U I L D S',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.black,
       ),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())

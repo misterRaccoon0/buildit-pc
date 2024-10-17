@@ -25,10 +25,10 @@ class _DropdownFilterState extends State<DropdownFilter> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Color.fromARGB(255, 0, 255, 242),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Colors.grey, 
+            color: Colors.white, 
             width: 1,
           ),
         ),

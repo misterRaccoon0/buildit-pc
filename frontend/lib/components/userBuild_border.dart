@@ -36,12 +36,22 @@ class userBuildBorder extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: const Color.fromARGB(255, 0, 12, 51),
+          border: Border(
+            top: BorderSide(color:const Color.fromARGB(255, 0, 255, 242)),
+            left: BorderSide(color:const Color.fromARGB(255, 0, 255, 242)),
+            right: BorderSide(color:const Color.fromARGB(255, 0, 255, 242)),
+            bottom: BorderSide(color:const Color.fromARGB(255, 0, 255, 242)),
+          )
+          
+          ),
         child: ExpansionTile(
           leading: Container(
             width: 80,
             height: 80,
-            decoration: BoxDecoration(
+            decoration: BoxDecoration(   
               image: DecorationImage(
                 image: buildPic,
                 fit: BoxFit.cover,
@@ -53,50 +63,57 @@ class userBuildBorder extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
+              color:const Color.fromARGB(255, 0, 255, 242)
             ),
           ),
-          subtitle: Text('Created: $dateCreated'),
+          subtitle: Text('Created: $dateCreated', style: TextStyle(color: Colors.white),),
           children: [
             ListTile(
               title: Text("CPU: $cpu",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 15
+                fontSize: 15,
+                color:Colors.white
                 ),),
             ),
             ListTile(
               title: Text("GPU: $gpu",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 15
+                fontSize: 15,
+                color:Colors.white
                 ),),
             ),
             ListTile(
               title: Text("Motherboard: $motherboard",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 15
+                fontSize: 15,
+                color:Colors.white
                 ),),
             ),
             ListTile(
               title: Text("RAM: $ram",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 15
+                fontSize: 15,
+                color:Colors.white
                 ),),
             ),
             ListTile(
               title: Text("Storage: $storage",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 15
+                fontSize: 15,
+                color:Colors.white
                 ),),
             ),
             ListTile(
               title: Text("PSU: $psu",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 15
+                fontSize: 15,
+                color:Colors.white
                 ),),
             ),
             Padding(
@@ -111,7 +128,7 @@ class userBuildBorder extends StatelessWidget {
                         buildID: buildID, 
                         buildName: buildName, 
                         buildPic: buildPic, 
-                        cpu: cpu, 
+                        cpu: cpu,
                         gpu: gpu, 
                         motherboard: motherboard, 
                         ram: ram, 
@@ -120,7 +137,6 @@ class userBuildBorder extends StatelessWidget {
                         buildDescription: buildDescription,
                         benchmarkScore: benchmarkScore ?? 0,
                         dateCreated: dateCreated,
-
                         )
                         )
                         );

@@ -30,13 +30,16 @@ class HomePageState extends State<HomePage> {
   return AppBar(
     title: Text(
       'B U I L D    I T',
-      style: TextStyle(fontWeight: FontWeight.bold),
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.white
+        ),
     ),
     automaticallyImplyLeading: false,
-    backgroundColor: Colors.grey[300],
+    backgroundColor: const Color.fromARGB(0, 0, 0, 0),
     actions: [
-      IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
-      IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+      IconButton(onPressed: () {}, icon: Icon(Icons.notifications, color: Colors.white,)),
+      IconButton(onPressed: () {}, icon: Icon(Icons.search, color: Colors.white,)),
     ],
   );
 }
@@ -45,7 +48,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.grey[300],
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
 
       appBar: _buildAppBar(),
 
@@ -55,7 +58,9 @@ class HomePageState extends State<HomePage> {
         children: [
           if (_currentIndex == 0)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 1.0), 
+              padding: const EdgeInsets.symmetric(horizontal: 1.0),
+              
+
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                 children: [
@@ -67,6 +72,7 @@ class HomePageState extends State<HomePage> {
                     icon: Icon(
                       Icons.menu,
                       size: 50,
+                      color: Colors.white,
                     ),
                   ),
                 ],
@@ -75,7 +81,9 @@ class HomePageState extends State<HomePage> {
 
 
           Expanded(
+            
             child: PageView(
+              
               controller: pageController,
               onPageChanged: (index) {
                 setState(() {
@@ -84,7 +92,7 @@ class HomePageState extends State<HomePage> {
               },
               // Bottom nav bar pages
               children: [
-                Center(child: Text("Home Page Content Here")), 
+                Center(child: Text("Home Page Content Here", style: TextStyle(color: Colors.white),)), 
                 BuildPage(), 
                 CreatePage(), 
                 ProfilePage(),

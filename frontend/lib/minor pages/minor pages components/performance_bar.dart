@@ -30,7 +30,7 @@ class PerformanceBar extends StatelessWidget {
               child: Container(
                 width: 3,
                 height: 20,
-                color: Colors.grey[800],
+                color: Colors.white,
               ),
             ),
           ],
@@ -41,9 +41,9 @@ class PerformanceBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('ENTRY LEVEL', style: TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold)),
-              Text('MID RANGE', style: TextStyle(fontSize: 12, color: Colors.black,  fontWeight: FontWeight.bold)),
-              Text('HIGH END', style: TextStyle(fontSize: 12, color: Colors.black,  fontWeight: FontWeight.bold)),
+              Text('ENTRY LEVEL', style: TextStyle(fontSize: 12, color: Colors.cyan, fontWeight: FontWeight.bold)),
+              Text('MID RANGE', style: TextStyle(fontSize: 12, color: Colors.cyan,  fontWeight: FontWeight.bold)),
+              Text('HIGH END', style: TextStyle(fontSize: 12, color: Colors.cyan,  fontWeight: FontWeight.bold)),
             ],
           ),
         ),

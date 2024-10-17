@@ -26,10 +26,10 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: const Text(
           'P R O F I L E',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.black,
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _userProfile,
@@ -44,6 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
             final user = snapshot.data!;
 
             return SingleChildScrollView(
+              
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -57,6 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
+                    
                     const SizedBox(height: 10),
                     Center(
                       child: Text(

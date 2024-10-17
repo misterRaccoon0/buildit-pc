@@ -74,7 +74,7 @@ void signUserIn() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor:  const Color.fromARGB(255, 0, 10, 44),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -86,6 +86,7 @@ void signUserIn() async {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 35,
+                  color: const Color.fromARGB(255, 0, 255, 242),
                 ),
               ),
               SizedBox(height: 20),
@@ -101,7 +102,9 @@ void signUserIn() async {
                         signUserIn(); 
                       }
                     },
-                    buttonText: isLoading ? 'Logging In...' : 'Log In',
+                    buttonText: isLoading 
+                    ? 'Logging In...' 
+                    : 'Log In',
                   ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -113,6 +116,7 @@ void signUserIn() async {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
+                        color:  Colors.white,
                       ),
                     ),
                     SizedBox(width: 10),
@@ -135,7 +139,26 @@ void signUserIn() async {
                   ],
                 ),
               ),
-            ],
+
+              SizedBox(height: 20), 
+              TextButton(
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                    (route) => false,
+                  );
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.transparent, 
+                  foregroundColor: Colors.grey[400], 
+                ),
+                child: Text(
+                  'Sign in as Guest',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+          )))],
           ),
         ),
       ),

@@ -195,31 +195,31 @@ class _CreatePageState extends State<CreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text(
           'C R E A T E   B U I L D',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.black,
         elevation: 0,
         actions: [
           
           IconButton(
-            icon: Icon(Icons.refresh, color: Colors.black),
+            icon: Icon(Icons.refresh, color: Colors.white),
             onPressed: resetComponent,
             tooltip: 'Reset',
           ),
 
 
           IconButton(
-            icon: Icon(Icons.save, color: Colors.black),
+            icon: Icon(Icons.save, color: Colors.white),
             onPressed: saveBuild,
             tooltip: 'Save',
           ),
           IconButton(
-            icon: Icon(Icons.publish, color: Colors.black),
+            icon: Icon(Icons.publish, color: Colors.white),
             onPressed: () {},
             tooltip: 'Publish',
           ),
@@ -385,7 +385,8 @@ class _CreatePageState extends State<CreatePage> {
                     return Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Center(child: const LinearProgressIndicator()),
-                    );                  } else if (snapshot.hasError) {
+                    );
+                    } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
                     List<Component> psus = snapshot.data ?? [];
@@ -414,7 +415,7 @@ class _CreatePageState extends State<CreatePage> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Color.fromARGB(255, 87, 87, 87),
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -422,7 +423,7 @@ class _CreatePageState extends State<CreatePage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   '₱${totalPrice.toStringAsFixed(2)}',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.cyan),
                 ),
               ),
 
@@ -435,7 +436,7 @@ class _CreatePageState extends State<CreatePage> {
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Color.fromARGB(255, 87, 87, 87),
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -443,7 +444,7 @@ class _CreatePageState extends State<CreatePage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   '${totalTDP.toString()} W',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.cyan),
                 ),
               ),
 
@@ -455,7 +456,7 @@ class _CreatePageState extends State<CreatePage> {
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Color.fromARGB(255, 87, 87, 87),
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -463,7 +464,7 @@ class _CreatePageState extends State<CreatePage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   '${benchmarkScore.toString()}',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.cyan ),
                 ),
               ),
 

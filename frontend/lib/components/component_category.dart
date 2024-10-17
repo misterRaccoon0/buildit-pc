@@ -29,7 +29,7 @@ class _ComponentCategoryState extends State<ComponentCategory> {
         children: [
           Text(
             widget.title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.cyan),
           ),
           ComponentSelector(
             key: widget.componentKey,
