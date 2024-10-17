@@ -5,9 +5,9 @@ class AppDrawer extends StatelessWidget {
   final PageController pageController;
 
   const AppDrawer({
-    Key? key,
+    super.key,
     required this.pageController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,11 @@ class AppDrawer extends StatelessWidget {
         future: fetchUserProfile(), 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator()); 
+            return const Center(child: CircularProgressIndicator()); 
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}')); 
           } else if (!snapshot.hasData) {
-            return Center(child: Text('No data found')); 
+            return const Center(child: Text('No data found')); 
           }
 
           final userData = snapshot.data!;
@@ -44,10 +44,10 @@ class AppDrawer extends StatelessWidget {
                         radius: 35,
                         backgroundImage: NetworkImage(userImageUrl), 
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
                         userName, 
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                       Text(
                         userEmail, 
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 10,
                         ),
@@ -65,7 +65,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 
                 ListTile(
-                  leading: Icon(Icons.account_circle, color: Colors.white, size: 40),
+                  leading: const Icon(Icons.account_circle, color: Colors.white, size: 40),
                   title: Text(
                     'P R O F I L E',
                     style: TextStyle(color: Colors.grey[100], fontWeight: FontWeight.bold, fontSize: 20),
@@ -77,7 +77,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 Divider(color: Colors.grey[800]),
                 ListTile(
-                  leading: Icon(Icons.settings, color: Colors.white, size: 40),
+                  leading: const Icon(Icons.settings, color: Colors.white, size: 40),
                   title: Text(
                     'A C C O U N T',
                     style: TextStyle(color: Colors.grey[100], fontWeight: FontWeight.bold, fontSize: 20),
@@ -86,7 +86,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 Divider(color: Colors.grey[800]),
                 ListTile(
-                  leading: Icon(Icons.build, color: Colors.white, size: 40),
+                  leading: const Icon(Icons.build, color: Colors.white, size: 40),
                   title: Text(
                     'M Y  B U I L D S',
                     style: TextStyle(color: Colors.grey[100], fontWeight: FontWeight.bold, fontSize: 20),
@@ -98,7 +98,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 Divider(color: Colors.grey[800]),
                 ListTile(
-                  leading: Icon(Icons.question_mark_sharp, color: Colors.white, size: 40),
+                  leading: const Icon(Icons.question_mark_sharp, color: Colors.white, size: 40),
                   title: Text(
                     'H E L P',
                     style: TextStyle(color: Colors.grey[100], fontWeight: FontWeight.bold, fontSize: 20),
@@ -106,9 +106,9 @@ class AppDrawer extends StatelessWidget {
                   onTap: () {},
                 ),
                 Divider(color: Colors.grey[800]),
-                SizedBox(height: 320),
+                const SizedBox(height: 320),
                 ListTile(
-                  leading: Icon(Icons.logout, color: Colors.white, size: 40),
+                  leading: const Icon(Icons.logout, color: Colors.white, size: 40),
                   title: Text(
                     'L O G   O U T',
                     style: TextStyle(color: Colors.grey[100], fontWeight: FontWeight.bold, fontSize: 20),

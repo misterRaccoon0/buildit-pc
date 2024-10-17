@@ -10,11 +10,11 @@ class LoginBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return SizedBox(width: 365,
+    return SizedBox(width: 255,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.all(25),
+          padding:const EdgeInsets.all(25),
           backgroundColor: Colors.black, 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10), 
@@ -23,7 +23,7 @@ class LoginBtn extends StatelessWidget {
         child: Center(
           child: Text(
             buttonText,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white, 
               fontWeight: FontWeight.bold,
               fontSize: 16,

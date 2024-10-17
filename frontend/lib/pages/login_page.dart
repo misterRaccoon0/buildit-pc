@@ -7,7 +7,7 @@ import 'package:frontend/pages/register_page.dart';
 import 'package:frontend/services/auth_services.dart'; 
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final AuthService authService = AuthService(); 
-  final storage = FlutterSecureStorage(); 
+  final storage = const FlutterSecureStorage(); 
   bool isLoading = false; 
 
 void signUserIn() async {
@@ -44,7 +44,7 @@ void signUserIn() async {
 
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => const HomePage()),
             (route) => false, 
         );
     } else {
@@ -58,12 +58,12 @@ void signUserIn() async {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Error'),
+          title:const Text('Error'),
           content: Text(errorMessage),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child:const Text('OK'),
             ),
           ],
         );
@@ -79,27 +79,31 @@ void signUserIn() async {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 100),
-              Icon(Icons.circle, size: 200),
-              Text(
+              const SizedBox(height: 100),
+              const Icon(Icons.circle, size: 200),
+              const Text(
                 'Sign In',
-                style: TextStyle(
+                style:TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 35,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               LoginTextfield(controller: emailController, hintText: 'Email', obscureText: false),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               LoginTextfield(controller: passwordController, hintText: 'Password', obscureText: true),
-              SizedBox(height: 20),
+              const SizedBox(height: 20, width : 16),
               isLoading 
-                ? CircularProgressIndicator() 
+                ? const CircularProgressIndicator() 
                 : LoginBtn(
                     onPressed: () {
-                      if (!isLoading) {
-                        signUserIn(); 
-                      }
+                      // if (!isLoading) {
+                      //  signUserIn(); 
+                      //}
+			Navigator.push(
+			    context,
+			    MaterialPageRoute(builder : (context) => const HomePage())
+			);
                     },
                     buttonText: isLoading ? 'Logging In...' : 'Log In',
                   ),
@@ -108,14 +112,14 @@ void signUserIn() async {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Don't have an account?",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -123,7 +127,7 @@ void signUserIn() async {
                           MaterialPageRoute(builder: (context) => RegisterPage()),
                         );
                       },
-                      child: Text(
+                      child:const Text(
                         'Sign up',
                         style: TextStyle(
                           fontSize: 18,
