@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/minor%20pages/minor%20pages%20components/grid_tile_view.dart';
 import 'package:frontend/minor%20pages/minor%20pages%20components/performance_bar.dart';
+import 'package:frontend/services/detailed_specs_service.dart';
 import 'package:frontend/services/user_profile.dart';
 
 class UserBuildDetailedView extends StatefulWidget {
@@ -16,6 +17,13 @@ class UserBuildDetailedView extends StatefulWidget {
   final String psu;
   final String dateCreated;
   final int benchmarkScore;
+
+  final int? cpuId;
+  final int? gpuId;
+  final int? motherboardId;
+  final int? ramId;
+  final int? storageId;
+  final int? psuId;
   
 
   UserBuildDetailedView({
@@ -31,6 +39,13 @@ class UserBuildDetailedView extends StatefulWidget {
     required this.psu,
     required this.dateCreated,
     required this.benchmarkScore,
+
+    this.cpuId,
+    this.gpuId,
+    this.motherboardId,
+    this.ramId,
+    this.storageId,
+    this.psuId,
   });
 
   @override
@@ -40,21 +55,81 @@ class UserBuildDetailedView extends StatefulWidget {
 class _UserBuildDetailedViewState extends State<UserBuildDetailedView> {
   late Future<Map<String, dynamic>> _userProfile;
 
+  Map<String, String>? cpuSpecs;
+  Map<String, String>? gpuSpecs;
+  Map<String, String>? motherboardSpecs;
+  Map<String, String>? ramSpecs;
+  Map<String, String>? storageSpecs;
+  Map<String, String>? psuSpecs;
+
+
+
   void initState() {
     super.initState();
+    fetchAllComponentSpecs();
     _userProfile = fetchUserProfile();
   }
 
+Future<void> fetchAllComponentSpecs() async {
+  try {
+    print("CPU ID: ${widget.cpuId}");
+    print("GPU ID: ${widget.gpuId}");
+    print("Motherboard ID: ${widget.motherboardId}");
+    print("RAM ID: ${widget.ramId}");
+    print("Storage ID: ${widget.storageId}");
+    print("PSU ID: ${widget.psuId}");
+
+    List<Future<void>> fetchFutures = [];
+
+    if (widget.cpuId != null) {
+      fetchFutures.add(fetchSpecsCPU(widget.cpuId!).then((specs) {
+        cpuSpecs = specs;
+        print("Fetched CPU specs: $cpuSpecs");
+      }));
+    }
+    if (widget.gpuId != null) {
+      fetchFutures.add(fetchSpecsGPU(widget.gpuId!).then((specs) {
+        gpuSpecs = specs;
+        print("Fetched GPU specs: $gpuSpecs");
+      }));
+    }
+    if (widget.motherboardId != null) {
+      fetchFutures.add(fetchSpecsMB(widget.motherboardId!).then((specs) {
+        motherboardSpecs = specs;
+        print("Fetched Motherboard specs: $motherboardSpecs");
+      }));
+    }
+    if (widget.ramId != null) {
+      fetchFutures.add(fetchSpecsRam(widget.ramId!).then((specs) {
+        ramSpecs = specs;
+        print("Fetched RAM specs: $ramSpecs");
+      }));
+    }
+    if (widget.storageId != null) {
+      fetchFutures.add(fetchSpecsStorage(widget.storageId!).then((specs) {
+        storageSpecs = specs;
+        print("Fetched Storage specs: $storageSpecs");
+      }));
+    }
+    if (widget.psuId != null) {
+      fetchFutures.add(fetchSpecsPSU(widget.psuId!).then((specs) {
+        psuSpecs = specs;
+        print("Fetched PSU specs: $psuSpecs");
+      }));
+    }
+
+    await Future.wait(fetchFutures);
+
+    setState(() {});
+
+  } catch (e) {
+    print("Error fetching specs: $e");
+  }
+}
+  
+
   @override
   Widget build(BuildContext context) {
-
-
-    final Map<String, String> componentSpecs = { // SPECS PLACEHOLDER PLZ HELP ME FIX 
-      "Cores": "8",
-      "Threads": "16",
-      "Base Clock": "3.6 GHz",
-      "Boost Clock": "4.9 GHz",
-    };
 
 
     final int totalScore = widget.benchmarkScore;
@@ -164,42 +239,42 @@ class _UserBuildDetailedViewState extends State<UserBuildDetailedView> {
                       componentPic: NetworkImage('https://via.placeholder.com/100'), // palitan 
                       componentTitle: 'CPU',
                       componentName: widget.cpu,
-                      componentSpecs: componentSpecs,
+                      componentSpecs: cpuSpecs ?? {"Loading": "..."},
                     );
                   case 1:
                     return GridTileView(
                       componentPic: NetworkImage('https://via.placeholder.com/100'),
                       componentTitle: 'GPU',
                       componentName: widget.gpu,
-                      componentSpecs: componentSpecs,
+                      componentSpecs: gpuSpecs ?? {"Loading": "..."},
                     );
                   case 2:
                     return GridTileView(
                       componentPic: NetworkImage('https://via.placeholder.com/100'),
                       componentTitle: 'Motherboard',
                       componentName: widget.motherboard,
-                      componentSpecs: componentSpecs,
+                      componentSpecs:  motherboardSpecs ?? {"Loading": "..."} ,
                     );
                   case 3:
                     return GridTileView(
                       componentPic: NetworkImage('https://via.placeholder.com/100'),
                       componentTitle: 'RAM',
                       componentName: widget.ram,
-                      componentSpecs: componentSpecs,
+                      componentSpecs: ramSpecs ?? {"Loading": "..."},
                     );
                   case 4:
                     return GridTileView(
                       componentPic: NetworkImage('https://via.placeholder.com/100'),
                       componentTitle: 'Storage',
                       componentName: widget.storage,
-                      componentSpecs: componentSpecs,
+                      componentSpecs: storageSpecs ?? {"Loading": "..."},
                     );
                   case 5:
                     return GridTileView(
                       componentPic: NetworkImage('https://via.placeholder.com/100'),
                       componentTitle: 'Power Supply',
                       componentName: widget.psu,
-                      componentSpecs: componentSpecs,
+                      componentSpecs: psuSpecs ?? {"Loading": "..."},
                     );
                   default:
                     return Container();
@@ -238,8 +313,6 @@ class _UserBuildDetailedViewState extends State<UserBuildDetailedView> {
                       color: Colors.white,
                     ),
                   ),
-
-                  
 
                   Center(
                     child: PerformanceBar(

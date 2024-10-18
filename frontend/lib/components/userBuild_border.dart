@@ -15,12 +15,12 @@ class userBuildBorder extends StatelessWidget {
   final int? benchmarkScore;
   final String dateCreated;
 
-  int? cpuId;
-  int? gpuId;
-  int? motherboardId;
-  int? ramId;
-  int? storageId;
-  int? psuId;
+  final int? cpuId;
+  final int? gpuId;
+  final int? motherboardId;
+  final int? ramId;
+  final int? storageId;
+  final int? psuId;
   
 
   userBuildBorder({
@@ -134,7 +134,8 @@ class userBuildBorder extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: (){
-
+                   print("Build ID: $buildID");
+                   print("cpuID: $cpuId");
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -151,6 +152,13 @@ class userBuildBorder extends StatelessWidget {
                         buildDescription: buildDescription,
                         benchmarkScore: benchmarkScore ?? 0,
                         dateCreated: dateCreated,
+
+                        cpuId: cpuId,
+                        gpuId: gpuId,
+                        motherboardId: motherboardId,
+                        ramId: ramId,
+                        storageId: storageId,
+                        psuId: psuId,
                         )
                         )
                         );

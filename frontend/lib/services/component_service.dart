@@ -191,4 +191,17 @@ class ComponentService {
       throw Exception('Failed to load components');
     }
   }
+
+// COMPATIBILITY LOGIC TEST
+
+  bool RamMobo(Component mobo, Component ram) {
+    return mobo.ramsupport == ram.gen;
+  }
+
+  bool CpuMobo(Component mobo, Component cpu) {
+    return mobo.socket == cpu.socket;
+  }
+  
 }
+
+

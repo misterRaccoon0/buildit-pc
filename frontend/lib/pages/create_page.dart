@@ -42,6 +42,12 @@ class _CreatePageState extends State<CreatePage> {
   int totalPrice = 0;
   int benchmarkScore = 0;
 
+  int budget = 0; 
+  bool isWithinBudget = true; 
+  TextEditingController budgetController = TextEditingController();
+
+  String compatibilityMessage = '';
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +59,11 @@ class _CreatePageState extends State<CreatePage> {
     futurePSU = ComponentService().fetchPSU();
   }
 
+  void dispose() {
+    budgetController.dispose(); 
+    super.dispose();
+  }
+
   void calculateTotalTDP() {
     setState(() {
       totalTDP = selectedComponents.values.fold(0, (sum, component) => sum + component.tdp + 25) + 100;
@@ -62,6 +73,7 @@ class _CreatePageState extends State<CreatePage> {
   void calculatePrice() {
     setState(() {
       totalPrice = selectedComponents.values.fold(0, (sum, component) => sum + component.price);
+      isWithinBudget = totalPrice <= budget;
     });
   }
 
@@ -77,8 +89,49 @@ class _CreatePageState extends State<CreatePage> {
       calculateTotalTDP();
       calculatePrice();
       calculateBenchmark();
+      checkCompatibility();
       print('Component selected for $category: ${component.id}, ${component.name}');
     });
+  }
+
+ // test implementation on compatibility logic
+
+  void checkCompatibility() {
+    if (selectedComponents.containsKey('motherboard') && 
+        selectedComponents.containsKey('ram') && 
+        selectedComponents.containsKey('cpu')) {
+      
+      Component selectedMobo = selectedComponents['motherboard']!;
+      Component selectedRam = selectedComponents['ram']!;
+      Component selectedCpu = selectedComponents['cpu']!;
+
+      bool ramCompatible = ComponentService().RamMobo(selectedMobo, selectedRam);
+      bool cpuCompatible = ComponentService().CpuMobo(selectedMobo, selectedCpu);
+
+      if (ramCompatible && cpuCompatible) {
+        setState(() {
+          compatibilityMessage = 'Components are compatible!';
+        });
+      } else {
+        if (!ramCompatible && !cpuCompatible) {
+          setState(() {
+            compatibilityMessage = 'MOTHERBOARD is INCOMPATIBLE with RAM and CPU!';
+          });
+        } else if (!ramCompatible) {
+          setState(() {
+            compatibilityMessage = 'RAM and MOTHERBOARD is INCOMPATIBLE!';
+          });
+        } else if (!cpuCompatible) {
+          setState(() {
+            compatibilityMessage = 'CPU and MOTHERBOARD is INCOMPATIBLE!';
+          });
+        }
+      }
+    } else {
+      setState(() {
+        compatibilityMessage = '';
+      });
+    }
   }
 
   void resetComponent() { // HINDI GUMAGANA NANG MAAYOS!!!
@@ -103,12 +156,24 @@ class _CreatePageState extends State<CreatePage> {
       totalPrice = 0;
       totalTDP = 0;
       benchmarkScore = 0;
+      budget = 0;
+      budgetController.clear();
+
+      compatibilityMessage = '';
     });
+    
   }
 
   Future<void> saveBuild() async {
     String? buildName;
     String? buildDescription;
+
+    if (!isWithinBudget) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Total price exceeds your budget!')),
+      );
+      return; 
+    }
 
     await showDialog(
       context: context,
@@ -225,6 +290,7 @@ class _CreatePageState extends State<CreatePage> {
           ),
           const SizedBox(width: 10),
         ],
+
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -232,6 +298,37 @@ class _CreatePageState extends State<CreatePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              const Padding(
+                padding: EdgeInsets.only(left: 16.0, top: 20),
+                child: Text(
+                  'SET YOUR BUDGET:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextField(
+                  controller: budgetController,
+                  decoration: const InputDecoration(
+                    labelText: 'Budget (in PHP)',
+                    hintText: 'Enter your budget',
+                    fillColor: Colors.white,
+                    filled: true,
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      budget = int.tryParse(value) ?? 0; 
+                      isWithinBudget = totalPrice <= budget; 
+                    });
+                  },
+                ),
+              ),           
               FutureBuilder<List<Component>>(
                 future: futureCPU,
                 builder: (context, snapshot) {
@@ -407,7 +504,21 @@ class _CreatePageState extends State<CreatePage> {
                   }
                 },
               ),
-              const SizedBox(height: 20),
+
+            const SizedBox(height: 8),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                compatibilityMessage,
+                style: TextStyle(
+                  color: compatibilityMessage.contains('Incompatible') ? Colors.red : Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
+              const SizedBox(height: 5),
               const Padding(
                 padding: EdgeInsets.only(left: 16.0),
                 child: Text(
@@ -423,7 +534,11 @@ class _CreatePageState extends State<CreatePage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   '₱${totalPrice.toStringAsFixed(2)}',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.cyan),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: totalPrice > budget ? Colors.red : Colors.green,
+                  ),
                 ),
               ),
 
@@ -467,8 +582,6 @@ class _CreatePageState extends State<CreatePage> {
                   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.cyan ),
                 ),
               ),
-
-
             ],
           ),
         ),
