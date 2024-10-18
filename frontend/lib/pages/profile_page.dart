@@ -22,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text(
           'P R O F I L E',
@@ -52,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: <Widget>[
                     Center(
                       child: CircleAvatar(
-                        radius: 50,
+                        radius: 100,
                         backgroundImage: NetworkImage(
                           user['profileImage'] ?? 'https://via.placeholder.com/150', 
                         ),
@@ -64,9 +64,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Text(
                         user['name'] ?? 'John Doe',
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 35,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Colors.cyan,
                         ),
                       ),
                     ),
@@ -76,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         user['email'] ?? 'john.doe@example.com',
                         style: const TextStyle(
                           fontSize: 15,
-                          color: Colors.grey,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -122,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(height: 20),

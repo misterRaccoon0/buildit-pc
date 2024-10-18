@@ -71,6 +71,14 @@ class _BuildPageState extends State<BuildPage> {
                   itemCount: _userBuilds.length,
                   itemBuilder: (context, index) {
                     final build = _userBuilds[index];
+
+                    final int? cpuId = build['cpu'] != null ? build['cpu']['id'] as int : null;
+                    final int? gpuId = build['gpu'] != null ? build['gpu']['id'] as int : null;
+                    final int? motherboardId = build['motherboard'] != null ? build['motherboard']['id'] as int : null;
+                    final int? ramId = build['ram'] != null ? build['ram']['id'] as int : null;
+                    final int? storageId = build['storage'] != null ? build['storage']['id'] as int : null;
+                    final int? psuId = build['psu'] != null ? build['psu']['id'] as int : null;
+
                     return userBuildBorder(
                       buildID: build['id'],
                       buildName: build['name'],
@@ -103,8 +111,14 @@ class _BuildPageState extends State<BuildPage> {
 
                       benchmarkScore: build['benchmarkScore'],
                           
-                      dateCreated: 'Date not available', // wala pa
-
+                      dateCreated: 'Date not available', // wala pa 
+                      
+                      cpuId: cpuId,
+                      gpuId: gpuId,
+                      motherboardId: motherboardId,
+                      ramId: ramId,
+                      storageId: storageId,
+                      psuId: psuId,
                     );
                   },
                 ),

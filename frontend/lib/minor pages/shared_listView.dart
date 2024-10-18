@@ -14,10 +14,17 @@ class SharedListView extends StatelessWidget {
         itemCount: itemCount, 
         itemBuilder: (context, index) {
           return Card(
+            color: const Color.fromARGB(255, 2, 1, 75),
             margin: const EdgeInsets.symmetric(vertical: 8),
             child: ListTile(
-              title: Text('Shared Build ${index + 1}'),
-              subtitle: Text('Description of build ${index + 1}'),
+              title: Text('Shared Build ${index + 1}',
+              style: TextStyle(
+                color: Colors.cyan
+              ),),
+              subtitle: Text('Description of build ${index + 1}',
+              style: TextStyle(
+                color: Colors.white
+              ),),
               leading: CircleAvatar(
                 backgroundImage: NetworkImage('https://via.placeholder.com/50'), // Placeholder
               ),

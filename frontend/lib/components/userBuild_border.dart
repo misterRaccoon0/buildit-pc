@@ -14,6 +14,13 @@ class userBuildBorder extends StatelessWidget {
   final String psu;
   final int? benchmarkScore;
   final String dateCreated;
+
+  int? cpuId;
+  int? gpuId;
+  int? motherboardId;
+  int? ramId;
+  int? storageId;
+  int? psuId;
   
 
   userBuildBorder({
@@ -29,6 +36,13 @@ class userBuildBorder extends StatelessWidget {
     required this.psu,
     this.benchmarkScore,
     required this.dateCreated,
+
+    this.cpuId,
+    this.gpuId,
+    this.motherboardId,
+    this.ramId,
+    this.storageId,
+    this.psuId,
   });
 
   @override

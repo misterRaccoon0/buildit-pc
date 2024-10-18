@@ -75,6 +75,7 @@ class ComponentSelectorState extends State<ComponentSelector> {
 
   void resetComponentView() {
     print("Resetting component: ${widget.dropdownLabel}");
+          _selectedComponent = null;  
     setState(() {
       _selectedValue = 'Select ${widget.dropdownLabel}';
       
