@@ -56,15 +56,28 @@ class _BuildPageState extends State<BuildPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[350],
       appBar: AppBar(
-        title: Text(
-          'M Y   B U I L D S',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+    title: ShaderMask(
+      shaderCallback: (bounds) => LinearGradient(
+        colors: [
+          const Color.fromARGB(255, 4, 0, 255),
+          const Color.fromARGB(255, 0, 140, 255),
+          ],
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+      ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
+      child: Text(
+        'M Y   B U I L D S',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white, 
         ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
       ),
+    ),
+  ),
+
+
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : _userBuilds.isEmpty

@@ -52,13 +52,19 @@ class userBuildBorder extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: const Color.fromARGB(255, 0, 12, 51),
-          border: Border(
-            top: BorderSide(color:const Color.fromARGB(255, 0, 255, 242)),
-            left: BorderSide(color:const Color.fromARGB(255, 0, 255, 242)),
-            right: BorderSide(color:const Color.fromARGB(255, 0, 255, 242)),
-            bottom: BorderSide(color:const Color.fromARGB(255, 0, 255, 242)),
-          )
+          color:Colors.white,
+          border: Border.all(
+            color: Colors.white,
+            width: 2
+          ),
+          boxShadow: [
+          BoxShadow(
+            color: const Color.fromARGB(255, 0, 89, 255).withOpacity(0.2),
+            spreadRadius: 3,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
           
           ),
         child: ExpansionTile(
@@ -77,59 +83,92 @@ class userBuildBorder extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color:const Color.fromARGB(255, 0, 255, 242)
+              color:const Color.fromARGB(255, 52, 51, 128)
             ),
           ),
-          subtitle: Text('Created: $dateCreated', style: TextStyle(color: Colors.white),),
+          subtitle: Text('Created: $dateCreated', style: TextStyle(color: Colors.grey[700]),),
           children: [
-            ListTile(
-              title: Text("CPU: $cpu",
+          ListTile(
+            leading: Icon(Icons.memory, color:  const Color.fromARGB(255, 53, 58, 121)), 
+            title: Text(
+              "CPU: $cpu",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
-                color:Colors.white
-                ),),
+                color: Colors.black,
+              ),
             ),
-            ListTile(
-              title: Text("GPU: $gpu",
+          ),
+          ListTile(
+              leading: Image.asset(
+                'lib/assets/icons/gpu.png',
+                width: 24,
+                height: 24,
+                color: const Color.fromARGB(255, 53, 58, 121),
+              ), 
+            title: Text(
+              "GPU: $gpu",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
-                color:Colors.white
-                ),),
+                color: Colors.black,
+              ),
             ),
-            ListTile(
-              title: Text("Motherboard: $motherboard",
+          ),
+          ListTile(
+            leading: Image.asset(
+              'lib/assets/icons/motherboard.png',
+              width: 24,
+              height: 24,
+              color:  const Color.fromARGB(255, 53, 58, 121),
+            ),
+            title: Text(
+              "Motherboard: $motherboard",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
-                color:Colors.white
-                ),),
+                color: Colors.black,
+              ),
             ),
-            ListTile(
-              title: Text("RAM: $ram",
+          ),
+          ListTile(
+          leading: Image.asset(
+            'lib/assets/icons/ram.png',
+            width: 24,
+            height: 24,
+            color:  const Color.fromARGB(255, 53, 58, 121),
+          ),
+            title: Text(
+              "RAM: $ram",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
-                color:Colors.white
-                ),),
+                color: Colors.black,
+              ),
             ),
-            ListTile(
-              title: Text("Storage: $storage",
+          ),
+          ListTile(
+            leading: Icon(Icons.storage, color:  const Color.fromARGB(255, 53, 58, 121)), 
+            title: Text(
+              "Storage: $storage",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
-                color:Colors.white
-                ),),
+                color: Colors.black,
+              ),
             ),
-            ListTile(
-              title: Text("PSU: $psu",
+          ),
+          ListTile(
+            leading: Icon(Icons.power, color:  const Color.fromARGB(255, 53, 58, 121)), 
+            title: Text(
+              "PSU: $psu",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
-                color:Colors.white
-                ),),
+                color: Colors.black,
+              ),
             ),
+          ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
@@ -167,7 +206,7 @@ class userBuildBorder extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[600]
+                  backgroundColor: Colors.grey[500]
                 ),
                 ),
             )

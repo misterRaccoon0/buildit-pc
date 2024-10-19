@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DropdownFilter extends StatefulWidget {
-  const DropdownFilter({ Key? key }) : super(key: key);
+  const DropdownFilter({Key? key}) : super(key: key);
 
   @override
   _DropdownFilterState createState() => _DropdownFilterState();
@@ -10,50 +10,105 @@ class DropdownFilter extends StatefulWidget {
 class _DropdownFilterState extends State<DropdownFilter> {
   String _dropdownValue = 'Popularity';
 
-  void dropdownCallBack(String? selectedValue) {
-    if (selectedValue is String) {
-      setState(() {
-        _dropdownValue = selectedValue;
-      });
-    }
+  void _showModalBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                const Color.fromARGB(255, 4, 0, 255),
+                const Color.fromARGB(255, 0, 140, 255),
+              ],
+              begin: Alignment.bottomLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.align_horizontal_right_sharp, color: Colors.white), // Popularity icon
+                title: Text('Popularity', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  _updateValue('Popularity', Icons.align_horizontal_right_sharp);
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.fiber_new, color: Colors.white), // Latest icon
+                title: Text('Latest', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  _updateValue('Latest', Icons.fiber_new);
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.star, color: Colors.white), // Highly Rated icon
+                title: Text('Highly Rated', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  _updateValue('Highly Rated', Icons.star);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
+
+  void _updateValue(String selectedValue, IconData selectedIcon) {
+    setState(() {
+      _dropdownValue = selectedValue;
+      _selectedIcon = selectedIcon;
+    });
+  }
+
+  IconData _selectedIcon = Icons.align_vertical_bottom_sharp; 
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 0, 255, 242),
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Colors.white, 
-            width: 1,
+    return GestureDetector(
+      onTap: _showModalBottomSheet,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10), 
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                const Color.fromARGB(255, 4, 0, 255),
+                const Color.fromARGB(255, 0, 140, 255),
+              ],
+              begin: Alignment.bottomLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(50),
+            border: Border.all(
+              color: Colors.black,
+              width: 0,
+            ),
           ),
-        ),
-
-
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            value: _dropdownValue,
-            borderRadius: BorderRadius.circular(10),
-            icon: Icon(Icons.arrow_drop_down, color: Colors.black),
-            items: [
-              DropdownMenuItem(
-                child: Text('Popularity'),
-                value: 'Popularity',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(_selectedIcon, color: Colors.white), 
+                  SizedBox(width: 10), 
+                  Text(
+                    _dropdownValue,
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ],
               ),
-              DropdownMenuItem(
-                child: Text('Latest'),
-                value: 'Latest',
-              ),
-              DropdownMenuItem(
-                child: Text('Highly Rated'),
-                value: 'Highly Rated',
-              ),
+              Icon(Icons.arrow_drop_down, color: Colors.white),
             ],
-            onChanged: dropdownCallBack,
           ),
         ),
       ),

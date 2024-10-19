@@ -260,31 +260,43 @@ class _CreatePageState extends State<CreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[350],
       appBar: AppBar(
-        title: const Text(
-          'C R E A T E   B U I L D',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        title: ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [
+              const Color.fromARGB(255, 4, 0, 255),
+              const Color.fromARGB(255, 0, 140, 255),
+              ],
+            begin: Alignment.bottomLeft,
+            end: Alignment.bottomRight,
+          ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
+          child: Text(
+            'B U I L D    I T',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white, 
+            ),
+          ),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         elevation: 0,
         actions: [
           
           IconButton(
-            icon: Icon(Icons.refresh, color: Colors.white),
+            icon: Icon(Icons.refresh, color: Colors.black),
             onPressed: resetComponent,
             tooltip: 'Reset',
           ),
 
-
           IconButton(
-            icon: Icon(Icons.save, color: Colors.white),
+            icon: Icon(Icons.save, color: Colors.black),
             onPressed: saveBuild,
             tooltip: 'Save',
           ),
           IconButton(
-            icon: Icon(Icons.publish, color: Colors.white),
+            icon: Icon(Icons.publish, color: Colors.black),
             onPressed: () {},
             tooltip: 'Publish',
           ),
@@ -299,36 +311,63 @@ class _CreatePageState extends State<CreatePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              const Padding(
-                padding: EdgeInsets.only(left: 16.0, top: 20),
-                child: Text(
-                  'SET YOUR BUDGET:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                ),
+Padding(
+  padding: const EdgeInsets.only(left: 16.0, top: 20),
+  child: Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      
+      Text(
+        'SET YOUR BUDGET:',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+          color: Colors.blue[800],
+        ),
+      ),
+      const SizedBox(width: 16), 
+      
+
+      Expanded(
+        child: TextField(
+          controller: budgetController,
+          decoration: InputDecoration(
+            labelText: 'Budget (in PHP)',
+            hintText: 'Enter your budget',
+            hintStyle: TextStyle(color: Colors.grey[600]),
+            fillColor: Colors.white,
+            filled: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(
+                color: Colors.blue.shade200,
+                width: 2,
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TextField(
-                  controller: budgetController,
-                  decoration: const InputDecoration(
-                    labelText: 'Budget (in PHP)',
-                    hintText: 'Enter your budget',
-                    fillColor: Colors.white,
-                    filled: true,
-                  ),
-                  keyboardType: TextInputType.number,
-                  onChanged: (value) {
-                    setState(() {
-                      budget = int.tryParse(value) ?? 0; 
-                      isWithinBudget = totalPrice <= budget; 
-                    });
-                  },
-                ),
-              ),           
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(color: Colors.blue.shade800, width: 2.0),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(color: Colors.blue.shade800, width: 2.0),
+            ),
+            contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
+          ),
+          keyboardType: TextInputType.number,
+          onChanged: (value) {
+            setState(() {
+              budget = int.tryParse(value) ?? 0;
+              isWithinBudget = totalPrice <= budget;
+            });
+          },
+        ),
+      ),
+    ],
+  ),
+),
+
+
               FutureBuilder<List<Component>>(
                 future: futureCPU,
                 builder: (context, snapshot) {
@@ -512,21 +551,21 @@ class _CreatePageState extends State<CreatePage> {
               child: Text(
                 compatibilityMessage,
                 style: TextStyle(
-                  color: compatibilityMessage.contains('Incompatible') ? Colors.red : Colors.green,
+                  color: compatibilityMessage.contains('INCOMPATIBLE') ? Colors.red [800] : Colors.green[800],
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
 
               const SizedBox(height: 5),
-              const Padding(
-                padding: EdgeInsets.only(left: 16.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
                 child: Text(
                   'E S T I M A T E D   B U I L D   P R I C E :',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Colors.blue[900],
                   ),
                 ),
               ),
@@ -537,7 +576,7 @@ class _CreatePageState extends State<CreatePage> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: totalPrice > budget ? Colors.red : Colors.green,
+                    color: totalPrice > budget ? Colors.red [800] : Colors.green[800],
                   ),
                 ),
               ),
@@ -548,10 +587,10 @@ class _CreatePageState extends State<CreatePage> {
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Text(
                   'R E C O M M E N D E D   P S U :',
-                  style: const TextStyle(
+                  style:  TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Colors.blue[900],
                   ),
                 ),
               ),
@@ -559,7 +598,7 @@ class _CreatePageState extends State<CreatePage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   '${totalTDP.toString()} W',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.cyan),
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.black),
                 ),
               ),
 
@@ -568,10 +607,10 @@ class _CreatePageState extends State<CreatePage> {
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Text(
                   'B U I L D   S C O R E :',
-                  style: const TextStyle(
+                  style:  TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.white,
+                    color: Colors.blue[900],
                   ),
                 ),
               ),
@@ -579,7 +618,7 @@ class _CreatePageState extends State<CreatePage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   '${benchmarkScore.toString()}',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.cyan ),
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black ),
                 ),
               ),
             ],

@@ -204,8 +204,17 @@ class ComponentSelectorState extends State<ComponentSelector> {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
         decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(color: Colors.black, width: 2),
+          border: Border.all(color: const Color.fromARGB(255, 133, 131, 131), width: 1),
           borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+          BoxShadow(
+            color: const Color.fromARGB(255, 0, 89, 255).withOpacity(0.2),
+            spreadRadius: 3,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+
         ),
         child: Row(
           children: [

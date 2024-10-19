@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/UserPost_Border.dart';
 import 'package:frontend/components/app_drawer.dart';
 import 'package:frontend/components/dropdown_filter.dart';
 import 'package:frontend/components/bottom_navbar.dart';
@@ -28,18 +29,56 @@ class HomePageState extends State<HomePage> {
   AppBar? _buildAppBar() {
   if (_currentIndex != 0) return null;
   return AppBar(
-    title: Text(
-      'B U I L D    I T',
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Colors.white
+    title: ShaderMask(
+      shaderCallback: (bounds) => LinearGradient(
+        colors: [
+          const Color.fromARGB(255, 4, 0, 255),
+          const Color.fromARGB(255, 0, 140, 255),
+          ],
+        begin: Alignment.bottomLeft,
+        end: Alignment.bottomRight,
+      ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
+      child: Text(
+        'B U I L D    I T',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white, 
         ),
+      ),
     ),
     automaticallyImplyLeading: false,
-    backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+    backgroundColor: Colors.white,
     actions: [
-      IconButton(onPressed: () {}, icon: Icon(Icons.notifications, color: Colors.white,)),
-      IconButton(onPressed: () {}, icon: Icon(Icons.search, color: Colors.white,)),
+
+      IconButton(
+        onPressed: () {
+
+        }, 
+        icon: Icon
+        (Icons.notifications_none, 
+        color: Colors.black
+        )
+      ),
+
+      IconButton(
+        onPressed: () {
+
+        }, 
+        icon: Icon(
+          Icons.search, 
+          color: Colors.black
+          )
+        ),
+
+      IconButton(
+        onPressed: () {
+          _scaffoldKey.currentState?.openEndDrawer();
+        },
+        icon: Icon(
+         Icons.menu,
+          color: Colors.black,
+          ),
+        ),
     ],
   );
 }
@@ -48,7 +87,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+      backgroundColor: Colors.grey[350],
 
       appBar: _buildAppBar(),
 
@@ -65,16 +104,6 @@ class HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                 children: [
                   Expanded(child: DropdownFilter()),
-                  IconButton(
-                    onPressed: () {
-                      _scaffoldKey.currentState?.openEndDrawer();
-                    },
-                    icon: Icon(
-                      Icons.menu,
-                      size: 50,
-                      color: Colors.white,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -92,10 +121,24 @@ class HomePageState extends State<HomePage> {
               },
               // Bottom nav bar pages
               children: [
-                Center(child: Text("Home Page Content Here", style: TextStyle(color: Colors.white),)), 
+
+
+                  ListView.builder(
+                  itemCount: 0,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+                      child: UserPostBorder(),
+                    );
+                  },
+                ),
+
+
                 BuildPage(), 
                 CreatePage(), 
                 ProfilePage(),
+
+
               ],
             ),
           ),

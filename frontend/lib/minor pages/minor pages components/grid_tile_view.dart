@@ -25,11 +25,11 @@ class _GridTileViewState extends State<GridTileView> with SingleTickerProviderSt
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey[300],
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: const Color.fromARGB(255, 0, 89, 255).withOpacity(0.2),
             spreadRadius: 3,
             blurRadius: 5,
             offset: Offset(0, 3),
@@ -57,12 +57,12 @@ class _GridTileViewState extends State<GridTileView> with SingleTickerProviderSt
 
                               Text(
                                 '${spec.key}:',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[900]),
                               ),
                               SizedBox(width: 10),
                               Text(
                                 spec.value,
-                                style: TextStyle(color: Colors.grey[600]),
+                                style: TextStyle(color: Colors.blue[800], fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -88,13 +88,15 @@ class _GridTileViewState extends State<GridTileView> with SingleTickerProviderSt
                         ),
                       ),
                       SizedBox(height: 8),
+
                       Text(
                         widget.componentTitle,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.blue[800]),
                       ),
+
                       Text(
                         widget.componentName,
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 14,),
                       ),
                       SizedBox(height: 8),
                     ],
@@ -106,7 +108,7 @@ class _GridTileViewState extends State<GridTileView> with SingleTickerProviderSt
               isSpecsVisible
                   ? Icons.clear
                   : Icons.add,
-            ),
+            color: Colors.blue[900],),
             constraints: BoxConstraints(),
             onPressed: () {
               setState(() {

@@ -22,14 +22,27 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[350],
       appBar: AppBar(
-        title: const Text(
-          'P R O F I L E',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+      title: ShaderMask(
+        shaderCallback: (bounds) => LinearGradient(
+          colors: [
+            const Color.fromARGB(255, 4, 0, 255),
+            const Color.fromARGB(255, 0, 140, 255),
+            ],
+          begin: Alignment.bottomLeft,
+          end: Alignment.bottomRight,
+        ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
+        child: Text(
+          'B U I L D    I T',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white, 
+          ),
         ),
+      ),
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _userProfile,
@@ -63,10 +76,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     Center(
                       child: Text(
                         user['name'] ?? 'John Doe',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 35,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.cyan,
+                          //fontWeight: FontWeight.bold,
+                          color: Colors.blue[800],
                         ),
                       ),
                     ),
@@ -74,9 +87,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     Center(
                       child: Text(
                         user['email'] ?? 'john.doe@example.com',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 15,
-                          color: Colors.white,
+                          color: Colors.grey[900],
                         ),
                       ),
                     ),
@@ -90,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey[700],
+                          backgroundColor: const Color.fromARGB(255, 3, 57, 139),
                           elevation: 2,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -117,12 +130,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(height: 20),
                     Divider(color: Colors.grey[400]),
                     const SizedBox(height: 20),
-                    const Text(
-                      'S H A R E D   B U I L D S',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                    Center(
+                      child: const Text(
+                        'S H A R E D   B U I L D S',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),

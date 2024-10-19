@@ -131,6 +131,7 @@ Future<void> fetchAllComponentSpecs() async {
   @override
   Widget build(BuildContext context) {
 
+  // FIX 
 
     final int totalScore = widget.benchmarkScore;
     String performanceLevel;
@@ -143,16 +144,24 @@ Future<void> fetchAllComponentSpecs() async {
     }
 
 
-
-
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 0, 23, 49),
+      backgroundColor: Colors.grey[400],
       appBar: AppBar(
-        leading: BackButton(color: Colors.white,),
-        backgroundColor: Color.fromARGB(255, 0, 23, 49),
-        title: Text(
-          widget.buildName,
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        leading: BackButton(color: Colors.black,),
+        backgroundColor: Colors.white,
+        title: ShaderMask(
+           shaderCallback: (bounds) => LinearGradient(
+        colors: [
+          const Color.fromARGB(255, 4, 0, 255),
+          const Color.fromARGB(255, 0, 140, 255),
+          ],
+        begin: Alignment.bottomLeft,
+        end: Alignment.bottomRight,
+      ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
+          child: Text(
+            widget.buildName,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          ),
         ),
       ),
 
@@ -183,7 +192,7 @@ Future<void> fetchAllComponentSpecs() async {
                         SizedBox(width: 10),
                         Text(
                           userName, 
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.blue[800]),
                         ),
                       ],
                     ),
@@ -207,7 +216,7 @@ Future<void> fetchAllComponentSpecs() async {
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.white, width: 1.5), 
                 borderRadius: BorderRadius.circular(8.0), 
-                color:Color.fromARGB(255, 0, 48, 104), 
+                color:Color.fromARGB(255, 67, 85, 146), 
               ),
               child: Text(
                 widget.buildDescription ?? 'No description available',
@@ -293,13 +302,13 @@ Future<void> fetchAllComponentSpecs() async {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Colors.white,
+                      color: Colors.blue [900],
                     ),
                   ),
                   //SizedBox(height: 8),
                   Text(
                     'S C O R E : $totalScore',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.cyan),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 1, 61, 110)),
                   ),
 
 
@@ -308,9 +317,9 @@ Future<void> fetchAllComponentSpecs() async {
                   Text(
                     'B U I L D   C A T E G O R Y',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.blue[900],
                     ),
                   ),
 
