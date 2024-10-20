@@ -17,7 +17,13 @@ return new class extends Migration
             $table->text("content")->nullable();
             $table->string("filename")->nullable();
             $table->binary("thumbnail", 1024 * 1024 * 4)->nullable();
-            $table->foreignIdFor(UserBuild::class, 'url_hash')->references('build_hash')->on(app(UserBuild::class)->getTable())->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignIdFor(UserBuild::class, 'url_hash')
+                  ->constrained(
+                      app(UserBuild::class)->getTable(),
+                      'build_hash'
+                  )
+                  ->cascadeOnUpdate()
+                  ->nullOnDelete();
         });
     }
 

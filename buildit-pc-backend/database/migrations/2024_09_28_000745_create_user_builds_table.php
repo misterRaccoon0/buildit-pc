@@ -22,41 +22,56 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(CPU::class, 'cpu_id')
                   ->nullable()
-                  ->references('id')
-                  ->on(app(CPU::class)->getTable())
+                  ->constrained(
+                      app(CPU::class)->getTable(),
+                      'id'
+                  )
                   ->cascadeOnUpdate()
                   ->nullOnDelete();
             $table->foreignIdFor(GPU::class,"gpu_id")
                   ->nullable()
-                  ->references('id')
-                  ->on(app(GPU::class)->getTable())
+                  ->constrained(
+                      app(GPU::class)->getTable(),
+                      'id'
+                  )
                   ->cascadeOnUpdate()
                   ->nullOnDelete();
             $table->foreignIdFor(Motherboard::class,"motherboard_id")
                   ->nullable()
-                  ->references('id')->on(app(Motherboard::class)->getTable())
+                  ->constrained(
+                      app(Motherboard::class)->getTable(),
+                      'id'
+                  )
                   ->cascadeOnUpdate()
                   ->nullOnDelete();
             $table->foreignIdFor(RAM::class,"ram_id")
                   ->nullable()
-                  ->references('id')
-                  ->on(app(RAM::class)->getTable())
+                  ->constrained(
+                      app(RAM::class)->getTable(),
+                      'id'
+                  )
                   ->cascadeOnUpdate()
                   ->nullOnDelete();
             $table->foreignIdFor(Storage::class,"storage_id")
                   ->nullable()
-                  ->references('id')
-                  ->on(app(Storage::class)->getTable())
+                  ->constrained(
+                      app(Storage::class)->getTable(),
+                      'id'
+                  )
                   ->cascadeOnUpdate()
                   ->nullOnDelete();
             $table->foreignIdFor(PSU::class,"psu_id")
-                  ->references('id')
-                  ->on(app(PSU::class)->getTable())
+                  ->constrained(
+                      app(PSU::class)->getTable(),
+                      'id'
+                  )
                   ->cascadeOnUpdate()
                   ->nullOnDelete();
             $table->foreignIdFor(User::class,"user_id")
-                  ->references('id')
-                  ->on(app(User::class)->getTable())
+                  ->constrained(
+                      app(User::class)->getTable(),
+                      'id'
+                  )
                   ->nullOnDelete();
             $table->string('build_hash')->unique();
             $table->boolean('isPublic')->default(false);
