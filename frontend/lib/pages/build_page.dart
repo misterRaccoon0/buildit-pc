@@ -94,7 +94,7 @@ class _BuildPageState extends State<BuildPage> {
                     final int? storageId = build['storage'] != null ? build['storage']['id'] as int : null;
                     final int? psuId = build['psu'] != null ? build['psu']['id'] as int : null;
 
-                    return userBuildBorder(
+                    return UserBuildBorder(
                       buildID: build['id'],
                       buildName: build['name'],
                       buildDescription: build['description'],

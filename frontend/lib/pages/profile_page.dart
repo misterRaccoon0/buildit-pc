@@ -34,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
           end: Alignment.bottomRight,
         ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
         child: Text(
-          'B U I L D    I T',
+          'P R O F I L E',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white, 

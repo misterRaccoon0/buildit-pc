@@ -13,7 +13,10 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 
-Route::middleware('auth:sanctum')->get('/profile', [ProfileController::class, 'getProfile']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'getProfile']);
+    Route::post('/profile/update', [ProfileController::class, 'update']);  
+});
 
 
 Route::post("/token/register",[TokenController::class,'register']);

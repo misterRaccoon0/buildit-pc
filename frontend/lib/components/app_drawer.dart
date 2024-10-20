@@ -29,7 +29,7 @@ class AppDrawer extends StatelessWidget {
           final userImageUrl = userData['profile_image'] ?? 'https://via.placeholder.com/150'; 
 
           return Container(
-            color:  const Color.fromARGB(255, 0, 10, 44), // DRAWER BG
+            color: Colors.grey[350], // DRAWER BG
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
@@ -73,53 +73,53 @@ class AppDrawer extends StatelessWidget {
                 ),
                 
                 ListTile(
-                  leading: const Icon(Icons.account_circle, color: Colors.white, size: 40),
+                  leading:  Icon(Icons.account_circle, color: Colors.blue[900], size: 40),
                   title: Text(
                     'P R O F I L E',
-                    style: TextStyle(color: const Color.fromARGB(255, 0, 255, 242), fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {
                     Navigator.pop(context);
                     pageController.jumpToPage(3);
                   },
                 ),
-                Divider(color: const Color.fromARGB(255, 0, 10, 44)),
+                Divider(color: Colors.grey[350]),
                 ListTile(
-                  leading: const Icon(Icons.settings, color: Colors.white, size: 40),
+                  leading:  Icon(Icons.settings, color: Colors.blue[900], size: 40),
                   title: Text(
                     'A C C O U N T',
-                    style: TextStyle(color: const Color.fromARGB(255, 0, 255, 242), fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {},
                 ),
-                Divider(color: const Color.fromARGB(255, 0, 10, 44)),
+                Divider(color:Colors.grey[350]),
                 ListTile(
-                  leading: const Icon(Icons.build, color: Colors.white, size: 40),
+                  leading:  Icon(Icons.build, color: Colors.blue[900], size: 40),
                   title: Text(
                     'M Y  B U I L D S',
-                    style: TextStyle(color: const Color.fromARGB(255, 0, 255, 242), fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {
                     Navigator.pop(context);
                     pageController.jumpToPage(1);
                   },
                 ),
-                Divider(color: const Color.fromARGB(255, 0, 10, 44)),
+                Divider(color: Colors.grey[350]),
                 ListTile(
-                  leading: const Icon(Icons.question_mark_sharp, color: Colors.white, size: 40),
+                  leading:  Icon(Icons.question_mark_sharp, color: Colors.blue[900], size: 40),
                   title: Text(
                     'H E L P',
-                    style: TextStyle(color: const Color.fromARGB(255, 0, 255, 242), fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {},
                 ),
-                Divider(color: const Color.fromARGB(255, 0, 10, 44)),
+                Divider(color:Colors.grey[350]),
                 const SizedBox(height: 320),
                 ListTile(
-                  leading: const Icon(Icons.logout, color: Colors.white, size: 40),
+                  leading:  Icon(Icons.logout, color: Colors.blue[900], size: 40),
                   title: Text(
                     'L O G   O U T',
-                    style: TextStyle(color: const Color.fromARGB(255, 0, 255, 242), fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {},
                 ),

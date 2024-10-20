@@ -67,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 10, 44),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -79,7 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 35,
-                  color: const Color.fromARGB(255, 0, 255, 242),
+                  color: Colors.black,
                 ),
               ),
               SizedBox(height: 20),
@@ -101,8 +101,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       "Already have an account?",
                       style: TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
+                        //fontWeight: FontWeight.bold,
+                        color: Colors.black
                       ),
                     ),
                     SizedBox(width: 10),
@@ -113,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.red,
+                          color: const Color.fromARGB(255, 0, 183, 255),
                         ),
                       ),
                     ),

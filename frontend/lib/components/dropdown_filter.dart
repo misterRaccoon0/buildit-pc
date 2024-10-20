@@ -32,15 +32,15 @@ class _DropdownFilterState extends State<DropdownFilter> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.align_horizontal_right_sharp, color: Colors.white), // Popularity icon
+                leading: Icon(Icons.align_vertical_bottom_sharp, color: Colors.white), 
                 title: Text('Popularity', style: TextStyle(color: Colors.white)),
                 onTap: () {
-                  _updateValue('Popularity', Icons.align_horizontal_right_sharp);
+                  _updateValue('Popularity', Icons.align_vertical_bottom_sharp);
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                leading: Icon(Icons.fiber_new, color: Colors.white), // Latest icon
+                leading: Icon(Icons.fiber_new, color: Colors.white), 
                 title: Text('Latest', style: TextStyle(color: Colors.white)),
                 onTap: () {
                   _updateValue('Latest', Icons.fiber_new);
@@ -48,7 +48,7 @@ class _DropdownFilterState extends State<DropdownFilter> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.star, color: Colors.white), // Highly Rated icon
+                leading: Icon(Icons.star, color: Colors.white), 
                 title: Text('Highly Rated', style: TextStyle(color: Colors.white)),
                 onTap: () {
                   _updateValue('Highly Rated', Icons.star);

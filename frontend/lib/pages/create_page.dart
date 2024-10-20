@@ -6,6 +6,7 @@ import 'package:frontend/components/component_selector.dart';
 import 'package:frontend/services/userBuild.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'dart:io';
 
 
 class CreatePage extends StatefulWidget {
@@ -272,7 +273,7 @@ class _CreatePageState extends State<CreatePage> {
             end: Alignment.bottomRight,
           ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
           child: Text(
-            'B U I L D    I T',
+            'C R E A T E   B U I L D',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white, 
@@ -291,12 +292,12 @@ class _CreatePageState extends State<CreatePage> {
           ),
 
           IconButton(
-            icon: Icon(Icons.save, color: Colors.black),
+            icon: Icon(Icons.save_outlined, color: Colors.black),
             onPressed: saveBuild,
             tooltip: 'Save',
           ),
           IconButton(
-            icon: Icon(Icons.publish, color: Colors.black),
+            icon: Icon(Icons.post_add_outlined, color: Colors.black),
             onPressed: () {},
             tooltip: 'Publish',
           ),
@@ -311,62 +312,60 @@ class _CreatePageState extends State<CreatePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-Padding(
-  padding: const EdgeInsets.only(left: 16.0, top: 20),
-  child: Row(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, top: 20),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
       
-      Text(
-        'SET YOUR BUDGET:',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-          color: Colors.blue[800],
-        ),
-      ),
-      const SizedBox(width: 16), 
-      
-
-      Expanded(
-        child: TextField(
-          controller: budgetController,
-          decoration: InputDecoration(
-            labelText: 'Budget (in PHP)',
-            hintText: 'Enter your budget',
-            hintStyle: TextStyle(color: Colors.grey[600]),
-            fillColor: Colors.white,
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide(
-                color: Colors.blue.shade200,
-                width: 2,
-              ),
+                Text(
+                  'SET YOUR BUDGET:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.blue[800],
+                  ),
+                ),
+                const SizedBox(width: 16), 
+                
+                Expanded(
+                  child: TextField(
+                    controller: budgetController,
+                    decoration: InputDecoration(
+                      labelText: 'Budget (in PHP)',
+                      hintText: 'Enter your budget',
+                      hintStyle: TextStyle(color: Colors.grey[600]),
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(
+                          color: Colors.blue.shade200,
+                          width: 2,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(color: Colors.blue.shade800, width: 2.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(color: Colors.blue.shade800, width: 2.0),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
+                    ),
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      setState(() {
+                        budget = int.tryParse(value) ?? 0;
+                        isWithinBudget = totalPrice <= budget;
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide(color: Colors.blue.shade800, width: 2.0),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide(color: Colors.blue.shade800, width: 2.0),
-            ),
-            contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
           ),
-          keyboardType: TextInputType.number,
-          onChanged: (value) {
-            setState(() {
-              budget = int.tryParse(value) ?? 0;
-              isWithinBudget = totalPrice <= budget;
-            });
-          },
-        ),
-      ),
-    ],
-  ),
-),
-
 
               FutureBuilder<List<Component>>(
                 future: futureCPU,

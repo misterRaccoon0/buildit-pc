@@ -25,7 +25,7 @@ const LoginTextfield({
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: Colors.grey.shade200)
+                  borderSide: BorderSide(color: Colors.grey.shade500)
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),                  

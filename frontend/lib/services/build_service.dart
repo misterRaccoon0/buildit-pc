@@ -40,7 +40,6 @@ class BuildService {
       body: json.encode(build.toJson()),
     );
 
-    // Log the status code and response
     print('Response status code: ${response.statusCode}');
     print('Response body: ${response.body}');
 

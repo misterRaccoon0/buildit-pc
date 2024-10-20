@@ -145,7 +145,7 @@ Future<void> fetchAllComponentSpecs() async {
 
 
     return Scaffold(
-      backgroundColor: Colors.grey[400],
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         leading: BackButton(color: Colors.black,),
         backgroundColor: Colors.white,
@@ -192,10 +192,11 @@ Future<void> fetchAllComponentSpecs() async {
                         SizedBox(width: 10),
                         Text(
                           userName, 
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.blue[800]),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.blue[800]),
                         ),
                       ],
                     ),
+
                     SizedBox(height: 16),
                     Container(
                       width: double.infinity,
@@ -209,26 +210,29 @@ Future<void> fetchAllComponentSpecs() async {
                       ),
                     ),
                   
+                  SizedBox(height: 16),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 1.5),
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: Color.fromARGB(255, 67, 85, 146),
+                    ),
+                    child: Text(
+                      widget.buildDescription ?? 'No description available',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
+
             SizedBox(height: 16),
-            Container(
-              width: double.infinity, 
-              padding: const EdgeInsets.all(16.0), 
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 1.5), 
-                borderRadius: BorderRadius.circular(8.0), 
-                color:Color.fromARGB(255, 67, 85, 146), 
-              ),
-              child: Text(
-                widget.buildDescription ?? 'No description available',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center, 
-              ),
-            ),
-            SizedBox(height: 16),
+            Text('B U I L D   S P E C S :', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blue[900]),),
 
 
             GridView.builder(
@@ -301,14 +305,14 @@ Future<void> fetchAllComponentSpecs() async {
                     'P E R F O R M A N C E :',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 22,
                       color: Colors.blue [900],
                     ),
                   ),
                   //SizedBox(height: 8),
                   Text(
                     'S C O R E : $totalScore',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 1, 61, 110)),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 1, 61, 110)),
                   ),
 
 
@@ -322,6 +326,8 @@ Future<void> fetchAllComponentSpecs() async {
                       color: Colors.blue[900],
                     ),
                   ),
+
+                  SizedBox(height: 10,),
 
                   Center(
                     child: PerformanceBar(

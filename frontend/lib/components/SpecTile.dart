@@ -5,35 +5,65 @@ Widget SpecTile(String specTitle, String specValue) {
 
   switch (specTitle) {
     case 'Motherboard':
-      specIcon = Image.asset('lib/assets/icons/motherboard.png', width: 20, height: 20, color: Colors.cyan,);
+      specIcon = Image.asset(
+        'lib/assets/icons/motherboard.png',
+        width: 20,
+        height: 20,
+        color: Colors.blue[800], 
+      );
       break;
     case 'GPU':
-      specIcon = Image.asset('lib/assets/icons/gpu.png', width: 20, height: 20, color: Colors.cyan,);
+      specIcon = Image.asset(
+        'lib/assets/icons/gpu.png',
+        width: 20,
+        height: 20,
+        color: Colors.blue[800], 
+      );
       break;
     case 'RAM':
-      specIcon = Image.asset('lib/assets/icons/ram.png', width: 20, height: 20, color: Colors.cyan,);
+      specIcon = Image.asset(
+        'lib/assets/icons/ram.png',
+        width: 20,
+        height: 20,
+        color: Colors.blue[800], 
+      );
       break;
     case 'Storage':
-      specIcon = Icon(Icons.storage, color: Colors.cyan, size: 20);
+      specIcon = Icon(
+        Icons.storage,
+        color: Colors.blue[800], 
+        size: 20,
+      );
       break;
     case 'PSU':
-      specIcon = Icon(Icons.power, color: Colors.cyan, size: 20);
+      specIcon = Icon(
+        Icons.power,
+        color: Colors.blue[800], 
+        size: 20,
+      );
       break;
     default:
-      specIcon = Icon(Icons.memory, color: Colors.cyan, size: 20); 
+      specIcon = Icon(
+        Icons.memory,
+        color: Colors.blue[800], 
+        size: 20,
+      );
   }
 
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 5.0), 
+    padding: const EdgeInsets.symmetric(vertical: 5.0),
     child: Row(
       children: [
-        specIcon, 
+        specIcon,
         SizedBox(width: 10),
         Expanded(
           child: Text(
             '$specTitle: $specValue',
-            style: TextStyle(color: Colors.white),
-            maxLines: 3, 
+            style: TextStyle(
+              color: Colors.black, 
+              fontWeight: FontWeight.bold, 
+            ),
+            maxLines: 3,
           ),
         ),
       ],

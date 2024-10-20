@@ -124,7 +124,7 @@ class HomePageState extends State<HomePage> {
 
 
                   ListView.builder(
-                  itemCount: 0,
+                  itemCount: 3,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
