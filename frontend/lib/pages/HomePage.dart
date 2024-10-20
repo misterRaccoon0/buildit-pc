@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/app_drawer.dart';
 import 'package:frontend/components/dropdown_filter.dart';
 import 'package:frontend/components/bottom_navbar.dart';
-import 'package:frontend/pages/build_page.dart';
-import 'package:frontend/pages/create_page.dart';
-import 'package:frontend/pages/profile_page.dart'; 
+import 'package:frontend/pages/BuildPage.dart';
+import 'package:frontend/pages/CreatePage.dart';
+import 'package:frontend/pages/ProfilePage.dart'; 
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   HomePageState createState() => HomePageState();
@@ -28,15 +28,15 @@ class HomePageState extends State<HomePage> {
   AppBar? _buildAppBar() {
   if (_currentIndex != 0) return null;
   return AppBar(
-    title: Text(
+    title: const Text(
       'B U I L D    I T',
       style: TextStyle(fontWeight: FontWeight.bold),
     ),
     automaticallyImplyLeading: false,
     backgroundColor: Colors.grey[300],
     actions: [
-      IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
-      IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+      IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+      IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
     ],
   );
 }
@@ -59,12 +59,12 @@ class HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                 children: [
-                  Expanded(child: DropdownFilter()),
+                  const Expanded(child: DropdownFilter()),
                   IconButton(
                     onPressed: () {
                       _scaffoldKey.currentState?.openEndDrawer();
                     },
-                    icon: Icon(
+                    icon:const Icon(
                       Icons.menu,
                       size: 50,
                     ),
@@ -83,8 +83,8 @@ class HomePageState extends State<HomePage> {
                 });
               },
               // Bottom nav bar pages
-              children: [
-                Center(child: Text("Home Page Content Here")), 
+              children:const [
+                Center(child: Text("Home Page Content Here!")), 
                 BuildPage(), 
                 CreatePage(), 
                 ProfilePage(),

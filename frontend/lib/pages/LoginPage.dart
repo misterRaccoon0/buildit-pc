@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart'; 
 import 'package:frontend/components/login_register_button.dart';
 import 'package:frontend/components/login_textfield.dart';
-import 'package:frontend/pages/home_page.dart';
-import 'package:frontend/pages/register_page.dart';
+import 'package:frontend/pages/HomePage.dart';
+import 'package:frontend/pages/RegisterPage.dart';
 import 'package:frontend/services/auth_services.dart'; 
 
 class LoginPage extends StatefulWidget {
@@ -80,7 +80,10 @@ void signUserIn() async {
           child: Column(
             children: [
               const SizedBox(height: 100),
-              const Icon(Icons.circle, size: 200),
+              const Icon(
+		    Icons.circle,
+		    size: 200
+	      ),
               const Text(
                 'Sign In',
                 style:TextStyle(
@@ -89,7 +92,10 @@ void signUserIn() async {
                 ),
               ),
               const SizedBox(height: 20),
-              LoginTextfield(controller: emailController, hintText: 'Email', obscureText: false),
+              LoginTextfield(
+		controller: emailController,
+		hintText: 'Email',
+		obscureText: false),
               const SizedBox(height: 20),
               LoginTextfield(controller: passwordController, hintText: 'Password', obscureText: true),
               const SizedBox(height: 20, width : 16),

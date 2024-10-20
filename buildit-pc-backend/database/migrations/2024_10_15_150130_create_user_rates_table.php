@@ -14,13 +14,11 @@ return new class extends Migration
     {
         Schema::create('user_rates', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('post_id',false);
             $table->timestamps();
-            $table->float('rate');
             $table->foreignIdFor(UserPost::class, 'post_id')
+                  ->nullable()
                   ->constrained(
-                      app(UserPost::class)->getTable(),
-                      'id'
+                      app(UserPost::class)->getTable()
                   )
                   ->cascadeOnDelete();
         });

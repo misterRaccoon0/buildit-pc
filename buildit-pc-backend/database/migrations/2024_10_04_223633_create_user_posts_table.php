@@ -16,12 +16,11 @@ return new class extends Migration
             $table->timestamps();
             $table->text("content")->nullable();
             $table->string("filename")->nullable();
-            $table->binary("thumbnail", 1024 * 1024 * 4)->nullable();
-            $table->foreignIdFor(UserBuild::class, 'url_hash')
-                  ->constrained(
-                      app(UserBuild::class)->getTable(),
-                      'build_hash'
-                  )
+            $table->binary("thumbnail")->nullable();
+            $table->string('url_hash')->nullable();
+            $table->foreign('url_hash')
+                  ->on(app(UserBuild::class)->getTable())
+                  ->references('build_hash')
                   ->cascadeOnUpdate()
                   ->nullOnDelete();
         });
