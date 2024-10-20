@@ -1,13 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/services/user_profile.dart';
 
 class AppDrawer extends StatelessWidget {
   final PageController pageController;
+  File? _imageFile;
 
-  const AppDrawer({
-    Key? key,
+  AppDrawer({
+    super.key,
     required this.pageController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class AppDrawer extends StatelessWidget {
           final userData = snapshot.data!;
           final userName = userData['name'] ?? 'User'; 
           final userEmail = userData['email'] ?? 'user@example.com';
-          final userImageUrl = userData['profile_image'] ?? 'https://via.placeholder.com/150'; 
+          //final userImageUrl = 'http://10.0.2.2:8000/' + (userData['profile_image'] ?? 'storage/images/profile/default.png'); 
 
           return Container(
             color: Colors.grey[350], // DRAWER BG
@@ -36,8 +39,8 @@ class AppDrawer extends StatelessWidget {
                 DrawerHeader(
                   margin: EdgeInsets.zero,
                   padding: EdgeInsets.zero,
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 18, 41, 104), // USER INFO PANEL
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 18, 41, 104), // USER INFO PANEL
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +48,9 @@ class AppDrawer extends StatelessWidget {
                       Center(
                         child: CircleAvatar(
                           radius: 35,
-                          backgroundImage: NetworkImage(userImageUrl), 
+                          backgroundImage: _imageFile != null
+                          ? FileImage(_imageFile!) 
+                          : NetworkImage('http://10.0.2.2:8000/' + userData['image_url']), 
                         ),
                       ),
                       const SizedBox(height: 5),
@@ -53,7 +58,7 @@ class AppDrawer extends StatelessWidget {
                         child: Text(
                           userName, 
                           style: const TextStyle(
-                            color: const Color.fromARGB(255, 0, 255, 242),
+                            color: Color.fromARGB(255, 0, 255, 242),
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
@@ -63,7 +68,7 @@ class AppDrawer extends StatelessWidget {
                         child: Text(
                           userEmail, 
                           style: const TextStyle(
-                            color: const Color.fromARGB(255, 0, 255, 242),
+                            color: Color.fromARGB(255, 0, 255, 242),
                             fontSize: 10,
                           ),
                         ),
@@ -74,9 +79,9 @@ class AppDrawer extends StatelessWidget {
                 
                 ListTile(
                   leading:  Icon(Icons.account_circle, color: Colors.blue[900], size: 40),
-                  title: Text(
+                  title: const Text(
                     'P R O F I L E',
-                    style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {
                     Navigator.pop(context);
@@ -86,18 +91,18 @@ class AppDrawer extends StatelessWidget {
                 Divider(color: Colors.grey[350]),
                 ListTile(
                   leading:  Icon(Icons.settings, color: Colors.blue[900], size: 40),
-                  title: Text(
+                  title: const Text(
                     'A C C O U N T',
-                    style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {},
                 ),
                 Divider(color:Colors.grey[350]),
                 ListTile(
                   leading:  Icon(Icons.build, color: Colors.blue[900], size: 40),
-                  title: Text(
+                  title: const Text(
                     'M Y  B U I L D S',
-                    style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {
                     Navigator.pop(context);
@@ -107,9 +112,9 @@ class AppDrawer extends StatelessWidget {
                 Divider(color: Colors.grey[350]),
                 ListTile(
                   leading:  Icon(Icons.question_mark_sharp, color: Colors.blue[900], size: 40),
-                  title: Text(
+                  title: const Text(
                     'H E L P',
-                    style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {},
                 ),
@@ -117,9 +122,9 @@ class AppDrawer extends StatelessWidget {
                 const SizedBox(height: 320),
                 ListTile(
                   leading:  Icon(Icons.logout, color: Colors.blue[900], size: 40),
-                  title: Text(
+                  title: const Text(
                     'L O G   O U T',
-                    style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   onTap: () {},
                 ),

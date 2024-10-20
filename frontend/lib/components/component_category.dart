@@ -8,12 +8,12 @@ class ComponentCategory extends StatefulWidget {
   final GlobalKey<ComponentSelectorState>? componentKey;
 
   const ComponentCategory({
-    Key? key,
+    super.key,
     required this.title,
     required this.components,
     required this.onChanged,
     this.componentKey,
-  }) : super(key: key);
+  });
 
   @override
   State<ComponentCategory> createState() => _ComponentCategoryState();

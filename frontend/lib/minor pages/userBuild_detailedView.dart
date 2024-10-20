@@ -26,7 +26,7 @@ class UserBuildDetailedView extends StatefulWidget {
   final int? psuId;
   
 
-  UserBuildDetailedView({
+  const UserBuildDetailedView({super.key, 
     required this.buildID,
     required this.buildName,
     this.buildDescription,
@@ -64,6 +64,7 @@ class _UserBuildDetailedViewState extends State<UserBuildDetailedView> {
 
 
 
+  @override
   void initState() {
     super.initState();
     fetchAllComponentSpecs();
@@ -147,20 +148,20 @@ Future<void> fetchAllComponentSpecs() async {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        leading: BackButton(color: Colors.black,),
+        leading: const BackButton(color: Colors.black,),
         backgroundColor: Colors.white,
         title: ShaderMask(
-           shaderCallback: (bounds) => LinearGradient(
+           shaderCallback: (bounds) => const LinearGradient(
         colors: [
-          const Color.fromARGB(255, 4, 0, 255),
-          const Color.fromARGB(255, 0, 140, 255),
+          Color.fromARGB(255, 4, 0, 255),
+          Color.fromARGB(255, 0, 140, 255),
           ],
         begin: Alignment.bottomLeft,
         end: Alignment.bottomRight,
       ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
           child: Text(
             widget.buildName,
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
       ),
@@ -170,16 +171,16 @@ Future<void> fetchAllComponentSpecs() async {
           future: _userProfile, 
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator()); 
+              return const Center(child: CircularProgressIndicator()); 
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}')); 
             } else if (snapshot.hasData) {
               final userProfile = snapshot.data!;
               final String userName = userProfile['name'] ?? 'Unknown User'; 
-              final ImageProvider userPic = NetworkImage(userProfile['profile_picture'] ?? 'https:svia.placeholder.com/150'); 
+            final ImageProvider userPic = NetworkImage('http://10.0.2.2:8000/' + userProfile['image_url']);
 
               return SingleChildScrollView(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -189,7 +190,7 @@ Future<void> fetchAllComponentSpecs() async {
                           radius: 30,
                           backgroundImage: userPic, 
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Text(
                           userName, 
                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.blue[800]),
@@ -197,7 +198,7 @@ Future<void> fetchAllComponentSpecs() async {
                       ],
                     ),
 
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Container(
                       width: double.infinity,
                       height: 200,
@@ -210,18 +211,18 @@ Future<void> fetchAllComponentSpecs() async {
                       ),
                     ),
                   
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white, width: 1.5),
                       borderRadius: BorderRadius.circular(12.0),
-                      color: Color.fromARGB(255, 67, 85, 146),
+                      color: const Color.fromARGB(255, 67, 85, 146),
                     ),
                     child: Text(
                       widget.buildDescription ?? 'No description available',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                         color: Colors.white,
@@ -231,12 +232,12 @@ Future<void> fetchAllComponentSpecs() async {
                   ),
 
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text('B U I L D   S P E C S :', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blue[900]),),
 
 
             GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, 
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
@@ -244,47 +245,47 @@ Future<void> fetchAllComponentSpecs() async {
               ),
               itemCount: 6, 
               shrinkWrap: true, 
-              physics: NeverScrollableScrollPhysics(), 
+              physics: const NeverScrollableScrollPhysics(), 
               itemBuilder: (context, index) {
                 switch (index) {
                   case 0:
                     return GridTileView(
-                      componentPic: NetworkImage('https://via.placeholder.com/100'), // palitan 
+                      componentPic: const NetworkImage('https://via.placeholder.com/100'), // palitan 
                       componentTitle: 'CPU',
                       componentName: widget.cpu,
                       componentSpecs: cpuSpecs ?? {"Loading": "..."},
                     );
                   case 1:
                     return GridTileView(
-                      componentPic: NetworkImage('https://via.placeholder.com/100'),
+                      componentPic: const NetworkImage('https://via.placeholder.com/100'),
                       componentTitle: 'GPU',
                       componentName: widget.gpu,
                       componentSpecs: gpuSpecs ?? {"Loading": "..."},
                     );
                   case 2:
                     return GridTileView(
-                      componentPic: NetworkImage('https://via.placeholder.com/100'),
+                      componentPic: const NetworkImage('https://via.placeholder.com/100'),
                       componentTitle: 'Motherboard',
                       componentName: widget.motherboard,
                       componentSpecs:  motherboardSpecs ?? {"Loading": "..."} ,
                     );
                   case 3:
                     return GridTileView(
-                      componentPic: NetworkImage('https://via.placeholder.com/100'),
+                      componentPic: const NetworkImage('https://via.placeholder.com/100'),
                       componentTitle: 'RAM',
                       componentName: widget.ram,
                       componentSpecs: ramSpecs ?? {"Loading": "..."},
                     );
                   case 4:
                     return GridTileView(
-                      componentPic: NetworkImage('https://via.placeholder.com/100'),
+                      componentPic: const NetworkImage('https://via.placeholder.com/100'),
                       componentTitle: 'Storage',
                       componentName: widget.storage,
                       componentSpecs: storageSpecs ?? {"Loading": "..."},
                     );
                   case 5:
                     return GridTileView(
-                      componentPic: NetworkImage('https://via.placeholder.com/100'),
+                      componentPic: const NetworkImage('https://via.placeholder.com/100'),
                       componentTitle: 'Power Supply',
                       componentName: widget.psu,
                       componentSpecs: psuSpecs ?? {"Loading": "..."},
@@ -312,11 +313,11 @@ Future<void> fetchAllComponentSpecs() async {
                   //SizedBox(height: 8),
                   Text(
                     'S C O R E : $totalScore',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 1, 61, 110)),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 1, 61, 110)),
                   ),
 
 
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
 
                   Text(
                     'B U I L D   C A T E G O R Y',
@@ -327,7 +328,7 @@ Future<void> fetchAllComponentSpecs() async {
                     ),
                   ),
 
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
 
                   Center(
                     child: PerformanceBar(
@@ -343,7 +344,7 @@ Future<void> fetchAllComponentSpecs() async {
           )
         );
       }
-        return Center(child: Text('No data available'));}
+        return const Center(child: Text('No data available'));}
       )
     );
   }

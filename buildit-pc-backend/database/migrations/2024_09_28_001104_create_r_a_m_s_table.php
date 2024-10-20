@@ -19,6 +19,7 @@ return new class extends Migration
             $table->char("gen");
             $table->text("cl");
             $table->integer("tdp");
+            $table->integer("price");
         });
     }
 

@@ -35,6 +35,7 @@ class BuildController extends Controller
                 'total_tdp' => 'nullable|numeric',
                 'total_price' => 'nullable|numeric',
                 'benchmarkScore' => 'nullable|numeric',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
     
             $userBuild = UserBuild::create($validatedData);
@@ -81,6 +82,50 @@ class BuildController extends Controller
             return response()->json($buildDetails, 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to fetch build details', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function destroy(int $id)
+    {
+        try {
+            $build = UserBuild::findOrFail($id);
+            $build->delete();
+    
+            return response()->json(['message' => 'Build deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to delete build', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $validatedData = $request->validate([
+                'name' => 'nullable|string|max:255',
+                'description' => 'nullable|string',
+                'image_url' => 'nullable|url', 
+            ]);
+
+            // Find the build by its ID
+            $build = UserBuild::findOrFail($id);
+
+            if (isset($validatedData['name'])) {
+                $build->name = $validatedData['name'];
+            }
+
+            if (isset($validatedData['description'])) {
+                $build->description = $validatedData['description'];
+            }
+
+            if (isset($validatedData['image_url'])) {
+                $build->image_url = $validatedData['image_url'];
+            }
+
+            $build->save();
+
+            return response()->json(['message' => 'Build updated successfully', 'build' => $build], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to update build', 'error' => $e->getMessage()], 500);
         }
     }
 

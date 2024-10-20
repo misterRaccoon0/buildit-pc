@@ -8,7 +8,7 @@ import 'package:frontend/pages/create_page.dart';
 import 'package:frontend/pages/profile_page.dart'; 
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   HomePageState createState() => HomePageState();
@@ -30,15 +30,15 @@ class HomePageState extends State<HomePage> {
   if (_currentIndex != 0) return null;
   return AppBar(
     title: ShaderMask(
-      shaderCallback: (bounds) => LinearGradient(
+      shaderCallback: (bounds) => const LinearGradient(
         colors: [
-          const Color.fromARGB(255, 4, 0, 255),
-          const Color.fromARGB(255, 0, 140, 255),
+          Color.fromARGB(255, 4, 0, 255),
+          Color.fromARGB(255, 0, 140, 255),
           ],
         begin: Alignment.bottomLeft,
         end: Alignment.bottomRight,
       ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
-      child: Text(
+      child: const Text(
         'B U I L D    I T',
         style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class HomePageState extends State<HomePage> {
         onPressed: () {
 
         }, 
-        icon: Icon
+        icon: const Icon
         (Icons.notifications_none, 
         color: Colors.black
         )
@@ -64,7 +64,7 @@ class HomePageState extends State<HomePage> {
         onPressed: () {
 
         }, 
-        icon: Icon(
+        icon: const Icon(
           Icons.search, 
           color: Colors.black
           )
@@ -74,7 +74,7 @@ class HomePageState extends State<HomePage> {
         onPressed: () {
           _scaffoldKey.currentState?.openEndDrawer();
         },
-        icon: Icon(
+        icon: const Icon(
          Icons.menu,
           color: Colors.black,
           ),
@@ -96,8 +96,8 @@ class HomePageState extends State<HomePage> {
       body: Column(
         children: [
           if (_currentIndex == 0)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 1.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 1.0),
               
 
               child: Row(
@@ -126,17 +126,17 @@ class HomePageState extends State<HomePage> {
                   ListView.builder(
                   itemCount: 3,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
                       child: UserPostBorder(),
                     );
                   },
                 ),
 
 
-                BuildPage(), 
-                CreatePage(), 
-                ProfilePage(),
+                const BuildPage(), 
+                const CreatePage(), 
+                const ProfilePage(),
 
 
               ],

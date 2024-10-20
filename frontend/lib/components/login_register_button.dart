@@ -5,10 +5,10 @@ class LoginBtn extends StatelessWidget {
   final String buttonText;
 
   const LoginBtn({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.buttonText,
-  }) : super(key: key);
+  });
 
 @override
 Widget build(BuildContext context) {
@@ -22,11 +22,11 @@ Widget build(BuildContext context) {
         Positioned.fill(
           child: ShaderMask(
             shaderCallback: (bounds) {
-              return LinearGradient(
+              return const LinearGradient(
                 colors: [
-                  const Color.fromARGB(255, 0, 17, 255),
-                  const Color.fromARGB(255, 0, 140, 255),
-                  const Color.fromARGB(255, 0, 217, 255),
+                  Color.fromARGB(255, 0, 17, 255),
+                  Color.fromARGB(255, 0, 140, 255),
+                  Color.fromARGB(255, 0, 217, 255),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -45,7 +45,7 @@ Widget build(BuildContext context) {
         ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(25),
+            padding: const EdgeInsets.all(25),
             backgroundColor: Colors.transparent, 
             shadowColor: Colors.transparent, 
             shape: RoundedRectangleBorder(
@@ -57,7 +57,7 @@ Widget build(BuildContext context) {
               scale: 1.5,
               child: Text(
                 buttonText,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white, 
                   fontWeight: FontWeight.bold,
                   fontSize: 16,

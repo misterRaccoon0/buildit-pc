@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ComponentDropdown extends StatefulWidget {
-  const ComponentDropdown({ Key? key }) : super(key: key);
+  const ComponentDropdown({ super.key });
 
   @override
   _ComponentDropdownState createState() => _ComponentDropdownState();

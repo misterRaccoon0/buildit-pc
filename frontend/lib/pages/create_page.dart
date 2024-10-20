@@ -10,7 +10,7 @@ import 'dart:io';
 
 
 class CreatePage extends StatefulWidget {
-  const CreatePage({Key? key}) : super(key: key);
+  const CreatePage({super.key});
 
   @override
   _CreatePageState createState() => _CreatePageState();
@@ -60,6 +60,7 @@ class _CreatePageState extends State<CreatePage> {
     futurePSU = ComponentService().fetchPSU();
   }
 
+  @override
   void dispose() {
     budgetController.dispose(); 
     super.dispose();
@@ -223,7 +224,7 @@ class _CreatePageState extends State<CreatePage> {
 
   Future<void> _submitBuild(String name, String? description) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? user_id = prefs.getInt('user_id');
+    int? userId = prefs.getInt('user_id');
     
     UserBuild newBuild = UserBuild(
       id: 0, 
@@ -238,7 +239,7 @@ class _CreatePageState extends State<CreatePage> {
       totalTdp: totalTDP,
       totalPrice: totalPrice.toDouble(),
       benchmarkScore: benchmarkScore,
-      user_id: user_id ?? 0,
+      user_id: userId ?? 0,
     );
     
     print(newBuild.toJson());
@@ -264,15 +265,15 @@ class _CreatePageState extends State<CreatePage> {
       backgroundColor: Colors.grey[350],
       appBar: AppBar(
         title: ShaderMask(
-          shaderCallback: (bounds) => LinearGradient(
+          shaderCallback: (bounds) => const LinearGradient(
             colors: [
-              const Color.fromARGB(255, 4, 0, 255),
-              const Color.fromARGB(255, 0, 140, 255),
+              Color.fromARGB(255, 4, 0, 255),
+              Color.fromARGB(255, 0, 140, 255),
               ],
             begin: Alignment.bottomLeft,
             end: Alignment.bottomRight,
           ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
-          child: Text(
+          child: const Text(
             'C R E A T E   B U I L D',
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -286,18 +287,18 @@ class _CreatePageState extends State<CreatePage> {
         actions: [
           
           IconButton(
-            icon: Icon(Icons.refresh, color: Colors.black),
+            icon: const Icon(Icons.refresh, color: Colors.black),
             onPressed: resetComponent,
             tooltip: 'Reset',
           ),
 
           IconButton(
-            icon: Icon(Icons.save_outlined, color: Colors.black),
+            icon: const Icon(Icons.save_outlined, color: Colors.black),
             onPressed: saveBuild,
             tooltip: 'Save',
           ),
           IconButton(
-            icon: Icon(Icons.post_add_outlined, color: Colors.black),
+            icon: const Icon(Icons.post_add_outlined, color: Colors.black),
             onPressed: () {},
             tooltip: 'Publish',
           ),
@@ -352,7 +353,7 @@ class _CreatePageState extends State<CreatePage> {
                         borderRadius: BorderRadius.circular(8.0),
                         borderSide: BorderSide(color: Colors.blue.shade800, width: 2.0),
                       ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
                     ),
                     keyboardType: TextInputType.number,
                     onChanged: (value) {
@@ -371,9 +372,9 @@ class _CreatePageState extends State<CreatePage> {
                 future: futureCPU,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(child: const LinearProgressIndicator()),
+                    return const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Center(child: LinearProgressIndicator()),
                     );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
@@ -400,9 +401,9 @@ class _CreatePageState extends State<CreatePage> {
                 future: futureGPU,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(child: const LinearProgressIndicator()),
+                    return const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Center(child: LinearProgressIndicator()),
                     );
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
@@ -429,9 +430,9 @@ class _CreatePageState extends State<CreatePage> {
                 future: futureMOBO,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(child: const LinearProgressIndicator()),
+                    return const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Center(child: LinearProgressIndicator()),
                     );
                     } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
@@ -460,9 +461,9 @@ class _CreatePageState extends State<CreatePage> {
                 future: futureRAM,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(child: const LinearProgressIndicator()),
+                    return const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Center(child: LinearProgressIndicator()),
                     );                  } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
@@ -489,9 +490,9 @@ class _CreatePageState extends State<CreatePage> {
                 future: futureSTORAGE,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(child: const LinearProgressIndicator()),
+                    return const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Center(child: LinearProgressIndicator()),
                     );                  } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
@@ -517,9 +518,9 @@ class _CreatePageState extends State<CreatePage> {
                 future: futurePSU,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(child: const LinearProgressIndicator()),
+                    return const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Center(child: LinearProgressIndicator()),
                     );
                     } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
@@ -616,7 +617,7 @@ class _CreatePageState extends State<CreatePage> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  '${benchmarkScore.toString()}',
+                  benchmarkScore.toString(),
                   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black ),
                 ),
               ),

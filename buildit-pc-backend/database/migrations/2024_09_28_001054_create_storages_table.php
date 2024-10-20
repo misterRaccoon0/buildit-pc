@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text("interface");
             $table->char("readspeed");
             $table->char("writespeed");
+            $table->integer("price");
         });
     }
 

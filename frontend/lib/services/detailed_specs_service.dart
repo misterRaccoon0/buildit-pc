@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';  
-import 'package:frontend/components/component_selector.dart';
 
 Future<Map<String, String>> fetchSpecsCPU(int cpuId) async {
   final response = await http.get(Uri.parse('http://10.0.2.2:8000/api/component/cpus/$cpuId'));
@@ -86,7 +84,7 @@ Future<Map<String, String>> fetchSpecsStorage(int storageId) async {
     print("Full Storage API Response: $data"); 
     
     // Access unit_size correctly
-    String unitSize = data['unit_size']; 
+    String unitSize = data['unitsize']; 
 
     return {
       "Size": '${data['size']} $unitSize', 

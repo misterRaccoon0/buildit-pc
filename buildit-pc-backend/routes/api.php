@@ -39,10 +39,14 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/builds/index', [BuildController::class, 'index']); 
     Route::post('/builds/create', [BuildController::class, 'store']); 
-    Route::get('/builds/{id}', [BuildController::class, 'read']); 
+    Route::get('/builds/{id}', [BuildController::class, 'read']);
+    Route::delete('/builds/delete/{id}', [BuildController::class, 'destroy']);
+    Route::put('/builds/edit/{id}', [BuildController::class, 'update']);
 
-    Route::get('builds/{buildID}/storage', [BuildController::class, 'getStorageSpecs']);
+    //Route::get('builds/{buildID}/storage', [BuildController::class, 'getStorageSpecs']);
 });
+
+Route::post('/upload', [ImageUploadController::class, 'upload']);
 
 
 Route::get("/build/{id}", [BuildController::class,"read"]);

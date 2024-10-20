@@ -32,11 +32,11 @@ class ComponentSelector extends StatefulWidget {
   final Function(String?) onChanged;
 
   const ComponentSelector({
-    Key? key,
+    super.key,
     required this.components,
     required this.dropdownLabel,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   ComponentSelectorState createState() => ComponentSelectorState();
@@ -103,7 +103,7 @@ class ComponentSelectorState extends State<ComponentSelector> {
                   controller: _searchController,
                   decoration: InputDecoration(
                     labelText: 'Search Component',
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -130,20 +130,20 @@ class ComponentSelectorState extends State<ComponentSelector> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       Expanded(
                         child: Column(
                           children: [
                             Text(
-                              '${_selectedComponent!.name}',
-                              style: TextStyle(
+                              _selectedComponent!.name,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
-                              '${_selectedComponent!.specs}',
-                              style: TextStyle(
+                              _selectedComponent!.specs,
+                              style: const TextStyle(
                                 fontSize: 12,
                               ),
                             ),
@@ -170,7 +170,7 @@ class ComponentSelectorState extends State<ComponentSelector> {
                               height: 50,
                               width: 50,
                               color: Colors.grey[300],
-                              child: Icon(Icons.image, size: 24),
+                              child: const Icon(Icons.image, size: 24),
                             ),
                       title: Text(component.name),
                       subtitle: Text(component.specs),
@@ -211,7 +211,7 @@ class ComponentSelectorState extends State<ComponentSelector> {
             color: const Color.fromARGB(255, 0, 89, 255).withOpacity(0.2),
             spreadRadius: 3,
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
 
@@ -230,7 +230,7 @@ class ComponentSelectorState extends State<ComponentSelector> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
                     _selectedValue,
                     style: const TextStyle(fontWeight: FontWeight.bold),

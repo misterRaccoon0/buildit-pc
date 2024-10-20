@@ -4,7 +4,7 @@ class PerformanceBar extends StatelessWidget {
   final int totalScore;
   final String performanceLevel;
 
-  PerformanceBar({required this.totalScore, required this.performanceLevel});
+  const PerformanceBar({super.key, required this.totalScore, required this.performanceLevel});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class PerformanceBar extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [Colors.red, Colors.orange, Colors.yellow, Colors.green],
                   stops: [0.0, 0.3, 0.6, 1.0],  
                 ),
@@ -36,14 +36,14 @@ class PerformanceBar extends StatelessWidget {
           ],
         ),
 
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
+        const Padding(
+          padding: EdgeInsets.only(top: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('ENTRY LEVEL', style: TextStyle(fontSize: 12, color:const Color.fromARGB(255, 1, 61, 110), fontWeight: FontWeight.bold)),
-              Text('MID RANGE', style: TextStyle(fontSize: 12, color: const Color.fromARGB(255, 1, 61, 110),  fontWeight: FontWeight.bold)),
-              Text('HIGH END', style: TextStyle(fontSize: 12, color: const Color.fromARGB(255, 1, 61, 110),  fontWeight: FontWeight.bold)),
+              Text('ENTRY LEVEL', style: TextStyle(fontSize: 12, color:Color.fromARGB(255, 1, 61, 110), fontWeight: FontWeight.bold)),
+              Text('MID RANGE', style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 1, 61, 110),  fontWeight: FontWeight.bold)),
+              Text('HIGH END', style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 1, 61, 110),  fontWeight: FontWeight.bold)),
             ],
           ),
         ),

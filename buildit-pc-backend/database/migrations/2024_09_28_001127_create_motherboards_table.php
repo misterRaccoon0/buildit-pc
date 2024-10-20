@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer("ramslot");
             $table->text("ramsupport");
             $table->text("storageinterface");
+            $table->integer("price");
         });
     }
 

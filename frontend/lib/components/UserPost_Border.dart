@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/SpecTile.dart';
 
 class UserPostBorder extends StatefulWidget {
-  const UserPostBorder({Key? key}) : super(key: key);
+  const UserPostBorder({super.key});
 
   @override
   _UserPostBorderState createState() => _UserPostBorderState();

@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer("benchmark");
             $table->text("socket");
             $table->integer("tdp");
+            $table->integer("price");
+
         });
     }
 

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class SharedListView extends StatelessWidget {
   final int itemCount;
 
-  const SharedListView({Key? key, required this.itemCount}) : super(key: key);
+  const SharedListView({super.key, required this.itemCount});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: itemCount * 90,
       child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: itemCount, 
         itemBuilder: (context, index) {
           return Card(
@@ -18,17 +18,17 @@ class SharedListView extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 8),
             child: ListTile(
               title: Text('Shared Build ${index + 1}',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.cyan
               ),),
               subtitle: Text('Description of build ${index + 1}',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white
               ),),
-              leading: CircleAvatar(
+              leading: const CircleAvatar(
                 backgroundImage: NetworkImage('https://via.placeholder.com/50'), // Placeholder
               ),
-              trailing: Icon(Icons.arrow_forward),
+              trailing: const Icon(Icons.arrow_forward),
               onTap: () {
 
               },

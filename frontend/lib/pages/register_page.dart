@@ -5,7 +5,7 @@ import 'package:frontend/pages/login_page.dart';
 import 'package:frontend/services/auth_services.dart'; 
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -47,12 +47,12 @@ class _RegisterPageState extends State<RegisterPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Error'),
+          title: const Text('Error'),
           content: Text(errorMessage),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -72,9 +72,9 @@ class _RegisterPageState extends State<RegisterPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 100),
-              Icon(Icons.circle, size: 200),
-              Text(
+              const SizedBox(height: 100),
+              const Icon(Icons.circle, size: 200),
+              const Text(
                 'Sign Up',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -82,22 +82,22 @@ class _RegisterPageState extends State<RegisterPage> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               LoginTextfield(controller: usernameController, hintText: 'Username', obscureText: false),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               LoginTextfield(controller: emailController, hintText: 'Email', obscureText: false),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               LoginTextfield(controller: passwordController, hintText: 'Password', obscureText: true),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               LoginTextfield(controller: confirmPasswordController, hintText: 'Confirm Password', obscureText: true),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               LoginBtn(onPressed: registerUser, buttonText: 'Register'),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Already have an account?",
                       style: TextStyle(
                         fontSize: 18,
@@ -105,15 +105,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         color: Colors.black
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     TextButton(
                       onPressed: goToLogIn,
-                      child: Text(
+                      child: const Text(
                         'Sign in',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 0, 183, 255),
+                          color: Color.fromARGB(255, 0, 183, 255),
                         ),
                       ),
                     ),

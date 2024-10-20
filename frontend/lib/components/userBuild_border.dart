@@ -22,7 +22,11 @@ class UserBuildBorder extends StatefulWidget {
   final int? storageId;
   final int? psuId;
 
-  UserBuildBorder({
+  final Function(int) onDelete;
+  final Future<void> Function(int, String?, String?) onEdit;
+
+  const UserBuildBorder({
+    super.key,
     required this.buildID,
     required this.buildName,
     this.buildDescription,
@@ -41,6 +45,8 @@ class UserBuildBorder extends StatefulWidget {
     this.ramId,
     this.storageId,
     this.psuId,
+    required this.onDelete,
+    required this.onEdit
   });
 
   @override
@@ -48,7 +54,50 @@ class UserBuildBorder extends StatefulWidget {
 }
 
 class _UserBuildBorderState extends State<UserBuildBorder> {
-  bool isExpanded = false; 
+  bool isExpanded = false;
+
+  void _showEditDialog(BuildContext context, int buildID, String? currentName, String? currentDescription) {
+    final TextEditingController nameController = TextEditingController(text: currentName);
+    final TextEditingController descriptionController = TextEditingController(text: currentDescription);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Edit Build'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Name'),
+              ),
+              TextField(
+                controller: descriptionController,
+                decoration: const InputDecoration(labelText: 'Description'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                
+                widget.onEdit(buildID, nameController.text, descriptionController.text); 
+                Navigator.of(context).pop();
+              },
+              child: const Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +113,7 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
               color: const Color.fromARGB(255, 0, 89, 255).withOpacity(0.2),
               spreadRadius: 3,
               blurRadius: 5,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -80,32 +129,49 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          title: Text(
-            widget.buildName,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: const Color.fromARGB(255, 52, 51, 128),
-            ),
+          title: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  widget.buildName,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 52, 51, 128),
+                  ),
+                ),
+              ),
+            ],
           ),
           subtitle: Text(
             'Created: ${widget.dateCreated}',
             style: TextStyle(color: Colors.grey[700]),
           ),
-          tilePadding: EdgeInsets.symmetric(horizontal: 16.0),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.more_vert),
+                onPressed: () {
+                  _showModalActions(context); 
+                },
+              ),
+            ],
+          ),
+          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
           expandedCrossAxisAlignment: CrossAxisAlignment.start,
-          backgroundColor: isExpanded ? Colors.blue[100] : Colors.white, 
+          backgroundColor: isExpanded ? Colors.blue[100] : Colors.white,
           onExpansionChanged: (bool expanded) {
             setState(() {
-              isExpanded = expanded; 
+              isExpanded = expanded;
             });
           },
           children: [
             ListTile(
-              leading: Icon(Icons.memory, color: const Color.fromARGB(255, 53, 58, 121)),
+              leading: const Icon(Icons.memory, color: Color.fromARGB(255, 53, 58, 121)),
               title: Text(
                 "CPU: ${widget.cpu}",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                   color: Colors.black,
@@ -121,7 +187,7 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
               ),
               title: Text(
                 "GPU: ${widget.gpu}",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                   color: Colors.black,
@@ -137,7 +203,7 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
               ),
               title: Text(
                 "Motherboard: ${widget.motherboard}",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                   color: Colors.black,
@@ -153,7 +219,7 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
               ),
               title: Text(
                 "RAM: ${widget.ram}",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                   color: Colors.black,
@@ -161,10 +227,10 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.storage, color: const Color.fromARGB(255, 53, 58, 121)),
+              leading: const Icon(Icons.storage, color: Color.fromARGB(255, 53, 58, 121)),
               title: Text(
                 "Storage: ${widget.storage}",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                   color: Colors.black,
@@ -172,10 +238,10 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.power, color: const Color.fromARGB(255, 53, 58, 121)),
+              leading: const Icon(Icons.power, color: Color.fromARGB(255, 53, 58, 121)),
               title: Text(
                 "PSU: ${widget.psu}",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                   color: Colors.black,
@@ -213,12 +279,12 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
                       ),
                     );
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue[700],
+                  ),
                   child: Text(
                     'Detailed View',
                     style: TextStyle(color: Colors.white),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[700],
                   ),
                 ),
               ),
@@ -228,4 +294,72 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
       ),
     );
   }
+
+  void _showModalActions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Wrap(
+          children: <Widget>[
+
+            // EDIT
+
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: const Text('Edit'),
+              onTap: () {
+                Navigator.pop(context);
+                _showEditDialog(context, widget.buildID, widget.buildName, widget.buildDescription);
+              },
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.delete),
+              title: const Text('Delete'),
+              onTap: () {
+                Navigator.pop(context); 
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Delete Build'),
+                      content: const Text('Are you sure you want to delete this build?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            widget.onDelete(widget.buildID); 
+                            Navigator.of(context).pop(); 
+                          },
+                          child: const Text('Delete'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+
+            // COMPARE
+
+            ListTile(
+              leading: const Icon(Icons.compare_arrows),
+              title: const Text('Compare'),
+              onTap: () {
+                
+                Navigator.pop(context); 
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
+
+

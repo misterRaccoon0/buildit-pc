@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text("gddr");
             $table->integer("benchmark");
             $table->integer("tdp");
+            $table->integer("price");
         });
     }
 

@@ -55,11 +55,6 @@ class ComponentController extends Controller
 
 
 
-
-
-
-
-
     public function getCPU(Request $request)
     {
 
@@ -131,7 +126,7 @@ class ComponentController extends Controller
         $components = $components->map(function ($component) {
             $component->storageName = "{$component->brand} {$component->model}";
             
-            $component->specs = "{$component->size} {$component->unit_size} | {$component->readspeed} | {$component->writespeed} | {$component->interface}";
+            $component->specs = "{$component->size}{$component->unitsize} | {$component->readspeed} | {$component->writespeed} | {$component->interface}";
     
             return $component;
         });

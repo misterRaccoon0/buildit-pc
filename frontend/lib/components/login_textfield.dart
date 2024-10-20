@@ -29,7 +29,7 @@ const LoginTextfield({
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),                  
-                  borderSide: BorderSide(color: Colors.black)
+                  borderSide: const BorderSide(color: Colors.black)
                 ),
             
                 fillColor: Colors.white,

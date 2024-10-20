@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/services/user_profile.dart';
 import 'package:frontend/minor%20pages/editProfile_page.dart';
@@ -6,12 +8,14 @@ import 'package:frontend/minor%20pages/shared_listView.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
   late Future<Map<String, dynamic>> _userProfile;
+  File? _imageFile;
 
   @override
   void initState() {
@@ -25,15 +29,15 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: Colors.grey[350],
       appBar: AppBar(
       title: ShaderMask(
-        shaderCallback: (bounds) => LinearGradient(
+        shaderCallback: (bounds) => const LinearGradient(
           colors: [
-            const Color.fromARGB(255, 4, 0, 255),
-            const Color.fromARGB(255, 0, 140, 255),
+            Color.fromARGB(255, 4, 0, 255),
+            Color.fromARGB(255, 0, 140, 255),
             ],
           begin: Alignment.bottomLeft,
           end: Alignment.bottomRight,
         ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
-        child: Text(
+        child: const Text(
           'P R O F I L E',
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -63,14 +67,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Center(
-                      child: CircleAvatar(
-                        radius: 100,
-                        backgroundImage: NetworkImage(
-                          user['profileImage'] ?? 'https://via.placeholder.com/150', 
-                        ),
-                      ),
+                  Center(
+                    child: CircleAvatar(
+                      radius: 100,
+                      backgroundImage: _imageFile != null
+                          ? FileImage(_imageFile!) 
+                          : NetworkImage('http://10.0.2.2:8000/' + user['image_url']), 
+                      backgroundColor: Colors.grey[200], 
                     ),
+                  ),
                     
                     const SizedBox(height: 10),
                     Center(
@@ -130,8 +135,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(height: 20),
                     Divider(color: Colors.grey[400]),
                     const SizedBox(height: 20),
-                    Center(
-                      child: const Text(
+                    const Center(
+                      child: Text(
                         'S H A R E D   B U I L D S',
                         style: TextStyle(
                           fontSize: 20,
@@ -141,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    SharedListView(itemCount: 5),
+                    const SharedListView(itemCount: 5),
                   ],
                 ),
               ),

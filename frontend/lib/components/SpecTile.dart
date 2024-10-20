@@ -55,11 +55,11 @@ Widget SpecTile(String specTitle, String specValue) {
     child: Row(
       children: [
         specIcon,
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Expanded(
           child: Text(
             '$specTitle: $specValue',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black, 
               fontWeight: FontWeight.bold, 
             ),

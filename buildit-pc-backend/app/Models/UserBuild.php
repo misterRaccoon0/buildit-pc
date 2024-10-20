@@ -12,7 +12,7 @@ class UserBuild extends Model
     protected $table = "user_build";
     protected $primaryKey = "id";
 
-    public $timestamps = false; // set to true l8r
+    public $timestamps = true; // set to true l8r
     
     protected $fillable = [
         'cpu', 
@@ -26,7 +26,8 @@ class UserBuild extends Model
         'description', 
         'total_tdp', 
         'total_price', 
-        'benchmarkScore'
+        'benchmarkScore',
+        'image_url'
     ];
 
     

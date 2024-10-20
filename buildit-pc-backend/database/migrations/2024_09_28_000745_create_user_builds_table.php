@@ -35,7 +35,8 @@ return new class extends Migration
             $table->decimal('total_price', 10, 2)->nullable();
             $table->integer('benchmarkScore')->nullable();
 
-            //$table->timestamps(); 
+            $table->timestamps(); 
+            $table->string('image_url')->nullable();
         });
     }
 

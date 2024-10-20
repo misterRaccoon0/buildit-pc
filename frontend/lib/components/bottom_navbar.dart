@@ -5,24 +5,24 @@ class BottomNavbar extends StatelessWidget {
   final Function(int) onTap;
 
   const BottomNavbar({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            const Color.fromARGB(255, 208, 223, 243),
-            const Color.fromARGB(255, 141, 199, 238),
+            Color.fromARGB(255, 208, 223, 243),
+            Color.fromARGB(255, 141, 199, 238),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(25), 
           topRight: Radius.circular(25),
         ),
@@ -77,7 +77,7 @@ class BottomNavbar extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(index),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
         height: isSelected ? 50 : 40,  
         width: isSelected ? 50 : 40,
@@ -90,7 +90,7 @@ class BottomNavbar extends StatelessWidget {
                     color: Colors.black.withOpacity(0.15),
                     blurRadius: 8,  
                     spreadRadius: 2,  
-                    offset: Offset(0, 2),  
+                    offset: const Offset(0, 2),  
                   ),
                 ]
               : [],
@@ -109,7 +109,7 @@ class BottomNavbar extends StatelessWidget {
                 left: 0,
                 right: 0,
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
                   height: 3,  
                   width: 18,  

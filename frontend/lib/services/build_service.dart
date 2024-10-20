@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:frontend/services/auth_services.dart';
 import 'package:frontend/services/userBuild.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
 
 class BuildService {
   static const String baseUrl = 'http://10.0.2.2:8000/api/builds';
@@ -68,5 +68,51 @@ class BuildService {
     }
   }
 
+  Future<void> deleteUserBuild(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('authToken'); 
 
+    final response = await http.delete(
+      Uri.parse('$baseUrl/delete/$id'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to delete user build: ${response.body}');
+    } else {
+      print('Build deleted successfully');
+    }
+  }
+
+  Future<void> editUserBuild(int buildID, {String? name, String? description, File? imageFile,}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('authToken'); 
+    final response = await http.put(
+      Uri.parse('http://10.0.2.2:8000/api/builds/edit/$buildID'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'name': name,
+        'description': description,
+      }),
+    );
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to edit build: ${response.body}'); 
+    }
+  }
 }
+
+
+
+
+
+

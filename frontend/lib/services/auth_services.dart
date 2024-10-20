@@ -62,11 +62,11 @@ class AuthService {
                 
               var data = json.decode(response.body);
               String token = data['access_token'];
-              int user_id = data['user_id'];
+              int userId = data['user_id'];
 
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.setString('authToken', token);
-              await prefs.setInt('user_id', user_id);
+              await prefs.setInt('user_id', userId);
 
               return token; 
 
