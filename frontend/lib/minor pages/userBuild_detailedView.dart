@@ -177,7 +177,9 @@ Future<void> fetchAllComponentSpecs() async {
             } else if (snapshot.hasData) {
               final userProfile = snapshot.data!;
               final String userName = userProfile['name'] ?? 'Unknown User'; 
-            final ImageProvider userPic = NetworkImage('http://10.0.2.2:8000/' + userProfile['image_url']);
+            final ImageProvider userPic = (userProfile['image_url'] != null && userProfile['image_url'].isNotEmpty)
+                ? NetworkImage('http://10.0.2.2:8000/' + userProfile['image_url']) 
+                : AssetImage('assets/images/placeholder.png'); 
 
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
