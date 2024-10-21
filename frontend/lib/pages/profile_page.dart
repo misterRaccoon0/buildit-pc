@@ -72,8 +72,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       radius: 100,
                       backgroundImage: _imageFile != null
                           ? FileImage(_imageFile!) 
-                          : NetworkImage('http://10.0.2.2:8000/' + user['image_url']), 
-                      backgroundColor: Colors.grey[200], 
+                          : (user['image_url'] != null && user['image_url'].isNotEmpty)
+                              ? NetworkImage('http://10.0.2.2:8000/' + user['image_url'])
+                              : AssetImage('assets/images/placeholder.png') as ImageProvider, 
+                      backgroundColor: Colors.grey[200],
                     ),
                   ),
                     
