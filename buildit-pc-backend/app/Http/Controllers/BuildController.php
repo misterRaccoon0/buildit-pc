@@ -36,13 +36,13 @@ class BuildController extends Controller
         }
         $build = UserBuild::create($build);
         $build->save();
-        return ;
+        return $build;
     }
     public function update(Request $request){
         $user = $request->user();
         $build = UserBuild::where('user_id', $user->id);
         if (!$build->exists())
-            return response(['message' => 'build does not exist']);
+            return response()->json(['message' => 'build does not exist'],404);
         $build_update = $request->validate([
             'cpu_id' => 'nullable|exists:cpu.id',
             'gpu_id' => 'nullable|exists:gpu.id',
@@ -61,7 +61,7 @@ class BuildController extends Controller
         $user = $request->user();
         $build = UserBuild::where('user_id', $user->id)->where('build_hash', $request->build_hash);
         if(!$build->exists())
-            return response(['message' => 'build does not exist'], 404);
+            return response()->json(['message' => 'build does not exist'], 404);
 
         $build->first()->delete();
         $build->save();
@@ -73,7 +73,7 @@ class BuildController extends Controller
         $user = $request->user();
         $build = UserBuild::all()->where("user_id", $user->id)->where("build_hash",$request->build_hash);
         if(!$build->exists())
-            return response(['message' => 'build does not exist'], 404);
+            return response()->json(['message' => 'build does not exist'], 404);
         $build->update(['isPublic' => (boolean)$request->set_public]);
         $build->save();
         return ['message' => 'build '.($build->isPublic?'':'un').'published'];

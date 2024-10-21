@@ -11,12 +11,12 @@ class CommentController extends Controller
         $db_fetch = UserComment::where('url_hash', $request->url_hash);
         if(!$db_fetch->exists())
             return response()->json([], 404);
-        $fetch = $request->validate([
+        $fetchLimit = $request->validate([
             'initial' => 'nullable|integer',
             'limit' => 'required|integer'
         ]);
-        $fetch['initial'] ??= 0;
-        $db_fetch = UserComment::all()->range($fetch['initial'], $fetch['initial']+ $fetch['limit']);
+        $fetchLimit['initial'] ??= 0;
+        $db_fetch = UserComment::all()->range($fetchLimit['initial'], $fetchLimit['initial'] + $fetchLimit['limit']);
         return $db_fetch;
     }
     public function create(Request $request){
