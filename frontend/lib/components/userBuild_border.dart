@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/minor%20pages/ComparePage.dart';
 import 'package:frontend/minor%20pages/userBuild_detailedView.dart';
 
 class UserBuildBorder extends StatefulWidget {
@@ -351,9 +352,31 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
               leading: const Icon(Icons.compare_arrows),
               title: const Text('Compare'),
               onTap: () {
-                
-                Navigator.pop(context); 
-              },
+                  Navigator.pop(context);
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ComparePage(
+                    buildID: widget.buildID,
+                    buildName: widget.buildName,
+                    buildPic: NetworkImage('http://10.0.2.2:8000/${widget.buildPic ?? 'default_image.png'}'),
+                    cpu: widget.cpu,
+                    gpu: widget.gpu,
+                    motherboard: widget.motherboard,
+                    ram: widget.ram,
+                    storage: widget.storage,
+                    psu: widget.psu,
+                    buildDescription: widget.buildDescription,
+                    benchmarkScore: widget.benchmarkScore ?? 0,
+                    dateCreated: widget.dateCreated,
+                    cpuId: widget.cpuId,
+                    gpuId: widget.gpuId,
+                    motherboardId: widget.motherboardId,
+                    ramId: widget.ramId,
+                    storageId: widget.storageId,
+                    psuId: widget.psuId,
+
+                  )));     
+            },
             ),
           ],
         );

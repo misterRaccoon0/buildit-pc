@@ -49,6 +49,7 @@ class _CreatePageState extends State<CreatePage> {
   int budget = 0; 
   bool isWithinBudget = true; 
   TextEditingController budgetController = TextEditingController();
+  bool shouldRebuild = false;
 
   String compatibilityMessage = '';
 
@@ -140,16 +141,16 @@ class _CreatePageState extends State<CreatePage> {
   }
 
   void resetComponent() { // HINDI GUMAGANA NANG MAAYOS!!!
-    
+
+    _cpuKey.currentState?.resetComponentView();
+    _gpuKey.currentState?.resetComponentView();
+    _moboKey.currentState?.resetComponentView();
+    _ramKey.currentState?.resetComponentView();
+    _storageKey.currentState?.resetComponentView();
+    _psuKey.currentState?.resetComponentView();   
+
     setState(() {
     
-      _cpuKey.currentState?.resetComponentView();
-      _gpuKey.currentState?.resetComponentView();
-      _moboKey.currentState?.resetComponentView();
-      _ramKey.currentState?.resetComponentView();
-      _storageKey.currentState?.resetComponentView();
-      _psuKey.currentState?.resetComponentView();
-
       selectedComponents.clear();
       selectedCPU = '';
       selectedGPU = '';
@@ -165,6 +166,7 @@ class _CreatePageState extends State<CreatePage> {
       budgetController.clear();
 
       compatibilityMessage = '';
+      shouldRebuild = !shouldRebuild;
     });
     
   }
@@ -183,7 +185,7 @@ class _CreatePageState extends State<CreatePage> {
   Future<void> saveBuild() async {
     String? buildName;
     String? buildDescription;
-    File? selectedImage = _imageFile; // Store the selected image
+    File? selectedImage = _imageFile; 
 
     if (!isWithinBudget) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -195,7 +197,7 @@ class _CreatePageState extends State<CreatePage> {
     await showDialog(
       context: context,
       builder: (context) {
-        return StatefulBuilder( // Use StatefulBuilder to maintain state inside the dialog
+        return StatefulBuilder( 
           builder: (context, setState) {
             return AlertDialog(
               title: const Text('Save Build'),
@@ -218,15 +220,15 @@ class _CreatePageState extends State<CreatePage> {
                   selectedImage == null 
                     ? ElevatedButton.icon(
                         onPressed: () async {
-                          await _pickImage(); // Pick the image using your image picker method
+                          await _pickImage(); 
                           setState(() {
-                            selectedImage = _imageFile; // Update the selected image in dialog
+                            selectedImage = _imageFile; 
                           });
                         },
                         icon: const Icon(Icons.upload),
                         label: const Text('Upload Image'),
                       )
-                    : Image.file(selectedImage!, height: 100), // Display the selected image
+                    : Image.file(selectedImage!, height: 100), 
                 ],
               ),
               actions: [
@@ -409,7 +411,7 @@ class _CreatePageState extends State<CreatePage> {
                   } else if (snapshot.hasData) {
                     List<Component> cpus = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:_cpuKey, 
+                      key:ValueKey(shouldRebuild),
                       title: 'CPU',
                       components: cpus,
                       onChanged: (value) {
@@ -438,7 +440,7 @@ class _CreatePageState extends State<CreatePage> {
                   } else if (snapshot.hasData) {
                     List<Component> gpus = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:_gpuKey,
+                      key:ValueKey(shouldRebuild),
                       title: 'GPU',
                       components: gpus,
                       onChanged: (value) {
@@ -467,7 +469,7 @@ class _CreatePageState extends State<CreatePage> {
                   } else if (snapshot.hasData) {
                     List<Component> motherboards = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:_moboKey,
+                      key:ValueKey(shouldRebuild),
                       title: 'MOTHERBOARD',
                       components: motherboards,
                       onChanged: (value) {
@@ -497,7 +499,7 @@ class _CreatePageState extends State<CreatePage> {
                   } else if (snapshot.hasData) {
                     List<Component> rams = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:_ramKey,
+                      key:ValueKey(shouldRebuild),
                       title: 'RAM',
                       components: rams,
                       onChanged: (value) {
@@ -526,7 +528,7 @@ class _CreatePageState extends State<CreatePage> {
                   } else if (snapshot.hasData) {
                     List<Component> storages = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:_storageKey,
+                      key:ValueKey(shouldRebuild),
                       title: 'STORAGE',
                       components: storages,
                       onChanged: (value) {
@@ -555,7 +557,7 @@ class _CreatePageState extends State<CreatePage> {
                   } else if (snapshot.hasData) {
                     List<Component> psus = snapshot.data ?? [];
                     return ComponentCategory(
-                      key:_psuKey,
+                      key:ValueKey(shouldRebuild),
                       title: 'POWER SUPPLY',
                       components: psus,
                       onChanged: (value) {
