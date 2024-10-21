@@ -21,6 +21,16 @@ class ComponentController extends Controller
             "ram" => RAM::class,
             "storage" => Storage::class,
         ];
+    public function fetchAll(Request $request){
+        $componentClass = ComponentController::$components[$request->component_name];
+        if($componentClass === null)
+            return response()->json(['message' => 'component not found.'],404);
+        $range = $request->validate([
+            'initial' => 'nullable|integer',
+            'limit' => 'required|integer'
+        ]);
+        return $componentClass::all()->range($range['initial'] ?? 0, $range['limit']);
+    }
     public function read(Request $request){
         $componentClass = ComponentController::$components[$request->component_name];
         $component = $componentClass::where("id",$request->id);
@@ -50,4 +60,5 @@ class ComponentController extends Controller
         $component->update($request->json()->all());
         return response($component->first()->toJson(),200);
     }
+
 }
