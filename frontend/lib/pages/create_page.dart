@@ -4,6 +4,7 @@ import 'package:frontend/services/build_service.dart';
 import 'package:frontend/services/component_service.dart';
 import 'package:frontend/components/component_selector.dart';
 import 'package:frontend/services/userBuild.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
@@ -17,6 +18,8 @@ class CreatePage extends StatefulWidget {
 }
 
 class _CreatePageState extends State<CreatePage> {
+  File? _imageFile;
+
   String? selectedCPU = '';
   String? selectedGPU = '';
   String? selectedMotherboard = '';
@@ -166,62 +169,89 @@ class _CreatePageState extends State<CreatePage> {
     
   }
 
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _imageFile = File(pickedFile.path);
+      }
+    });
+  }
+
   Future<void> saveBuild() async {
     String? buildName;
     String? buildDescription;
+    File? selectedImage = _imageFile; // Store the selected image
 
     if (!isWithinBudget) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Total price exceeds your budget!')),
       );
-      return; 
+      return;
     }
 
     await showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Save Build'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                decoration: const InputDecoration(labelText: 'Build Name'),
-                onChanged: (value) {
-                  buildName = value;
-                },
+        return StatefulBuilder( // Use StatefulBuilder to maintain state inside the dialog
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('Save Build'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    decoration: const InputDecoration(labelText: 'Build Name'),
+                    onChanged: (value) {
+                      buildName = value;
+                    },
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(labelText: 'Description (Optional)'),
+                    onChanged: (value) {
+                      buildDescription = value;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  selectedImage == null 
+                    ? ElevatedButton.icon(
+                        onPressed: () async {
+                          await _pickImage(); // Pick the image using your image picker method
+                          setState(() {
+                            selectedImage = _imageFile; // Update the selected image in dialog
+                          });
+                        },
+                        icon: const Icon(Icons.upload),
+                        label: const Text('Upload Image'),
+                      )
+                    : Image.file(selectedImage!, height: 100), // Display the selected image
+                ],
               ),
-              TextField(
-                decoration: const InputDecoration(labelText: 'Description (Optional)'),
-                onChanged: (value) {
-                  buildDescription = value;
-                },
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); 
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); 
-                if (buildName != null && buildName!.isNotEmpty) {
-                  
-                  _submitBuild(buildName!, buildDescription);
-                }
-              },
-              child: const Text('Save'),
-            ),
-          ],
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    if (buildName != null && buildName!.isNotEmpty) {
+                      _submitBuild(buildName!, buildDescription);
+                    }
+                  },
+                  child: const Text('Save'),
+                ),
+              ],
+            );
+          },
         );
       },
     );
   }
-
   Future<void> _submitBuild(String name, String? description) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? userId = prefs.getInt('user_id');
@@ -241,23 +271,21 @@ class _CreatePageState extends State<CreatePage> {
       benchmarkScore: benchmarkScore,
       user_id: userId ?? 0,
     );
-    
-    print(newBuild.toJson());
 
     try {
       BuildService buildService = BuildService();
-      await buildService.createUserBuild(newBuild);
+      await buildService.createUserBuild(newBuild, _imageFile);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Build saved successfully!')),
       );
       resetComponent(); 
-    } 
-    catch (e) {
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to save build: $e')),
       );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

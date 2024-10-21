@@ -5,7 +5,7 @@ class UserBuildBorder extends StatefulWidget {
   final int buildID;
   final String buildName;
   final String? buildDescription;
-  final ImageProvider buildPic;
+  final String? buildPic;
   final String cpu;
   final String gpu;
   final String motherboard;
@@ -123,7 +123,7 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
             height: 80,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: widget.buildPic,
+                image: NetworkImage('http://10.0.2.2:8000/${widget.buildPic ?? 'No Image Available'}'),
                 fit: BoxFit.cover,
               ),
               borderRadius: BorderRadius.circular(8),
@@ -259,7 +259,7 @@ class _UserBuildBorderState extends State<UserBuildBorder> {
                         builder: (context) => UserBuildDetailedView(
                           buildID: widget.buildID,
                           buildName: widget.buildName,
-                          buildPic: widget.buildPic,
+                          buildPic: NetworkImage('http://10.0.2.2:8000/${widget.buildPic ?? 'default_image.png'}'),
                           cpu: widget.cpu,
                           gpu: widget.gpu,
                           motherboard: widget.motherboard,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class UserBuild {
   final int? id;
   final String name;
@@ -12,6 +14,8 @@ class UserBuild {
   final double? totalPrice;
   final int? benchmarkScore;
   final int? user_id;
+  File? imageFile;
+  final String? image_url;
 
   UserBuild({
     required this.id,
@@ -27,6 +31,8 @@ class UserBuild {
     required this.totalPrice,
     this.benchmarkScore,
     required this.user_id,
+    this.imageFile,
+    this.image_url,
   });
 
   factory UserBuild.fromJson(Map<String, dynamic> json) {
@@ -43,7 +49,8 @@ class UserBuild {
       totalTdp: json['total_tdp'],
       totalPrice: json['total_price'].toDouble(),
       benchmarkScore: json['benchmarkScore'],
-      user_id: json['user'],
+      user_id: json['user_id'],
+      image_url : json['image_url'],
     );
   }
 
@@ -61,6 +68,7 @@ class UserBuild {
       'total_price': totalPrice,
       'benchmarkScore': benchmarkScore,
       'user_id': user_id,
+      'image_url' : image_url,
     };
   }
 }

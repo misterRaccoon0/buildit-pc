@@ -35,17 +35,27 @@ class BuildController extends Controller
                 'total_tdp' => 'nullable|numeric',
                 'total_price' => 'nullable|numeric',
                 'benchmarkScore' => 'nullable|numeric',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
     
+            // Handle image upload
+            if ($request->hasFile('image_url')) {
+                $imagePath = $request->file('image_url')->store('images/profile', 'public');
+                $validatedData['image_url'] = 'storage/' . $imagePath; 
+            }
+    
+            // Create the user build
             $userBuild = UserBuild::create($validatedData);
     
             return response()->json($userBuild, 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['errors' => $e->validator->errors()], 422);
         } catch (\Exception $e) {
-            \Log::error('Error storing user build: '.$e->getMessage());
+            \Log::error('Error storing user build: ' . $e->getMessage());
             return response()->json(['error' => 'Failed to create user build'], 500);
         }
     }
+
 
 
     public function index()

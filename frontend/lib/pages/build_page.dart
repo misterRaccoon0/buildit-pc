@@ -76,7 +76,6 @@ Future<void> _editUserBuild(int buildID, String? name, String? description) asyn
   try {
     await _buildService.editUserBuild(buildID, name: name, description: description);
     
-    // Refresh the builds after successful update
     await _fetchBuilds();
     
     ScaffoldMessenger.of(context).showSnackBar(
@@ -135,7 +134,7 @@ Future<void> _editUserBuild(int buildID, String? name, String? description) asyn
                       buildID: build['id'],
                       buildName: build['name'],
                       buildDescription: build['description'],
-                      buildPic: const NetworkImage('https://via.placeholder.com/150'), 
+                      buildPic: build['image_url'], 
 
                       cpu: build['cpu'] != null 
                           ? '${build['cpu']['brand']} ${build['cpu']['name']} ${build['cpu']['model']}' 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComponentController;
 use App\Http\Controllers\TokenController;
+use App\Http\Controllers\ImageController;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
@@ -41,13 +42,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/builds/create', [BuildController::class, 'store']); 
     Route::get('/builds/{id}', [BuildController::class, 'read']);
     Route::delete('/builds/delete/{id}', [BuildController::class, 'destroy']);
-    Route::put('/builds/edit/{id}', [BuildController::class, 'update']);
+    Route::post('/builds/edit/{id}', [BuildController::class, 'update']);
 
     //Route::get('builds/{buildID}/storage', [BuildController::class, 'getStorageSpecs']);
 });
 
-Route::post('/upload', [ImageUploadController::class, 'upload']);
 
+Route::post('/upload', [ImageController::class, 'upload']);
 
 Route::get("/build/{id}", [BuildController::class,"read"]);
 
