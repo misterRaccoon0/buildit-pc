@@ -7,14 +7,27 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function show(Request $request){
+        $db_fetch = UserComment::where('url_hash', $request->url_hash);
+        if(!$db_fetch->exists())
+            return response([], 404);
+        $fetch = $request->validate([
+            'initial' => 'nullable|integer',
+            'limit' => 'required|integer'
+        ]);
+        $fetch['initial'] ??= 0;
+        $db_fetch = UserComment::all()->range($fetch['initial'], $fetch['initial']+ $fetch['limit']);
+        return $db_fetch;
+    }
     public function create(Request $request){
-        $user = $request->user();
-        $comment = UserComment::create();
-        if(!$comment->exists())
-            return response(["message"=>"comment does not exist"], 404);
-        $comment->first()->delete();
+        $comment_arr = $request->vaidate([
+            'url_hash' => 'required',
+            'content' => 'required'
+        ]);
+        $comment_arr['user_id'] = $request->user()->id;
+        $comment = UserComment::create($comment_arr);
         $comment->save();
-        return [];
+        return ['message' => 'comment posted.'];
 
     }
     public function edit(Request $request){
@@ -22,7 +35,7 @@ class CommentController extends Controller
         $comment = UserComment::where('user_id', $user->id)->where('id',$request->comment_id);
         if(!$comment->exists())
             return response(["message"=>"comment does not exist"], 404);
-        $comment->update(["comment" => $request->comment);
+        $comment->update(["content" => $request->comment]);
         $comment->save();
         return [];
 

@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->text("content")->nullable();
-            $table->string("filename")->nullable();
-            $table->binary("thumbnail")->nullable();
+            $table->float('rate')->nullable();
             $table->string('url_hash')->nullable();
             $table->foreign('url_hash')
                   ->on(app(UserBuild::class)->getTable())

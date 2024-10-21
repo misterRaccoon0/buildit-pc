@@ -17,19 +17,19 @@ class BuildController extends Controller
         $user = $request->user();
 
         $build = $request->validate([
-            'cpu_id' => [''],
-            'gpu_id' => [''],
-            'psu_id' => [''],
-            'ram_id' => [''],
-            'motherboard_id' => [''],
-            'storage_id' => ['']
+            'cpu_id' => 'nullable|exists:cpu.id',
+            'gpu_id' => 'nullable|exists:gpu.id',
+            'psu_id' => 'nullable|exists:psu.id',
+            'ram_id' => 'nullable|exists:ram.id',
+            'motherboard_id' => 'nullable|exists:motherboard.id',
+            'storage_id' => 'nullable|exists:storage_id'
         ]);
         $build['user_id'] = $user->id;
-        // temporary hash
-        $build['build_hash'] = Str::random(12);
-
-
-        // missing duplicate checker
+        $build_imp = implode('',$build);
+        $build['build_hash'] = sha1($build_imp.((string)now()));
+        while(UserBuild::where('build_hash', $build['build_hash'])->exists()){
+            $build['build_hash'] = sha1($build_imp.(string)now().Str::random(5));
+        }
         $build = UserBuild::create($build);
         $build->save();
         return ;
@@ -40,13 +40,18 @@ class BuildController extends Controller
         if (!$build->exists())
             return response(['message' => 'build does not exist']);
         $build_update = $request->validate([
-
+            'cpu_id' => 'nullable|exists:cpu.id',
+            'gpu_id' => 'nullable|exists:gpu.id',
+            'psu_id' => 'nullable|exists:psu.id',
+            'ram_id' => 'nullable|exists:ram.id',
+            'motherboard_id' => 'nullable|exists:motherboard.id',
+            'storage_id' => 'nullable|exists:storage_id'
         ]);
 
         $build = $build->first();
         $build->update($build_update);
         $build->save();
-        return ['updated build'];
+        return ['updated build' => $build];
     }
     public function destroy(Request $request){
         $user = $request->user();

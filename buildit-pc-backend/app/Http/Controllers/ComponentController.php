@@ -8,9 +8,7 @@ use App\Models\Motherboard;
 use App\Models\PSU;
 use App\Models\RAM;
 use App\Models\Storage;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ComponentController extends Controller
 {
@@ -46,7 +44,7 @@ class ComponentController extends Controller
     }
     public function update(Request $request){
         $componentClass = ComponentController::$components[$request->component_name];
-        $component = $componentClass::where("id", $request->id);
+        $component = $componentClass::find($request->id);
         if (!$component->exists())
             return response("Component not found", 404);
         $component->update($request->json()->all());
